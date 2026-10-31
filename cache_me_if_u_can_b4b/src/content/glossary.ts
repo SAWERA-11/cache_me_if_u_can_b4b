@@ -1,8 +1,107 @@
 import type { GlossaryTerm } from '../engine/types';
 
-// TODO(content): add the confusing words from docs/interviews.md at the top of this list once the notes are in.
 // Patterns are matched case-insensitive against English and Urdu spellings.
+// The first entries are words from our parent conversations (docs/interviews.md).
+// "Verify OTP" and "Software Update" from the conversations are covered by `otp` and `update` below.
 export const GLOSSARY: GlossaryTerm[] = [
+  {
+    id: 'storage_full',
+    audio: 'g_storage_full',
+    pattern: '\\bstorage( (is )?full)?\\b|اسٹوریج|سٹوریج',
+    term: { en: 'Storage full', ur: 'اسٹوریج بھر گئی' },
+    plain: {
+      en: 'Your phone has no space left for new photos or apps.',
+      ur: 'آپ کے فون میں نئی تصویروں یا ایپس کے لیے جگہ نہیں بچی۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like a full cupboard. To put something in, you first take something out.',
+      ur: 'بھری ہوئی الماری جیسا۔ کچھ رکھنے کے لیے پہلے کچھ نکالنا پڑتا ہے۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'sync',
+    audio: 'g_sync',
+    pattern: '\\bsync(ing|ed)?\\b|سنک|سنکنگ',
+    term: { en: 'Sync', ur: 'سنک' },
+    plain: {
+      en: 'Keeping the same copy of your things on the phone and in your account.',
+      ur: 'اپنی چیزوں کی ایک جیسی کاپی فون پر اور اپنے اکاؤنٹ میں رکھنا۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like two copies of a family album that always match, one at home and one with a relative.',
+      ur: 'خاندانی البم کی دو کاپیوں جیسا جو ہمیشہ ایک جیسی رہیں، ایک گھر میں اور ایک کسی رشتہ دار کے پاس۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'cloud',
+    audio: 'g_cloud',
+    pattern: '\\bcloud\\b|کلاؤڈ',
+    term: { en: 'Cloud', ur: 'کلاؤڈ' },
+    plain: {
+      en: 'Space on the internet where a spare copy of your photos or files is kept.',
+      ur: 'انٹرنیٹ پر ایک جگہ جہاں آپ کی تصویروں یا فائلوں کی ایک اضافی کاپی رکھی جاتی ہے۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: "Like keeping a spare copy of your papers safe at a relative's house.",
+      ur: 'جیسے اپنے کاغذات کی ایک اضافی کاپی کسی رشتہ دار کے گھر محفوظ رکھنا۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'menu',
+    audio: 'g_menu',
+    pattern: '\\bmenu\\b|\\bthree dots\\b|\\bhamburger\\b|مینیو|مینو',
+    term: { en: 'Menu (three dots or three lines)', ur: 'مینیو (تین نقطے یا تین لکیریں)' },
+    plain: {
+      en: 'A small button with three dots or three lines. Tapping it shows more options.',
+      ur: 'تین نقطوں یا تین لکیروں والا چھوٹا بٹن۔ اس پر ٹیپ کرنے سے مزید اختیارات نظر آتے ہیں۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like a drawer. The extra things are inside; you open it to see them.',
+      ur: 'دراز جیسا۔ باقی چیزیں اندر ہوتی ہیں، دیکھنے کے لیے اسے کھولنا پڑتا ہے۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'cache',
+    audio: 'g_cache',
+    pattern: '\\b(clear )?cache\\b|کیشے',
+    term: { en: 'Cache', ur: 'کیشے' },
+    plain: {
+      en: 'Small spare copies an app keeps so it opens faster. Clearing it does not delete your photos.',
+      ur: 'چھوٹی اضافی کاپیاں جو ایپ جلدی کھلنے کے لیے رکھتی ہے۔ اسے صاف کرنے سے آپ کی تصویریں نہیں مٹتیں۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like scrap paper on a desk. Throwing it away does not touch your important papers.',
+      ur: 'میز پر پڑے رف کاغذ جیسا۔ اسے پھینکنے سے آپ کے ضروری کاغذات کو کچھ نہیں ہوتا۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'allow_access',
+    audio: 'g_allow_access',
+    pattern: '\\ballow access\\b|\\bpermissions?\\b|اجازت',
+    term: { en: 'Allow access', ur: 'اجازت دیں' },
+    plain: {
+      en: 'The phone asking if an app may use something, like the camera, contacts or location.',
+      ur: 'فون پوچھ رہا ہے کہ کیا یہ ایپ کوئی چیز استعمال کر سکتی ہے، جیسے کیمرہ، رابطے یا مقام۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like a guest asking to enter a room. If they do not need that room, you can say no.',
+      ur: 'جیسے مہمان کسی کمرے میں جانے کی اجازت مانگے۔ اگر اسے اس کمرے کی ضرورت نہیں تو آپ منع کر سکتے ہیں۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'settings',
+    audio: 'g_settings',
+    pattern: '\\bsettings?\\b|\\bgear icon\\b|سیٹنگز|سیٹنگ|ترتیبات',
+    term: { en: 'Settings (gear icon)', ur: 'سیٹنگز (پہیے کا نشان)' },
+    plain: {
+      en: 'The place where you change how the phone works. Its sign is a small wheel with teeth.',
+      ur: 'وہ جگہ جہاں فون کے کام کرنے کا طریقہ بدلا جاتا ہے۔ اس کا نشان دانتوں والا چھوٹا پہیہ ہے۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like the knobs on a radio. They change how it works, not what is stored in it.',
+      ur: 'ریڈیو کے بٹنوں جیسا۔ یہ اس کے کام کرنے کا طریقہ بدلتے ہیں، اس میں رکھی چیزیں نہیں۔', // TODO(UR-review)
+    },
+  },
   {
     id: 'otp',
     audio: 'g_otp',

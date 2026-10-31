@@ -1,12 +1,12 @@
 import type { KBEntry } from '../engine/types';
 
-// TODO(content): S7 asks for at least five real questions from docs/interviews.md as variants. Add them once the notes are in.
+// Variants marked in docs/interviews.md come from our parent conversations.
 export const KB: KBEntry[] = [
   // ---------- words (8) ----------
   {
     id: 'what_is_otp',
     group: 'words',
-    variants: ['what is otp', 'OTP kya hai', 'otp kia hota hai', 'او ٹی پی کیا ہے', 'one time password', 'otp matlab'],
+    variants: ['what is otp', 'OTP kya hai', 'otp kia hota hai', 'او ٹی پی کیا ہے', 'one time password', 'verify otp'],
     answer: {
       en: 'An OTP is a short number sent to your phone. It shows the site that it is really you. It works only once.',
       ur: 'او ٹی پی ایک چھوٹا نمبر ہے جو آپ کے فون پر آتا ہے۔ اس سے ویب سائٹ کو پتا چلتا ہے کہ یہ آپ ہی ہیں۔ یہ صرف ایک بار کام کرتا ہے۔', // TODO(UR-review)
@@ -480,7 +480,7 @@ export const KB: KBEntry[] = [
   {
     id: 'prize_message',
     group: 'safety',
-    variants: ['i won a prize', 'inaam nikla hai', 'انعام نکلا ہے', 'lucky draw message', 'prize claim', 'jeet gaye'],
+    variants: ['i won a prize', 'inaam nikla hai', 'انعام نکلا ہے', 'lucky draw message', 'won 50,000 rupees but need to pay a tax fee first', 'jeet gaye'],
     answer: {
       en: 'A prize message for something you never entered is a trick. Real prizes do not ask for codes or fees. Hang up and call the official number on your card.',
       ur: 'ایسے انعام کا پیغام جس میں آپ نے حصہ ہی نہیں لیا، ایک چال ہے۔ اصلی انعام کوڈ یا فیس نہیں مانگتے۔ فون بند کریں اور اپنے کارڈ پر لکھے سرکاری نمبر پر فون کریں۔', // TODO(UR-review)
@@ -494,7 +494,7 @@ export const KB: KBEntry[] = [
   {
     id: 'account_blocked',
     group: 'safety',
-    variants: ['account will be blocked', 'account band ho jayega', 'اکاؤنٹ بند ہو جائے گا', 'sim block message', 'urgent verify', 'jaldi karein warna'],
+    variants: ['account will be blocked', 'account band ho jayega', 'اکاؤنٹ بند ہو جائے گا', 'sim card will be blocked in 24 hours press 1 and verify cnic', 'urgent verify', 'jaldi karein warna'],
     answer: {
       en: 'Messages that rush you are a common trick. Real offices give you time and never ask for a code. Hang up and call the official number on your card.',
       ur: 'جلدی کروانے والے پیغامات ایک عام چال ہیں۔ اصلی دفاتر وقت دیتے ہیں اور کبھی کوڈ نہیں مانگتے۔ فون بند کریں اور اپنے کارڈ پر لکھے سرکاری نمبر پر فون کریں۔', // TODO(UR-review)
@@ -509,7 +509,7 @@ export const KB: KBEntry[] = [
   {
     id: 'check_if_real',
     group: 'safety',
-    variants: ['is this real', 'kya yeh asli hai', 'کیا یہ اصلی ہے', 'how to check', 'fake or real', 'sach hai ya jhoot'],
+    variants: ['is this real', 'kya yeh asli hai', 'کیا یہ اصلی ہے', 'how to check', 'check if it was real', 'sach hai ya jhoot'],
     answer: {
       en: 'Do not use the number in the message or call. Use the number printed on your card or bill. Hang up and call the official number on your card.',
       ur: 'پیغام یا کال والا نمبر استعمال نہ کریں۔ اپنے کارڈ یا بل پر چھپا نمبر استعمال کریں۔ فون بند کریں اور اپنے کارڈ پر لکھے سرکاری نمبر پر فون کریں۔', // TODO(UR-review)
@@ -539,7 +539,7 @@ export const KB: KBEntry[] = [
   {
     id: 'did_i_break_it',
     group: 'reassurance',
-    variants: ['did i break it', 'kuch kharab to nahi hua', 'کچھ خراب تو نہیں ہوا', 'i messed up', 'ghalat daba diya', 'phone kharab'],
+    variants: ['did i break it', 'kuch kharab to nahi hua', 'کچھ خراب تو نہیں ہوا', 'tap the wrong option and money will transfer out', 'ghalat daba diya', 'ruin the phone setup'],
     answer: {
       en: 'No. A form cannot be broken by a wrong tap. At most, it asks you to change a box.',
       ur: 'نہیں۔ غلط ٹیپ سے فارم خراب نہیں ہوتا۔ زیادہ سے زیادہ وہ کسی خانے میں تبدیلی کا کہتا ہے۔', // TODO(UR-review)

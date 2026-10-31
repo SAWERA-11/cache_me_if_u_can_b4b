@@ -177,3 +177,10 @@ kb_did_i_break_it: pending
 kb_can_i_undo: pending
 kb_okay_to_ask: pending
 kb_can_i_try_again: pending
+g_storage_full: pending
+g_sync: pending
+g_cloud: pending
+g_menu: pending
+g_cache: pending
+g_allow_access: pending
+g_settings: pending

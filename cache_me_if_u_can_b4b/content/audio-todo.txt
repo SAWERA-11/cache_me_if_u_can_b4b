@@ -103,6 +103,13 @@ kind_checkbox
 kind_generic
 guide_map
 guide_safety
+g_storage_full
+g_sync
+g_cloud
+g_menu
+g_cache
+g_allow_access
+g_settings
 g_otp
 g_pin
 g_cnic
