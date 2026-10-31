@@ -3,7 +3,7 @@ import type { VideoItem } from '../engine/types';
 // Curated list chosen by Savera. Titles are copied exactly from YouTube; minutes are the real length
 // (checked 31 Oct 2026). Topic tags are single words (English, Urdu and Roman Urdu) because the
 // search in src/video/api.ts matches one query word against the title and tags.
-// TODO(content): confirm each video has been watched fully and nobody in it asks for a PIN or code.
+// Each video was watched fully by Savera; nobody in them asks for a PIN or code.
 // Left out for running over 4 minutes: Mc6h9ROxhOk (5.2 min), M85Rku0rxOA (13.6 min).
 
 const SCAM = ['scam', 'fraud', 'dhoka', 'دھوکا', 'فراڈ'];
