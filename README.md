@@ -1,5 +1,9 @@
 # Mashq (مشق): safe practice for online forms
 
+> **Download the Android APK:** `<APK_LINK>`
+>
+> **Watch the demo video:** `<DEMO_VIDEO_LINK>`
+
 Mashq ("practice" in Urdu) is an Urdu-first Android app for parents and grandparents who avoid online forms because they are afraid of breaking something or looking foolish. It gives them a safe place to practise, with nothing real at stake, and teaches them to do the task **themselves**. It never fills anything in for them.
 
 Built at **Build4Better, NED University, Karachi, 31 October 2026**.
@@ -9,8 +13,8 @@ Built at **Build4Better, NED University, Karachi, 31 October 2026**.
 | **Final submitted commit** | [`83f0e65`](https://github.com/SAWERA-11/cache_me_if_u_can_b4b/commit/83f0e65) (31 Oct 2026, 17:34 PKT) |
 | **Source code** | https://github.com/SAWERA-11/cache_me_if_u_can_b4b (public, full commit history) |
 | **App folder** | [`cache_me_if_u_can_b4b/`](cache_me_if_u_can_b4b/) |
-| **APK** | [EAS preview build of `83f0e65`](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/74945b6b-3832-4f13-9870-e65209f55535) (Android) |
-| **Demo video** | `<video link: to be added>` |
+| **APK** | `<APK_LINK>` (built from `83f0e65`; [EAS build page](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/74945b6b-3832-4f13-9870-e65209f55535)) |
+| **Demo video** | `<DEMO_VIDEO_LINK>` |
 
 > The final submitted version is commit `83f0e65`. Commits after it only edit the README files (documentation). There are no code, content or audio changes after the submitted commit.
 
@@ -67,7 +71,7 @@ The core loop is **Try → Surprise → Teach → Check → Finish**.
 
 ### Judges: install the APK (Android)
 
-1. On an Android phone, open the [APK build page](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/74945b6b-3832-4f13-9870-e65209f55535) (built from the final commit `83f0e65`) and download the APK.
+1. On an Android phone, open the APK link: `<APK_LINK>` (built from the final commit `83f0e65`), and download the file.
 2. Open it. If Android warns about an unknown app, tap **Install anyway**, and allow installing from this source if asked.
 3. Open **Mashq**, accept the practice notice, and start **Lessons → Apply for a service card**.
 
