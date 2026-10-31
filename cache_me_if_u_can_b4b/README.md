@@ -5,11 +5,11 @@ An Urdu-first practice app for parents and grandparents who feel unsure about on
 ## Submission status
 
 Final submitted commit: <id and time>. APK: <GitHub Release link>. Demo: <video link>.
-Latest integrated team commit: `55c18b1`, including Savera's content/audio and Ahmer's backend fixes. No GitHub release or tag was published when checked on 2026-10-31. The frontend screens are present but still use temporary fake modules; real frontend wiring and Guide routing remain pending. It is not a completed or phone-tested app. See [blockers](docs/bugs.md) and [test evidence](docs/guide-tests.md).
+Latest integrated team commit: `ca55cbf`, including Savera's content/audio and Ahmer's backend fixes. No GitHub release or tag was published when checked on 2026-10-31. The frontend screens now use real modules. Guide routing and native acceptance remain pending. It is not a completed or phone-tested app. See [blockers](docs/bugs.md) and [test evidence](docs/guide-tests.md).
 
 ## Target user and evidence
 
-Mashq is designed for a parent who avoids online forms because unfamiliar boxes feel risky. Practice uses fictional details and lets the parent make the decisions. Actual interview findings and consent: <verify; docs/interviews.md is a supplied template awaiting real notes>. No participant quotes or outcome numbers are claimed.
+Mashq is designed for a parent who avoids online forms because unfamiliar boxes feel risky. Practice uses fictional details and lets the parent make the decisions. Actual interview findings and consent: <verify; docs/interviews.md contains two anonymized notes; quote permission is not yet recorded>. No participant quotes or outcome numbers are claimed.
 
 ## Solution and features
 
@@ -19,9 +19,9 @@ Maaz's files provide a privacy-tested Guide injection script connected to Savera
 
 ## Install and run
 
-Judges: download the APK from <GitHub Release link>, open it, allow installation from that source if asked, and follow Android's install prompts. Tested Android versions: <verify>. The first [EAS preview build](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/a4e0e235-2805-49da-bcea-059fd6a1a0c1) is in progress. It is an early frontend preview with fake wiring, not a submission APK. No physical-phone validation or final release gates have passed.
+Judges: download the APK from <GitHub Release link>, open it, allow installation from that source if asked, and follow Android's install prompts. Tested Android versions: <verify>. The first [EAS preview build](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/a4e0e235-2805-49da-bcea-059fd6a1a0c1) has finished. [Download the early preview APK](https://expo.dev/artifacts/eas/E__ywbzEPaFe8jtt95kg5_J5rIaYPbKUYQAXu0-2xAs.apk). It was built before the latest integrations and uses the older fake wiring; it is not a submission APK. Emulator installation succeeds, but Android OS ANR dialogs prevented reliable interaction testing. No physical-phone validation or final release gates have passed.
 
-Developers: from this directory, run `npm ci`, then `npx expo start` and scan with a compatible Expo Go. WebView is installed and the Guide screen typechecks; integration still requires a route and real frontend wiring from Anas. Savera's content/audio exports are now supplied. Ahmer's `useApp`, `playClip`, and `uiBus` interfaces are now present. The current Router root is `src/app`; Anas must expose the Guide route there. See docs/bugs.md before expecting the Guide to run.
+Developers: from this directory, run `npm ci`, then `npx expo start` and scan with a compatible Expo Go. WebView is installed and the Guide screen typechecks; the real frontend wiring is complete, while the Guide route is still needed from Anas. Savera's content/audio exports are now supplied. Ahmer's `useApp`, `playClip`, and `uiBus` interfaces are now present. The current Router root is `src/app`; Anas must expose the Guide route there. See docs/bugs.md before expecting the Guide to run.
 
 Optional server: `cd server`, `npm ci`, then `npm start`. It listens on port 8787 by default. Without a key, uncached searches return a safe 503 response. For live search, set `YOUTUBE_API_KEY` in the process environment (PowerShell: `$env:YOUTUBE_API_KEY='<your key>'`), then start the server. The start command does not load `.env` automatically. server/.env is now ignored; root .env still needs ignore coverage. Deployment URL: <verify; no hosting account supplied>.
 
@@ -39,7 +39,7 @@ The Guide inspects field labels and metadata to explain standard boxes. It check
 
 ## Known limitations and simulations
 
-Practice forms and the Practice Person are fictional; the supplied persona is fictional. The Guide supports standard fields; custom widgets, iframe forms, some single-page sites and strict page security rules may not work. Embedded browsers may block sign-in. Two public demo forms pass desktop checks and are available as Guide shortcuts; Android WebView and real-device verification remain pending. The Guide now uses the supplied Urdu/English dictionaries. Audio playback and helper/jargon sheets need team integration. Urdu speech is generated and still pending native-speaker review. Video cache files are currently empty; the curated video list is empty and live search needs a server URL/key. Local server guards, no-key fallback and rate limiting pass smoke checks; live search and offline app behavior are unverified. The intended APK is a sideloaded prototype, not a Play Store release.
+Practice forms and the Practice Person are fictional; the supplied persona is fictional. The Guide supports standard fields; custom widgets, iframe forms, some single-page sites and strict page security rules may not work. Embedded browsers may block sign-in. Two public demo forms pass desktop checks and are available as Guide shortcuts; Android WebView and real-device verification remain pending. The Guide now uses the supplied Urdu/English dictionaries. Audio playback and helper/jargon sheets need team integration. Urdu speech is generated and still pending native-speaker review. Video cache files are currently empty; 12 curated video entries are supplied but full-watch approval remains pending and live search needs a server URL/key. Backend/server fixtures cover guards, fallback, cache, quota, timeout and rate limiting; native live-search and offline app behavior still need verification. The intended APK is a sideloaded prototype, not a Play Store release.
 
 ## Credits
 
@@ -49,7 +49,7 @@ Codex assisted with Guide code and documentation drafting. Team review and abili
 
 Mashq helps parents practice unfamiliar online forms using fictional information. Its Guide explains standard fields and keeps sensitive boxes private.
 
-Download <APK link>, open it and allow installation from that source if asked. Follow Android's installation prompts; tested Android versions: <fill>. Open the Guide, choose a practice form, turn on “Guide me”, then focus a box. “Listen”, “Helper” and “Check” offer guidance; sensitive boxes show only a safety card. “Close and clear” exits the incognito browser.
+Download <APK link>, open it and allow installation from that source if asked. Follow Android's installation prompts; tested Android versions: <fill>. After the pending Guide route integration, open the Guide, choose a practice form, turn on “Guide me”, then focus a box. “Listen”, “Helper” and “Check” offer guidance; sensitive boxes show only a safety card. “Close and clear” exits the incognito browser.
 
 Limitations: standard fields only; custom widgets, iframe forms, some single-page sites, restrictive security rules and embedded sign-in may fail. Practice data is fictional. Urdu content/audio, offline behavior and video search need verification. Current checkout still has integration blockers; do not publish these notes as a tested release until resolved.
 

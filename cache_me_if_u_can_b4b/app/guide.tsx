@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BackHandler, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { BackHandler, Pressable, ScrollView, StyleSheet, Switch } from 'react-native';
 import { router } from 'expo-router';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,6 +8,10 @@ import { WALLET_FORM_HTML } from '../src/forms/walletForm';
 import { handleGuideMessage } from '../src/guide/bridge';
 import { buildLens } from '../src/guide/lens';
 import { useApp } from '../src/store/useApp';
+import { AppText } from '../src/components/AppText';
+import { Row } from '../src/components/Row';
+import { useDir } from '../src/theme/useDir';
+import { useT } from '../src/lib/t';
 
 // Desktop-tested demo forms; Android WebView acceptance is still pending.
 export const PUBLIC_FORMS: { label: string; url: string }[] = [
@@ -17,7 +21,7 @@ export const PUBLIC_FORMS: { label: string; url: string }[] = [
 const OFF = "window.__mashq && window.__mashq.receive({type:'SET_GUIDE',on:false}); true;";
 
 function GuideButton({ label, onPress }: { label: string; onPress: () => void }) {
-  return <Pressable accessibilityRole="button" style={styles.button} onPress={onPress}><Text style={styles.buttonText}>{label}</Text></Pressable>;
+  return <Pressable accessibilityRole="button" accessibilityLabel={label} style={styles.button} onPress={onPress}><AppText color="#fff">{label}</AppText></Pressable>;
 }
 
 export default function GuideScreen() {
@@ -26,6 +30,10 @@ export default function GuideScreen() {
   const ref = useRef<WebView<object>>(null);
   const guideOn = useApp(state => state.guideOn);
   const language = useApp(state => state.language);
+  const t = useT();
+  const { row } = useDir();
+  // TODO(content): Savera supplies the remaining Guide chrome keys in STRINGS.
+  const label = (key: string, fallback: string) => t(key) === key ? fallback : t(key);
   const [ready, setReady] = useState(false);
   const enabled = ready && guideOn;
   const [canGoBack, setCanGoBack] = useState(false);
@@ -41,11 +49,11 @@ export default function GuideScreen() {
     return () => subscription.remove();
   }, [canGoBack, leave]);
   return <SafeAreaView style={styles.screen}>
-    <View style={styles.row}><Text style={styles.text}>Guide me</Text><Switch accessibilityLabel="Guide me" value={enabled} onValueChange={on => useApp.getState().set({ guideOn: on })} /></View>
-    {enabled && <Text style={styles.badge}>Guide is ON</Text>}
-    <ScrollView horizontal style={styles.shortcuts} contentContainerStyle={styles.row}>
-      <GuideButton label="Practice form 1" onPress={() => setSource({ html: SERVICES_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
-      <GuideButton label="Practice form 2" onPress={() => setSource({ html: WALLET_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
+    <Row style={styles.row}><AppText size="heading" style={styles.title}>{t('guide_me')}</AppText><Switch accessibilityLabel={t('guide_me')} value={enabled} onValueChange={on => useApp.getState().set({ guideOn: on })} /></Row>
+    {enabled && <AppText style={styles.badge}>{t('guide_on_badge')}</AppText>}
+    <ScrollView horizontal style={styles.shortcuts} contentContainerStyle={[styles.shortcutContent, { flexDirection: row }]}>
+      <GuideButton label={label('guide_practice_1', 'Practice form 1')} onPress={() => setSource({ html: SERVICES_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
+      <GuideButton label={label('guide_practice_2', 'Practice form 2')} onPress={() => setSource({ html: WALLET_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
       {PUBLIC_FORMS.map(form => <GuideButton key={form.url} label={form.label} onPress={() => setSource({ uri: form.url })} />)}
     </ScrollView>
     <WebView<object> ref={ref} style={styles.web} source={source} originWhitelist={['*']} javaScriptEnabled domStorageEnabled setSupportMultipleWindows={false} incognito
@@ -54,18 +62,17 @@ export default function GuideScreen() {
       onMessage={(event: { nativeEvent: { data: string } }) => { if (enabled) handleGuideMessage(event.nativeEvent.data); }}
       onNavigationStateChange={(navigation: { canGoBack: boolean }) => setCanGoBack(navigation.canGoBack)}
       onShouldStartLoadWithRequest={(request: { url: string }) => /^(https?:|about:blank)/i.test(request.url)} />
-    <View style={styles.row}>
-      <GuideButton label="Back" onPress={() => { if (canGoBack) ref.current?.goBack(); else leave(); }} />
-      <GuideButton label="Reload" onPress={() => ref.current?.reload()} />
-      <GuideButton label="Close and clear" onPress={leave} />
-    </View>
+    <Row style={styles.row}>
+      <GuideButton label={t('back')} onPress={() => { if (canGoBack) ref.current?.goBack(); else leave(); }} />
+      <GuideButton label={label('guide_reload', 'Reload')} onPress={() => ref.current?.reload()} />
+      <GuideButton label={label('guide_close_clear', 'Close and clear')} onPress={leave} />
+    </Row>
   </SafeAreaView>;
 }
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#f5f7f4' }, web: { flex: 1 },
-  row: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8, padding: 8 },
-  text: { fontSize: 24, color: '#203830' }, badge: { fontSize: 20, color: '#186458', paddingHorizontal: 16 },
-  shortcuts: { flexGrow: 0, maxHeight: 100 },
-  button: { minHeight: 56, padding: 12, backgroundColor: '#186458', justifyContent: 'center', borderRadius: 8 },
-  buttonText: { color: '#fff', fontSize: 20 },
+  row: { alignItems: 'center', flexWrap: 'wrap', gap: 8, padding: 8 },
+  title: { flex: 1 }, badge: { color: '#186458', paddingHorizontal: 16 },
+  shortcuts: { flexGrow: 0 }, shortcutContent: { alignItems: 'center', gap: 8, padding: 8 },
+  button: { minHeight: 56, padding: 12, backgroundColor: '#186458', justifyContent: 'center', borderRadius: 8, flexShrink: 1 },
 });
