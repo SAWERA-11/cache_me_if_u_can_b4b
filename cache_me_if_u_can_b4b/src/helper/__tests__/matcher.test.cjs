@@ -16,7 +16,9 @@ const entries = [
 const matcherPath = path.resolve(__dirname, '../matcher.ts');
 const originalLoad = Module._load;
 const originalTs = require.extensions['.ts'];
+const originalMatcher = require.cache[matcherPath];
 try {
+  delete require.cache[matcherPath];
   require.extensions['.ts'] = (module, filename) => {
     module._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
       compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, esModuleInterop: true },
@@ -58,6 +60,8 @@ try {
   }
   console.log('matcher.test.cjs passed');
 } finally {
+  if (originalMatcher) require.cache[matcherPath] = originalMatcher;
+  else delete require.cache[matcherPath];
   Module._load = originalLoad;
   if (originalTs) require.extensions['.ts'] = originalTs;
   else delete require.extensions['.ts'];

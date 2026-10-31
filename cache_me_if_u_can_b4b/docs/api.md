@@ -33,7 +33,7 @@
 
 Savera's S0/S2 define `LESSONS` as `Record<string, Lesson>`, not an array. The runner now uses keyed lookup. Hiccup IDs appear once per run, including step revisits; the 13-step fixture exercises all eight placements from S2/M6. Audio layer IDs and message payloads retain the agreed contracts. Baseline timing uses the median of retained event timings and never lowers a score.
 
-Anas's pulled frontend currently imports temporary fakes from `src/theme/wire/index.ts`. After Savera supplies the real `src/content` exports and `src/audio/audioMap.ts`, Anas can replace that file's fake exports with `export * from '../../lib/backend';`. This also provides the `Runner`/`LayerName` type aliases used by the frontend. Home can derive its Continue target with `useApp(s => resumableLessonId(s.events))`; the step pointer uses event IDs and contains no typed input.
+Anas's ca55cbf now connects the frontend seam to the real backend and content modules. `src/lib/backend.ts` also supplies a consolidated export surface. Home can derive its Continue target with `useApp(s => resumableLessonId(s.events))`; the step pointer uses event IDs and contains no typed input.
 
 F5's answer review/jump API is not in the agreed runner contract. The pulled UI temporarily captures answers in screen state; this backend does not add unagreed fields/actions or persist typed answers. Review navigation requires agreement with Anas/Savera. Maaz still owns deployment, Android validation, and Guide route integration.
 
@@ -43,6 +43,8 @@ After merging Maaz's latest Guide branch, BUG-5's render-purity issue and BUG-7'
 
 Run `node src/lib/__tests__/run.cjs` for backend fixture tests and `node server/index.test.js` for offline server HTTP tests. No API key is required. Fixtures verify contracts independently of Savera's pending content/audio modules; they do not replace testing reviewed content or Android audio playback.
 
+The backend suite now also runs against the real content: 19/20 representative KB questions matched with no incorrect answers, bilingual top-level chips and every follow-up ID resolve, Lesson 1 reaches rungs 2/1/0 for clean/supported/revealed runs, and the supported run exercises all eight hiccups. Real-video tests check offline results, topic relevance and a three-item limit. Audio tests check generated bindings and nonempty files, not pronunciation or native playback. Video watch-through approval remains pending in Savera's catalog comments.
+
 Run `node src/lib/__tests__/typecheck.cjs` for a strict backend check against compiler-only content/audio contracts. It does not supply runtime content or replace the full-project typecheck.
 
-Full-project validation: `npx.cmd tsc --noEmit` and `npx.cmd expo lint` on Windows. Missing content/audio modules and Guide/WebView integration currently block typecheck; frontend/Guide lint findings remain outside Ahmer's implementation paths.
+Full-project validation: `npx.cmd tsc --noEmit` and `npx.cmd expo lint` on Windows. The backend strict check now uses real content/audio. The remaining TypeScript blocker is Maaz's Guide JSX: react-native-webview 14.0.1 declares `WebView<P = undefined>` as `Component<WebViewProps & P>`, so the default props become `never`. Maaz can use `useRef<WebView<object>>(null)` together with `<WebView<object> ... />` (no dependency patch or `any` cast). Guide route registration remains an Anas task. Re-run ESLint without its cache after integrating modules to discard stale missing-import findings.

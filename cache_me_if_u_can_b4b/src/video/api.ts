@@ -6,6 +6,7 @@ import cache from './cache.json';
 
 type VideoResult = { id: string; title: string; channel?: string; checked?: boolean };
 type VideoResponse = { items: VideoResult[]; source: 'curated' | 'cache' | 'live' | 'none' };
+const stopWords = new Set('a an the how what is to for of in on my ka ki ke kya hai ko se mein'.split(' '));
 
 function validItems(value: unknown): VideoResult[] {
   if (!Array.isArray(value)) return [];
@@ -17,12 +18,14 @@ function validItems(value: unknown): VideoResult[] {
 }
 
 function curated(query: string): VideoResult[] {
-  const terms = normalizeUrdu(query).split(' ').filter(Boolean);
-  return VIDEOS.filter((video: { title: string; topic: string[] }) => {
-    const haystack = normalizeUrdu(`${video.title} ${video.topic.join(' ')}`);
-    const words = new Set(haystack.split(' '));
-    return terms.some((term) => words.has(term));
-  }).map((video: { id: string; title: string }) => ({ id: video.id, title: video.title, checked: true }));
+  const terms = [...new Set(normalizeUrdu(query).split(' ').filter((term) => !!term && !stopWords.has(term)))];
+  return VIDEOS.map((video) => {
+    const topics = new Set(normalizeUrdu(video.topic.join(' ')).split(' '));
+    const title = new Set(normalizeUrdu(video.title).split(' '));
+    const score = terms.reduce((sum, term) => sum + (topics.has(term) ? 4 : title.has(term) ? 1 : 0), 0);
+    return { video, score };
+  }).filter((match) => match.score > 0).sort((a, b) => b.score - a.score).slice(0, 3)
+    .map(({ video }) => ({ id: video.id, title: video.title, checked: true }));
 }
 
 export async function fetchVideos(query: string): Promise<VideoResponse> {

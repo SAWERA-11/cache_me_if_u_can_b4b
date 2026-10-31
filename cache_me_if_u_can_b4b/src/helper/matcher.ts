@@ -1,15 +1,16 @@
 import Fuse from 'fuse.js';
+import { KB, STRINGS } from '../content';
 import type { KBEntry } from '../engine/types';
 import { normalizeUrdu } from '../lib/normalizeUrdu';
 
 type SearchRow = { entry: KBEntry; text: string };
 
 const chipIds: Record<string, string> = {
-  chip_word: 'word',
-  chip_box: 'box',
-  chip_error: 'error',
-  chip_logged_out: 'logged_out',
-  chip_safe: 'safe',
+  chip_word: 'what_is_otp',
+  chip_box: 'if_unsure',
+  chip_error: 'red_message',
+  chip_logged_out: 'session_expired',
+  chip_safe: 'check_if_real',
 };
 
 const chipGroups: Record<string, KBEntry['group']> = {
@@ -31,25 +32,22 @@ export function createMatcher(entries: KBEntry[]): {
       if (looksLikeSecret(question)) return null;
       const query = normalizeUrdu(question);
       if (!query) return null;
+      const target = entries.find((entry) => entry.id === question.trim());
+      if (target) return target;
       const best = index.search(query)[0];
       return best && (best.score ?? 1) <= 0.45 ? best.item.entry : null;
     },
   };
 }
 
-let matcher: ReturnType<typeof createMatcher> | null = null;
-
-function getMatcher(): ReturnType<typeof createMatcher> {
-  if (!matcher) {
-    const content = require('../content') as { KB: KBEntry[] };
-    matcher = createMatcher(content.KB);
-  }
-  return matcher;
-}
+const matcher = createMatcher(KB);
 
 export function matchQuestion(question: string): KBEntry | null {
   if (!normalizeUrdu(question) || looksLikeSecret(question)) return null;
-  return getMatcher().matchQuestion(question);
+  const query = normalizeUrdu(question);
+  const chip = Object.keys(chipIds).find((id) => id === question.trim()
+    || [STRINGS?.[id]?.en, STRINGS?.[id]?.ur].some((text) => !!text && normalizeUrdu(text) === query));
+  return chip ? matchChip(chip) : matcher.matchQuestion(question);
 }
 
 export function looksLikeSecret(question: string): boolean {
@@ -62,10 +60,9 @@ export function looksLikeSecret(question: string): boolean {
 }
 
 export function matchChip(chipId: string): KBEntry | null {
-  const content = require('../content') as { KB: KBEntry[] };
   const id = chipIds[chipId];
   // KBEntry.chips are follow-up targets, not aliases for the entry holding them.
-  return content.KB.find((entry) => entry.id === chipId)
-    ?? content.KB.find((entry) => entry.id === id)
-    ?? (chipGroups[chipId] ? content.KB.find((entry) => entry.group === chipGroups[chipId]) : null) ?? null;
+  return KB.find((entry) => entry.id === chipId)
+    ?? KB.find((entry) => entry.id === id)
+    ?? (chipGroups[chipId] ? KB.find((entry) => entry.group === chipGroups[chipId]) : null) ?? null;
 }

@@ -16,6 +16,9 @@ require.extensions['.ts'] = (module, filename) => {
     require('../../helper/__tests__/matcher.test.ts');
   }
   require('../../helper/__tests__/matcher.test.cjs');
+  require('../../engine/__tests__/realContent.test.ts');
+  require('./realAudio.test.cjs');
+  await require('../../video/__tests__/realVideos.test.cjs');
   await require('./services.test.cjs');
   require('../../engine/__tests__/useRunner.test.cjs');
 })().catch((error) => { console.error(error); process.exitCode = 1; });
