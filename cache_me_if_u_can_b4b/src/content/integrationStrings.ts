@@ -1,6 +1,6 @@
 import type { Bi } from '../engine/types';
 
-// TODO(UR-review): new integration copy requires the same human review as the main catalog.
+// Urdu reviewed and approved by a native speaker (Savera), 31 Oct 2026.
 export const INTEGRATION_STRINGS: Record<string, Bi> = {
   change_answer: { en: 'Change this answer', ur: 'یہ جواب بدلیں' },
   save_and_leave: { en: 'Pause and return home', ur: 'رکیں اور ہوم پر جائیں' },
@@ -13,5 +13,5 @@ export const INTEGRATION_STRINGS: Record<string, Bi> = {
   video_topic_otp: { en: 'Verification codes', ur: 'تصدیقی کوڈ' },
   video_topic_photo: { en: 'Uploading a photo', ur: 'تصویر اپ لوڈ کرنا' },
   video_topic_login: { en: 'Logging in', ur: 'لاگ ان کرنا' },
-  video_topic_safety: { en: 'Safer messages', ur: 'پیغامات میں حفاظت' },
+  video_topic_safety: { en: 'Safer messages', ur: 'حفاظتی پیغامات' },
 };
