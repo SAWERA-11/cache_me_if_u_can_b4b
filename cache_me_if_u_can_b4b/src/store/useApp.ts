@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { Lang, StepEvent } from '../engine/types';
+import { persistedState, privateEvent } from './persistence';
 
 export type AppResult = { lessonId: string; ts: number; score: number; rung: 0 | 1 | 2; strength: string };
 export type Comfort = { lessonId: string; before?: number; after?: number };
@@ -33,13 +34,20 @@ const initialState = {
 export const useApp = create<AppState>()(persist((set) => ({
   ...initialState,
   set: (partial) => set(partial),
-  addEvent: (event) => set((state) => ({ events: [...state.events, event].slice(-300) })),
+  addEvent: (event) => set((state) => ({ events: [...state.events, privateEvent(event)].slice(-300) })),
   addResult: (result) => set((state) => ({ results: [...state.results, result].slice(-10) })),
   addStruggle: (kind) => set((state) => ({ struggles: { ...state.struggles, [kind]: (state.struggles[kind] ?? 0) + 1 } })),
   reset: () => set(initialState),
 }), {
   name: 'mashq-state',
   storage: createJSONStorage(() => AsyncStorage),
+  partialize: persistedState,
+  merge: (persisted, current) => {
+    if (!persisted || typeof persisted !== 'object') return current;
+    const candidate = { ...current, ...persisted } as AppState;
+    if (!Array.isArray(candidate.events) || !Array.isArray(candidate.results) || !Array.isArray(candidate.comfort)) return current;
+    return { ...current, ...persistedState(candidate) };
+  },
   onRehydrateStorage: () => (state) => {
     if (state) state.guideOn = false;
   },

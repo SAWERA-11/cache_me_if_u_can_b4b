@@ -1,7 +1,8 @@
-import { KB } from '../content';
 import Fuse from 'fuse.js';
 import type { KBEntry } from '../engine/types';
 import { normalizeUrdu } from '../lib/normalizeUrdu';
+
+type SearchRow = { entry: KBEntry; text: string };
 
 const chipIds: Record<string, string> = {
   chip_word: 'word',
@@ -11,18 +12,38 @@ const chipIds: Record<string, string> = {
   chip_safe: 'safe',
 };
 
-const index = new Fuse(
-  (KB as KBEntry[]).flatMap((entry) => entry.variants.map((variant) => ({
-    entry, text: normalizeUrdu(variant),
-  }))),
-  { keys: ['text'], includeScore: true, threshold: 0.4, ignoreLocation: true },
-);
+export function createMatcher(entries: KBEntry[]): {
+  matchQuestion: (question: string) => KBEntry | null;
+} {
+  const index = new Fuse<SearchRow>(
+    entries.flatMap((entry) => entry.variants.map((variant) => ({
+      entry, text: normalizeUrdu(variant),
+    }))),
+    { keys: ['text'], includeScore: true, threshold: 0.4, ignoreLocation: true },
+  );
+  return {
+    matchQuestion: (question: string): KBEntry | null => {
+      if (looksLikeSecret(question)) return null;
+      const query = normalizeUrdu(question);
+      if (!query) return null;
+      const best = index.search(query)[0];
+      return best && (best.score ?? 1) <= 0.45 ? best.item.entry : null;
+    },
+  };
+}
+
+let matcher: ReturnType<typeof createMatcher> | null = null;
+
+function getMatcher(): ReturnType<typeof createMatcher> {
+  if (!matcher) {
+    const content = require('../content') as { KB: KBEntry[] };
+    matcher = createMatcher(content.KB);
+  }
+  return matcher;
+}
 
 export function matchQuestion(question: string): KBEntry | null {
-  const query = normalizeUrdu(question);
-  if (!query) return null;
-  const best = index.search(query)[0];
-  return best && (best.score ?? 1) <= 0.45 ? best.item.entry : null;
+  return getMatcher().matchQuestion(question);
 }
 
 export function looksLikeSecret(question: string): boolean {
@@ -35,6 +56,8 @@ export function looksLikeSecret(question: string): boolean {
 }
 
 export function matchChip(chipId: string): KBEntry | null {
+  const content = require('../content') as { KB: KBEntry[] };
   const id = chipIds[chipId];
-  return (KB as KBEntry[]).find((entry) => entry.id === id) ?? null;
+  return content.KB.find((entry) => entry.chips?.includes(chipId))
+    ?? content.KB.find((entry) => entry.id === id) ?? null;
 }

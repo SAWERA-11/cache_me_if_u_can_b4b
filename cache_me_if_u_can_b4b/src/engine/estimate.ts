@@ -1,4 +1,22 @@
-import type { Bi, LessonResultView, StepEvent } from './types';
+import type { Bi, Lesson, LessonResultView, StepEvent } from './types';
+
+export function scoredEvents(events: StepEvent[], lesson: Lesson): StepEvent[] {
+  const ids = new Set(lesson.steps.filter((step) => step.kind !== 'info').map((step) => step.id));
+  return events.filter((event) => ids.has(event.stepId));
+}
+
+export function resumeIndex(lesson: Lesson, events: StepEvent[]): number {
+  const latest = events.filter((event) => event.lessonId === lesson.id).at(-1);
+  return latest?.exited ? Math.max(0, lesson.steps.findIndex((step) => step.id === latest.stepId)) : 0;
+}
+
+const strengths: Record<string, Bi> = {
+  strength_unaided_recovery: { ur: '', en: 'You found a way forward after a hiccup.' },
+  strength_fewer_hints: { ur: '', en: 'You needed fewer hints this time.' },
+  strength_careful_check: { ur: '', en: 'You checked the details carefully.' },
+  strength_default: { ur: '', en: 'You practised taking the next step.' },
+}; // TODO(UR-review): reviewed translations come from STRINGS.
+export const fallbackStrength = (key: string): Bi => strengths[key] ?? strengths.strength_default;
 
 export function stepScore(event: StepEvent): number {
   if (event.revealedAnswer || event.exited || !event.completed) return 0;
@@ -9,7 +27,7 @@ export function stepScore(event: StepEvent): number {
 }
 
 export function lessonScore(events: StepEvent[]): number {
-  const counted = events.filter((event) => event.stepId !== 'session' && (event.completed || event.exited || event.revealedAnswer));
+  const counted = events.filter((event) => !['ready', 'session', 'info'].includes(event.stepId) && (event.completed || event.exited || event.revealedAnswer));
   if (counted.length === 0) return 0;
   return counted.reduce((sum, event) => sum + stepScore(event), 0) / counted.length;
 }
@@ -33,7 +51,7 @@ export function pickStrength(
   events: StepEvent[],
   previousEvents: StepEvent[] = [],
   hiccupRecoveries = 0,
-  lookup: (key: string) => Bi = (key) => ({ ur: '', en: key }),
+  lookup: (key: string) => Bi = fallbackStrength,
 ): Bi {
   if (hiccupRecoveries > 0) return lookup('strength_unaided_recovery');
   const currentHints = events.reduce((sum, event) => sum + event.hintTaps, 0);
@@ -49,7 +67,7 @@ export function buildResult(
   previousEvents: StepEvent[] = [],
   hiccupsShown = 0,
   hiccupsRecovered = 0,
-  lookup: (key: string) => Bi = (key) => ({ ur: '', en: key }),
+  lookup: (key: string) => Bi = fallbackStrength,
 ): LessonResultView {
   const score = lessonScore(events);
   return {
