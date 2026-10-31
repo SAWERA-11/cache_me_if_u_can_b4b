@@ -28,7 +28,18 @@ const SPOKEN = {
 };
 
 const rows = [];
-const add = (id, text) => rows.push([id, SPOKEN[id] ?? text]);
+// Words the Urdu voice mispronounces, replaced in the spoken text only (screen text is unchanged).
+// Chosen by the reviewer by ear. Clips already approved are left exactly as they were heard.
+const SPOKEN_WORDS = [['گلی', 'Gully']];
+const approvedClips = (() => {
+  try {
+    return new Set(readFileSync('content/review-status.txt', 'utf8').split('\n')
+      .map((l) => l.match(/^(\S+):\s*approved/)?.[1]).filter(Boolean));
+  } catch { return new Set(); }
+})();
+const spoken = (id, text) => (approvedClips.has(id) ? text
+  : SPOKEN_WORDS.reduce((t, [from, to]) => t.split(from).join(to), text));
+const add = (id, text) => rows.push([id, SPOKEN[id] ?? spoken(id, text)]);
 
 // Priority 1: UI prompts, then Lesson 1 asks, then the other lesson layers.
 for (const k of UI_KEYS) add(`ui_${k}`, STRINGS[k].ur);
