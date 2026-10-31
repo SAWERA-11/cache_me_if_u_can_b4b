@@ -1,6 +1,6 @@
 # Mashq (مشق): safe practice for online forms
 
-> **Download the Android APK:** `<APK_LINK>`
+> **Download the Android APK:** [Mashq.apk](https://expo.dev/artifacts/eas/j64jvMn5trwG_TPnv-iyHmQMEyNqg2eq3MBJF1VkDck.apk)
 >
 > **Watch the demo video:** [Mashq demo (Google Drive)](https://drive.google.com/file/d/1b_vcMMzc77Xok5mwrNHqQ37uiifwx6Y9/view?usp=drivesdk)
 
@@ -13,7 +13,7 @@ Built at **Build4Better, NED University, Karachi, 31 October 2026**.
 | **Final submitted commit** | [`83f0e65`](https://github.com/SAWERA-11/cache_me_if_u_can_b4b/commit/83f0e65) (31 Oct 2026, 17:34 PKT) |
 | **Source code** | https://github.com/SAWERA-11/cache_me_if_u_can_b4b (public, full commit history) |
 | **App folder** | [`cache_me_if_u_can_b4b/`](cache_me_if_u_can_b4b/) |
-| **APK** | `<APK_LINK>` (built from `83f0e65`; [EAS build page](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/74945b6b-3832-4f13-9870-e65209f55535)) |
+| **APK** | [Download Mashq.apk](https://expo.dev/artifacts/eas/j64jvMn5trwG_TPnv-iyHmQMEyNqg2eq3MBJF1VkDck.apk) ([EAS build page](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/74945b6b-3832-4f13-9870-e65209f55535)) |
 | **Demo video** | [Mashq demo (Google Drive)](https://drive.google.com/file/d/1b_vcMMzc77Xok5mwrNHqQ37uiifwx6Y9/view?usp=drivesdk) |
 
 > The final submitted version is commit `83f0e65`. Commits after it only edit the README files (documentation). There are no code, content or audio changes after the submitted commit.
@@ -71,7 +71,7 @@ The core loop is **Try → Surprise → Teach → Check → Finish**.
 
 ### Judges: install the APK (Android)
 
-1. On an Android phone, open the APK link: `<APK_LINK>` (built from the final commit `83f0e65`), and download the file.
+1. On an Android phone, open [this APK link](https://expo.dev/artifacts/eas/j64jvMn5trwG_TPnv-iyHmQMEyNqg2eq3MBJF1VkDck.apk) and download the file.
 2. Open it. If Android warns about an unknown app, tap **Install anyway**, and allow installing from this source if asked.
 3. Open **Mashq**, accept the practice notice, and start **Lessons → Apply for a service card**.
 
