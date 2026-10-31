@@ -11,7 +11,10 @@ No numbers in this deck unless they come from our own conversations (see `docs/i
 
 Visual: one quote card from `docs/interviews.md`. **Use a quote only if that person gave permission.** If nobody did, show the line without a quote: "She is not slow. The technology speaks a language she was never taught."
 
-> TODO(content): paste the approved quote here, or leave this slide without a quote.
+> TODO(content): permission to quote is not recorded for either conversation yet. Once confirmed, candidate lines (no organisation names):
+> - Relative 1: "It feels very frustrating because I remain completely dependent on them. Next time the issue happens, I have to ask all over again."
+> - Relative 2: "They just do it for me because they say explaining it takes too long. It makes me feel helpless."
+> Without permission, use the unquoted line above.
 
 Speaker notes:
 - We spoke to our own parents and grandparents this morning.
@@ -26,12 +29,12 @@ Speaker notes:
 
 - Fear of making a mistake that cannot be undone
 - Fear of looking foolish in front of family
-- Words they were never taught (OTP, domicile, session expired)
+- Words they were never taught ("Verify OTP", "Clear Cache", "Allow Access", "Storage Full": their exact words)
 - No safe place to practise
 - Help that does the task for them instead of teaching
 
 Speaker notes:
-- Each cause came up in our conversations. (Point to the pattern that came up most.)
+- Both people we spoke to said family takes the phone and does it for them, and both stop and wait when stuck.
 - Most help today is "give me the phone". It solves today and teaches nothing.
 - Mashq goes after the fear and the missing practice, not the person.
 
