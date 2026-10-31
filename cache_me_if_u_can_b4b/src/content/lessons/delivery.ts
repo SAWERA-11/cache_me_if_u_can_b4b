@@ -9,13 +9,13 @@ export const LESSON_DELIVERY: Lesson = {
   id: 'delivery',
   title: {
     en: 'Order from a delivery app',
-    ur: 'ڈیلیوری ایپ سے آرڈر کریں', // TODO(UR-review)
+    ur: 'ڈیلیوری ایپ سے آرڈر کریں',
   },
   persona: PERSONA,
   ready: [
     { id: 'ready_internet', audio: 'delivery_ready_internet', text: {
       en: 'Phone with internet',
-      ur: 'انٹرنیٹ والا فون', // TODO(UR-review)
+      ur: 'انٹرنیٹ والا فون',
     } },
     { id: 'ready_address', audio: 'delivery_ready_address', text: {
       en: 'Your house number and street',
@@ -23,7 +23,7 @@ export const LESSON_DELIVERY: Lesson = {
     } },
     { id: 'ready_cash', audio: 'delivery_ready_cash', text: {
       en: 'Cash, card or mobile wallet',
-      ur: 'نقد رقم، کارڈ یا موبائل والٹ', // TODO(UR-review)
+      ur: 'نقد رقم، کارڈ یا موبائل والٹ',
     } },
   ],
   steps: [
@@ -36,7 +36,7 @@ export const LESSON_DELIVERY: Lesson = {
       },
       asks: {
         en: 'Most food and grocery apps work the same way. Keep these near you.',
-        ur: 'زیادہ تر کھانے اور سودا سلف کی ایپس ایک ہی طرح کام کرتی ہیں۔ یہ چیزیں اپنے پاس رکھیں۔', // TODO(UR-review)
+        ur: 'زیادہ تر کھانے اور سودا سلف کی ایپس ایک ہی طرح کام کرتی ہیں۔ یہ چیزیں اپنے پاس رکھیں۔',
       },
       audio: { asks: 'delivery_ready_asks' },
     },
@@ -46,11 +46,11 @@ export const LESSON_DELIVERY: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'Location',
-        ur: 'لوکیشن', // TODO(UR-review)
+        ur: 'لوکیشن',
       },
       asks: {
         en: 'The app asks: may it use your location?',
-        ur: 'ایپ پوچھتی ہے: کیا وہ آپ کی لوکیشن استعمال کر سکتی ہے؟', // TODO(UR-review)
+        ur: 'ایپ پوچھتی ہے: کیا وہ آپ کی لوکیشن استعمال کر سکتی ہے؟',
       },
       where: {
         en: 'A box pops up the first time you open the app.',
@@ -93,11 +93,11 @@ export const LESSON_DELIVERY: Lesson = {
       fieldKind: 'text',
       label: {
         en: 'Delivery address',
-        ur: 'ڈیلیوری کا پتہ', // TODO(UR-review)
+        ur: 'ڈیلیوری کا پتہ',
       },
       asks: {
         en: 'Move the pin to your door, then type the house number and street.',
-        ur: 'پن کو اپنے دروازے پر لائیں، پھر مکان نمبر اور گلی لکھیں۔', // TODO(UR-review)
+        ur: 'پن کو اپنے دروازے پر لائیں، پھر مکان نمبر اور گلی لکھیں۔',
       },
       where: {
         en: 'For practice, use: House 12, Street 5, Gulshan.',
@@ -131,11 +131,11 @@ export const LESSON_DELIVERY: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'Quantity',
-        ur: 'تعداد', // TODO(UR-review)
+        ur: 'تعداد',
       },
       asks: {
         en: 'Add 2 plates of biryani to the cart.',
-        ur: 'ٹوکری میں بریانی کی 2 پلیٹیں ڈالیں۔', // TODO(UR-review)
+        ur: 'ٹوکری میں بریانی کی 2 پلیٹیں ڈالیں۔',
       },
       where: {
         en: 'Next to each item there is a + and a − button.',
@@ -172,11 +172,11 @@ export const LESSON_DELIVERY: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'Check the cart',
-        ur: 'ٹوکری چیک کریں', // TODO(UR-review)
+        ur: 'ٹوکری چیک کریں',
       },
       asks: {
         en: 'Food Rs 700, delivery fee Rs 99. What will you pay?',
-        ur: 'کھانا 700 روپے، ڈیلیوری فیس 99 روپے۔ آپ کتنے دیں گے؟', // TODO(UR-review)
+        ur: 'کھانا 700 روپے، ڈیلیوری فیس 99 روپے۔ آپ کتنے دیں گے؟',
       },
       where: {
         en: 'At the bottom of the cart screen, next to Total.',
@@ -217,7 +217,7 @@ export const LESSON_DELIVERY: Lesson = {
       },
       asks: {
         en: 'Your number, so the rider can call you.',
-        ur: 'آپ کا نمبر، تاکہ رائیڈر آپ کو فون کر سکے۔', // TODO(UR-review)
+        ur: 'آپ کا نمبر، تاکہ رائیڈر آپ کو فون کر سکے۔',
       },
       where: {
         en: 'For practice, use the number on the practice card.',
@@ -251,11 +251,11 @@ export const LESSON_DELIVERY: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'Payment',
-        ur: 'ادائیگی', // TODO(UR-review)
+        ur: 'ادائیگی',
       },
       asks: {
         en: 'For this practice, pay with cash when the food arrives.',
-        ur: 'اس مشق میں، کھانا آنے پر نقد ادائیگی کریں۔', // TODO(UR-review)
+        ur: 'اس مشق میں، کھانا آنے پر نقد ادائیگی کریں۔',
       },
       where: {
         en: 'On the checkout screen, under Payment method.',
@@ -301,7 +301,7 @@ export const LESSON_DELIVERY: Lesson = {
       kind: 'submit',
       label: {
         en: 'Place your order',
-        ur: 'اپنا آرڈر دیں', // TODO(UR-review)
+        ur: 'اپنا آرڈر دیں',
       },
       asks: {
         en: 'Check the address, number and total, then tap Submit. Real apps call it Place order.',
@@ -315,11 +315,11 @@ export const LESSON_DELIVERY: Lesson = {
       kind: 'info',
       label: {
         en: 'Track the rider',
-        ur: 'رائیڈر کو دیکھیں', // TODO(UR-review)
+        ur: 'رائیڈر کو دیکھیں',
       },
       asks: {
         en: 'Order placed. The app now shows the rider on a map and the minutes left.',
-        ur: 'آرڈر ہو گیا۔ اب ایپ نقشے پر رائیڈر اور باقی منٹ دکھاتی ہے۔', // TODO(UR-review)
+        ur: 'آرڈر ہو گیا۔ اب ایپ نقشے پر رائیڈر اور باقی منٹ دکھاتی ہے۔',
       },
       audio: { asks: 'delivery_track_asks' },
     },
@@ -329,11 +329,11 @@ export const LESSON_DELIVERY: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'Contact the rider',
-        ur: 'رائیڈر سے رابطہ', // TODO(UR-review)
+        ur: 'رائیڈر سے رابطہ',
       },
       asks: {
         en: 'The rider cannot find your house. What do you do?',
-        ur: 'رائیڈر کو آپ کا گھر نہیں مل رہا۔ آپ کیا کریں گے؟', // TODO(UR-review)
+        ur: 'رائیڈر کو آپ کا گھر نہیں مل رہا۔ آپ کیا کریں گے؟',
       },
       where: {
         en: 'On the order screen there is a Call and a Chat button.',
@@ -379,11 +379,11 @@ export const LESSON_DELIVERY: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'Stay safe',
-        ur: 'محفوظ رہیں', // TODO(UR-review)
+        ur: 'محفوظ رہیں',
       },
       asks: {
         en: 'Someone on the phone asks for your card PIN to "confirm" the order.',
-        ur: 'فون پر کوئی آرڈر "کنفرم" کرنے کے لیے آپ کے کارڈ کا PIN مانگتا ہے۔', // TODO(UR-review)
+        ur: 'فون پر کوئی آرڈر "کنفرم" کرنے کے لیے آپ کے کارڈ کا PIN مانگتا ہے۔',
       },
       where: {
         en: 'This can be a call or a chat message.',
@@ -426,11 +426,11 @@ export const LESSON_DELIVERY: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'Receive the order',
-        ur: 'آرڈر وصول کریں', // TODO(UR-review)
+        ur: 'آرڈر وصول کریں',
       },
       asks: {
         en: 'The rider is at your door. What do you do?',
-        ur: 'رائیڈر آپ کے دروازے پر ہے۔ آپ کیا کریں گے؟', // TODO(UR-review)
+        ur: 'رائیڈر آپ کے دروازے پر ہے۔ آپ کیا کریں گے؟',
       },
       where: {
         en: 'The total is on the order screen and on the bill.',
