@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
-import { buildResult, lessonScore, median, rungFor, stepScore } from '../estimate';
-import type { StepEvent } from '../types';
+import { buildResult, lessonScore, median, rungFor, stepScore, scoredEvents, resumeIndex } from '../estimate';
+import type { Lesson, StepEvent } from '../types';
 import { planNext } from '../adaptation';
 
 const event = (overrides: Partial<StepEvent> = {}): StepEvent => ({
@@ -21,3 +21,16 @@ assert.equal(planNext({ last2: [], failedRecoveries: { wrong_format: 2 }, strugg
 assert.deepEqual(planNext({ last2: [], failedRecoveries: {}, struggles: { phone: 3 } }).refresherKinds, ['phone']);
 assert.equal(buildResult([event()]).rung, 2);
 console.log('estimate.test.ts passed');
+
+const lesson = { id: 'test', steps: [
+  { id: 'intro_custom', kind: 'info' }, { id: 'name', kind: 'field' },
+] } as Lesson;
+assert.equal(lessonScore(scoredEvents([event({ stepId: 'intro_custom' }), event({ hintTaps: 1 })], lesson)), 0.5);
+assert.equal(resumeIndex(lesson, [event({ exited: true })]), 1);
+assert.equal(resumeIndex(lesson, [event({ exited: true }), event()]), 0);
+assert.equal(resumeIndex(lesson, [event({ lessonId: 'other', exited: true })]), 0);
+assert.equal(buildResult([event()], [], 1, 1).strength.en, 'You found a way forward after a hiccup.');
+assert.equal(buildResult([event()], [event({ hintTaps: 2 })]).strength.en, 'You needed fewer hints this time.');
+assert.equal(buildResult([event()], [], 0, 0, () => ({ ur: 'translated', en: 'translated' })).strength.en, 'translated');
+assert.equal(buildResult([event({ stepId: 'review', wrongAttempts: 1 }), event({ stepId: 'submit' })]).strength.en,
+  'You checked the details carefully.');

@@ -7,6 +7,9 @@ export type RunState = {
   input: string;
   previousInputs: Record<string, string>;
   currentEvent: StepEvent;
+  firstActionRecorded: boolean;
+  undoInput: string | null;
+  exited: boolean;
   events: StepEvent[];
   openLayers: { asks: boolean; where: boolean; format: boolean; ifUnsure: boolean };
   highlightField: string | null;
@@ -14,6 +17,7 @@ export type RunState = {
   hiccupUnaided: boolean;
   hiccupsShown: number;
   hiccupsRecovered: number;
+  hiccupsSeen: Partial<Record<HiccupId, true>>;
   loggedOutShown: boolean;
   oops: { consequence: Bi; fix: Bi } | null;
   canUndo: boolean;
@@ -47,40 +51,52 @@ function step(state: RunState): Step {
 }
 
 function withAction(state: RunState, now: number): RunState {
-  if (state.currentEvent.firstActionMs !== 0) return state;
-  return { ...state, currentEvent: { ...state.currentEvent, firstActionMs: Math.max(0, now - state.currentEvent.ts) } };
+  if (state.firstActionRecorded) return state;
+  return { ...state, firstActionRecorded: true, currentEvent: { ...state.currentEvent, firstActionMs: Math.max(0, now - state.currentEvent.ts) } };
+}
+
+function showHiccup(state: RunState, id: HiccupId): RunState {
+  if (state.hiccupsSeen[id]) return state;
+  return { ...state, hiccup: id, hiccupUnaided: true,
+    hiccupsShown: state.hiccupsShown + 1, hiccupsSeen: { ...state.hiccupsSeen, [id]: true } };
 }
 
 function enter(state: RunState, index: number, now: number): RunState {
   const nextStep = state.lesson.steps[index];
   const isLoggedOut = nextStep.id === 'session' && nextStep.hiccup?.id === 'logged_out';
-  const hiccup = nextStep.hiccup?.when === 'enter' && (!isLoggedOut || !state.loggedOutShown)
+  const hiccup = nextStep.hiccup?.when === 'enter' && !state.hiccupsSeen[nextStep.hiccup.id]
     ? nextStep.hiccup.id : null;
   return {
     ...state,
     stepIndex: index,
     input: state.previousInputs[nextStep.id] ?? '',
     currentEvent: { ...newEvent(state.lesson.id, nextStep.id), ts: now },
+    firstActionRecorded: false,
+    undoInput: null,
     openLayers: { asks: false, where: false, format: false, ifUnsure: false },
     highlightField: null,
     hiccup,
     hiccupUnaided: true,
     hiccupsShown: state.hiccupsShown + (hiccup ? 1 : 0),
+    hiccupsSeen: hiccup ? { ...state.hiccupsSeen, [hiccup]: true } : state.hiccupsSeen,
     loggedOutShown: state.loggedOutShown || Boolean(hiccup && isLoggedOut),
     oops: null,
-    canUndo: Boolean(state.previousInputs[nextStep.id]),
+    canUndo: false,
   };
 }
 
 export function createInitialState(lesson: Lesson, resumeIndex = 0, now = 0): RunState {
+  if (!lesson.steps.length) throw new Error('A lesson must contain at least one step');
   const base: RunState = {
     lesson, stepIndex: 0, input: '', previousInputs: {}, currentEvent: newEvent(lesson.id, lesson.steps[0].id),
-    events: [], openLayers: { asks: false, where: false, format: false, ifUnsure: false },
-    highlightField: null, hiccup: null, hiccupUnaided: true, hiccupsShown: 0, hiccupsRecovered: 0,
+    events: [], firstActionRecorded: false, undoInput: null, exited: false,
+    openLayers: { asks: false, where: false, format: false, ifUnsure: false },
+    highlightField: null, hiccup: null, hiccupUnaided: true, hiccupsShown: 0, hiccupsRecovered: 0, hiccupsSeen: {},
     loggedOutShown: false,
     oops: null, canUndo: false, done: false, receiptNo: null,
   };
-  return enter(base, resumeIndex, now);
+  const index = Number.isInteger(resumeIndex) ? Math.max(0, Math.min(resumeIndex, lesson.steps.length - 1)) : 0;
+  return enter(base, index, now);
 }
 
 function saveCurrent(state: RunState, event: StepEvent): RunState {
@@ -88,10 +104,10 @@ function saveCurrent(state: RunState, event: StepEvent): RunState {
 }
 
 export function reduce(state: RunState, action: Action, now = 0): RunState {
-  if (state.done && action.type !== 'setInput') return state;
+  if (state.done || state.exited) return state;
   switch (action.type) {
     case 'setInput':
-      return { ...withAction(state, now), input: action.value };
+      return action.value === state.input ? state : { ...withAction(state, now), input: action.value, undoInput: state.input, canUndo: true };
     case 'openLayer': {
       const next = withAction(state, now);
       if (next.openLayers[action.layer]) return next;
@@ -104,24 +120,23 @@ export function reduce(state: RunState, action: Action, now = 0): RunState {
       return { ...next, currentEvent: { ...next.currentEvent, audioReplays: next.currentEvent.audioReplays + 1 } };
     }
     case 'resolveHiccup':
-      return state.hiccup ? { ...state, hiccup: null, hiccupsRecovered: state.hiccupsRecovered + (state.hiccupUnaided ? 1 : 0) } : state;
+      return state.hiccup ? { ...withAction(state, now), hiccup: null, hiccupsRecovered: state.hiccupsRecovered + (state.hiccupUnaided ? 1 : 0) } : state;
     case 'dismissOops':
       return { ...state, oops: null };
     case 'submit': {
-      let next = withAction(state, action.now);
+      const next = withAction(state, action.now);
       const current = step(next);
-      if (current.kind === 'submit' && current.hiccup?.id === 'vague_error' && !next.highlightField) {
-        return { ...next, highlightField: 'phone', hiccup: 'vague_error', hiccupsShown: next.hiccupsShown + 1, hiccupUnaided: true };
+      if (current.kind === 'submit' && current.hiccup?.when === 'submit_first' && !next.hiccupsSeen[current.hiccup.id]) {
+        return { ...showHiccup(next, current.hiccup.id), highlightField: current.hiccup.id === 'vague_error' ? 'phone' : null };
       }
       const correctChoice = current.choices?.some((choice) => choice.id === next.input && choice.correct);
-      const valid = current.kind === 'info'
-        || current.id === 'submit' && next.highlightField !== null
+      const valid = current.kind === 'info' || current.kind === 'review' || current.kind === 'submit'
         || correctChoice || current.expected?.(next.input, next.lesson.persona) === true;
       if (!valid) {
         const wrongAttempts = next.currentEvent.wrongAttempts + 1;
-        const hiccup = current.hiccup?.when === 'wrong' && wrongAttempts === 1 ? current.hiccup.id : next.hiccup;
-        return { ...next, hiccup, hiccupsShown: next.hiccupsShown + (hiccup && !next.hiccup ? 1 : 0),
-          hiccupUnaided: false, oops: current.oops ?? defaultOops(current.fieldKind), currentEvent: { ...next.currentEvent, wrongAttempts } };
+        const shown = current.hiccup?.when === 'wrong' && wrongAttempts === 1 ? showHiccup(next, current.hiccup.id) : next;
+        return { ...shown,
+          oops: current.oops ?? defaultOops(current.fieldKind), currentEvent: { ...next.currentEvent, wrongAttempts } };
       }
       const event = { ...next.currentEvent, completed: true, ts: action.now };
       const saved = saveCurrent(next, event);
@@ -135,26 +150,32 @@ export function reduce(state: RunState, action: Action, now = 0): RunState {
       const next = withAction(state, action.now);
       const event = { ...next.currentEvent, stuckTaps: next.currentEvent.stuckTaps + 1 };
       const saved = saveCurrent(next, event);
-      return next.stepIndex > 0 ? enter({ ...saved, previousInputs: { ...saved.previousInputs, [step(next).id]: next.input } }, next.stepIndex - 1, action.now) : saved;
+      return next.stepIndex > 0 ? enter({ ...saved, previousInputs: { ...saved.previousInputs, [step(next).id]: next.input } }, next.stepIndex - 1, action.now)
+        : { ...next, hiccupUnaided: false, currentEvent: event };
     }
     case 'undo': {
       const next = withAction(state, action.now);
-      const value = next.previousInputs[step(next).id] ?? '';
-      return { ...next, input: value, canUndo: false, currentEvent: { ...next.currentEvent, undoTaps: next.currentEvent.undoTaps + 1 } };
+      if (!next.canUndo) return next;
+      return { ...next, input: next.undoInput ?? '', undoInput: null, canUndo: false, currentEvent: { ...next.currentEvent, undoTaps: next.currentEvent.undoTaps + 1 } };
     }
     case 'reveal': {
       const next = withAction(state, action.now);
       const current = step(next);
-      const answer = current.example ?? '';
-      return { ...next, input: answer, currentEvent: { ...next.currentEvent, revealedAnswer: true }, hiccupUnaided: false };
+      const persona = next.lesson.persona;
+      const answers: Record<string, string> = { name: persona.name, father: persona.father,
+        dob: persona.dob, id: persona.idNumber, phone: persona.phone, city: persona.city, domicile: persona.domicile };
+      const answer = current.choices?.find((choice) => choice.correct)?.id
+        ?? answers[current.id] ?? current.example ?? '';
+      return { ...next, input: answer, undoInput: next.input, canUndo: answer !== next.input,
+        currentEvent: { ...next.currentEvent, revealedAnswer: true } };
     }
     case 'backPressed':
-      return state.stepIndex > 0
-        ? { ...state, hiccup: 'back_fear', hiccupsShown: state.hiccupsShown + 1, hiccupUnaided: true }
+      return state.stepIndex > 0 && !state.hiccup
+        ? showHiccup(withAction(state, now), 'back_fear')
         : state;
     case 'exit': {
       const next = withAction(state, action.now);
-      return saveCurrent(next, { ...next.currentEvent, exited: true, ts: action.now });
+      return { ...saveCurrent(next, { ...next.currentEvent, exited: true, ts: action.now }), exited: true };
     }
   }
 }

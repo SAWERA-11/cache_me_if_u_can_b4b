@@ -3,11 +3,27 @@
 ## Setup
 
 Work directory: nested cache_me_if_u_can_b4b app directory containing package.json.
-Windows: Node v24.11.0, npm 11.20.0, Java 21, EAS CLI 24.14.0 are installed. EAS authentication and access to the configured team were confirmed. app.json already contains an EAS project link; no init or relink is needed. Android adb is not on PATH. npm install --package-lock=false completed successfully, installing 574 declared/transitive packages. npm reported 14 audit findings; no automatic dependency upgrades were applied.
+Windows: Node v24.11.0, npm 11.20.0, Java 21 and EAS CLI 24.14.0 are installed. EAS authentication and team access were confirmed earlier. The EAS project is already linked in app.json. adb is not on PATH. GitHub has no published releases/tags as of this check. Latest main commit 15da65c was fast-forwarded into Maaz's branch without conflicts. App npm ci installed 804 packages; server npm ci installed 70 packages. Dependency declarations/lockfiles were not edited.
 
-Validation on 2026-10-31: generated JavaScript syntax passed. `node src/guide/test/run.cjs` passed all 10 automated desktop checks in installed Microsoft Edge: map count, password safety, code safety, name classification, required check, no typed sentinel in messages, jargon wrapping, jargon message, dynamically added card protection, disabled cleanup. Sensitive field value getters deliberately throw if accessed. The runner regenerates lens.js and uses temporary browser profiles, without adding packages. Set MASHQ_TEST_BROWSER to override the Edge executable path. These are desktop tests, not Android WebView evidence.
+Validation on 2026-10-31:
 
-Strict isolated typecheck passed for lens.ts, dictionary.ts and both bundled form modules. Full `tsc --noEmit` remains blocked by the missing modules/dependency listed in bugs.md and consequent inferred callback types. `expo lint` was attempted; Expo tried to bootstrap absent ESLint dependencies automatically. It was stopped and its package.json additions reverted. Lint remains unverified until Anas supplies ESLint configuration and packages. No package declarations were intentionally changed.
+| Check | Actual result |
+|---|---|
+| Guide fixture in Microsoft Edge | 11 checks pass, including injection with a password already focused |
+| Actual bundled services and wallet HTML | Both pass map, safety, required check, payload privacy, local submit and cleanup smoke checks |
+| Native message bridge (isolated mocks) | Valid identifiers/kinds accepted; malformed, unknown and sensitive payloads ignored; extra page data not forwarded |
+| Ahmer validators, runner and estimate fixtures | All three suites pass |
+| Ahmer helper matcher fixtures | Pass; this is not the real-content 20-question acceptance test |
+| Local optional server without key | Empty/secret-like queries rejected with 400; ordinary uncached query returns 503; 31st valid request returns 429 |
+| Expo dependency compatibility | npx expo install --check passes |
+| Common credential-pattern scan | No matches in tracked text sources; no plain .env tracked; .env ignore gap filed as BUG-6 |
+| Full strict typecheck | Blocked by missing WebView, content index and audio map |
+| Full lint | Blocked by those imports plus Ahmer's useRunner render-purity error; Maaz's other lint findings corrected |
+| Native device/public WebView/build/release | Not run; integration gates remain open |
+
+Commands: node src/guide/test/run.cjs; node src/guide/test/forms.test.cjs; node src/guide/test/bridge.test.cjs; node src/helper/__tests__/matcher.test.cjs; npx tsc --noEmit; npm run lint. Engine TS fixtures were executed with an in-memory TypeScript transpilation hook, without modifying their source or adding packages. Guide browser runners use temporary Edge profiles; set MASHQ_TEST_BROWSER to override the executable path. Generated lens.js is refreshed by run.cjs. These results are desktop/fixture evidence, not Android evidence.
+
+Maaz-only ESLint check passes with import/no-unresolved temporarily disabled on the command line to separate the known missing WebView dependency from code lint issues; no lint rules/configuration were changed. Strict isolated typecheck of the dictionary, injected script and bundled form modules also passes.
 
 ## Desktop test
 
@@ -15,7 +31,7 @@ Open src/guide/test/page.html in Chrome, open Developer Tools Console, and paste
 
 ## Safety review
 
-The only injected-script .value access is `el.value.length === 0` in lens.ts:101 checkFields, after sensitive reclassification and visibility/required checks at line 95. It produces a boolean only. Password/PIN/code/card detection precedes other field kinds at line 55. No input innerText reads, autofill or field writes occur in the injected script. Label/legend text is read locally for classification and jargon matching; it is never posted. Local missing-field labels are shown only inside the page. Protocol sends are at lines 34, 37, 81, 88, 90, 105 and 131.
+The only injected-script .value access is `el.value.length === 0` in lens.ts:105 checkFields, after sensitive reclassification and visibility/required checks at line 100. It produces a boolean only. Password/PIN/code/card detection precedes other field kinds at line 57. No input innerText reads, autofill or field writes occur in the injected script. Label/legend text is read locally for classification and jargon matching; it is never posted. Local missing-field labels are shown only inside the page. Protocol sends are at lines 36, 39, 83, 92, 94, 109 and 135.
 
 Outgoing messages contain fixed types and kinds, dictionary identifiers, counts, or the page origin/path. Query strings and fragments are excluded from GUIDE_READY URLs. The native bridge ignores READY, CHECK_RESULT and SENSITIVE_FOCUS and validates the accepted identifier/kind payloads. It never stores messages. Bundled mock forms separately read their own phone input to simulate validation; this is not Guide inspection and no network submission occurs.
 
@@ -31,8 +47,8 @@ The website itself can still receive information you enter or submit.
 
 | URL | Bar on focus | Form map | Safety card | Check button | Jargon underline | Notes |
 |---|---|---|---|---|---|---|
-| Bundled services form | Pending phone | Pending phone | Pending phone | Pending phone | Pending phone | Desktop fixture available |
-| Bundled wallet form | Pending | Pending | Pending | Pending | Pending | No external requests |
+| Bundled services form | Pending phone | Pending phone | Pending phone | Pending phone | Pending phone | Desktop fixture and actual bundled form pass |
+| Bundled wallet form | Pending phone | Pending phone | Pending phone | Pending phone | Pending phone | Actual bundled form passes desktop smoke checks |
 | <public URL 1> | Not run | Not run | Not run | Not run | Not run | Populate PUBLIC_FORMS after tests |
 | <public URL 2> | Not run | Not run | Not run | Not run | Not run | Do not submit personal information |
 
@@ -64,4 +80,4 @@ Run twice: afternoon build and final APK. Record phone model, Android version, b
 
 ## Release checklist — not completed
 
-Resolve docs/bugs.md, install declared dependencies, run strict typecheck and lint; build preview APK; install on a real phone; complete matrix twice including a clean second phone; record final commit/time; prepare release tag v1.0-submission and attach APK; verify public repo/history and secret exclusions; verify <2 minute video in private window; add release QR; submit registered team on Hackathon Hub with screenshots and timestamped confirmation. Server deployment requires Ahmer's server and a hosting account/key, neither supplied here.
+Resolve docs/bugs.md, install declared dependencies, run strict typecheck and lint; build preview APK; install on a real phone; complete matrix twice including a clean second phone; record final commit/time; prepare release tag v1.0-submission and attach APK; verify public repo/history and secret exclusions; verify <2 minute video in private window; add release QR; submit registered team on Hackathon Hub with screenshots and timestamped confirmation. Ahmer's server is now present and its no-key local smoke tests pass. Deployment still needs a hosting account and, for live search, a YouTube API key. Neither was supplied; no server was deployed and no external release/submission was published.

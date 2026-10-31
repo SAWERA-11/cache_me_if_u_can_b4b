@@ -5,6 +5,8 @@ export function buildLens(lang: 'ur' | 'en'): string {
 }
 
 const SCRIPT = String.raw`
+/* eslint-disable no-var -- The injected script must remain ES5-style JavaScript. */
+/* eslint-disable no-unused-expressions -- WebView injection must finish with true. */
 (function () {
   if (window.__mashq && window.__mashq.active) return;
   var dict = __DICT__;
@@ -13,7 +15,7 @@ const SCRIPT = String.raw`
   function post(type, payload) {
     var msg = { type: type }, key;
     for (key in payload) if (Object.prototype.hasOwnProperty.call(payload, key)) msg[key] = payload[key];
-    try { window.ReactNativeWebView.postMessage(JSON.stringify(msg)); } catch (ignore) {}
+    try { window.ReactNativeWebView.postMessage(JSON.stringify(msg)); } catch (_ignore) {}
   }
   function style(el, props) { for (var key in props) el.style[key] = props[key]; return el; }
   var host = style(document.createElement('div'), { position: 'fixed', insetInlineStart: '0', bottom: '0', width: '100%', zIndex: '2147483647' });
@@ -80,6 +82,8 @@ const SCRIPT = String.raw`
       show(dict.ui.mapTitle + ': ' + state.fields.length + ' ' + dict.ui.boxes + ', ' + count + ' ' + dict.ui.required + (file ? '. ' + dict.ui.needFile : ''), dict.ui.mapAudio, false);
       post('GUIDE_READY', { url: url, fieldCount: state.fields.length, requiredCount: count });
     }
+    var active = document.activeElement;
+    if (active && /^(INPUT|SELECT|TEXTAREA)$/.test(active.tagName) && kind(active, label(active)) === 'sensitive') focus({ target: active });
   }
   function focus(event) {
     var el = event.target;
@@ -112,9 +116,9 @@ const SCRIPT = String.raw`
       while ((node = walker.nextNode())) nodes.push(node);
       nodes.some(function (textNode) {
         return dict.glossary.some(function (term) {
-          var match; try { match = new RegExp(term.pattern, 'i').exec(textNode.nodeValue); } catch (ignore) { return false; }
+          var match; try { match = new RegExp(term.pattern, 'i').exec(textNode.nodeValue); } catch (_ignore) { return false; }
           if (!match || !match[0]) return false;
-          var tail = textNode.splitText(match.index), after = tail.splitText(match[0].length);
+          var tail = textNode.splitText(match.index); tail.splitText(match[0].length);
           var span = style(document.createElement('span'), { textDecoration: 'underline dotted', cursor: 'pointer', display: 'inline-block', minHeight: '56px' });
           span.setAttribute('data-mashq-jargon', term.id); span.setAttribute('role', 'button'); span.tabIndex = 0;
           span.textContent = tail.nodeValue;
