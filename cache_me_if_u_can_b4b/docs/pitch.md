@@ -9,12 +9,7 @@ No numbers in this deck unless they come from our own conversations (see `docs/i
 
 **Message:** Our parents avoid online forms because they fear breaking something or looking foolish.
 
-Visual: one quote card from `docs/interviews.md`. **Use a quote only if that person gave permission.** If nobody did, show the line without a quote: "She is not slow. The technology speaks a language she was never taught."
-
-> TODO(content): permission to quote is not recorded for either conversation yet. Once confirmed, candidate lines (no organisation names):
-> - Relative 1: "It feels very frustrating because I remain completely dependent on them. Next time the issue happens, I have to ask all over again."
-> - Relative 2: "They just do it for me because they say explaining it takes too long. It makes me feel helpless."
-> Without permission, use the unquoted line above.
+Visual: a plain line card, not a quote (neither relative gave permission to be quoted): "They are not slow. The technology speaks a language they were never taught."
 
 Speaker notes:
 - We spoke to our own parents and grandparents this morning.
@@ -29,7 +24,7 @@ Speaker notes:
 
 - Fear of making a mistake that cannot be undone
 - Fear of looking foolish in front of family
-- Words they were never taught ("Verify OTP", "Clear Cache", "Allow Access", "Storage Full": their exact words)
+- Words they were never taught (Verify OTP, Clear Cache, Allow Access, Storage Full: words the relatives we called named)
 - No safe place to practise
 - Help that does the task for them instead of teaching
 
@@ -109,11 +104,11 @@ Speaker notes:
 
 ## Demo video script (2 minutes maximum)
 
-Recorded by Maaz or whoever is free. Every spoken line is a draft; the 0:00 line must be a real quote with permission, otherwise use the unquoted version.
+Recorded by Maaz or whoever is free. Every spoken line is our own narration: neither relative gave permission to be quoted, so do not use their words or voices.
 
 | Time | Show | Say (draft) |
 |---|---|---|
-| 0:00 – 0:15 | A parent, a form, a worried face (or a quote card) | "My mother avoids forms because she is afraid of breaking something. She is not slow. The technology speaks a language she was never taught." (real line, with permission) |
+| 0:00 – 0:15 | A form on a phone and a line card (no real person's face) | "Our parents avoid online forms because they are afraid of breaking something. They are not slow. The technology speaks a language they were never taught." |
 | 0:15 – 0:30 | Home, open Lesson 1, the PRACTICE banner | "Mashq is a private practice phone. Nothing is real, so a mistake cannot hurt." |
 | 0:30 – 1:05 | A field screen with four help layers; a wrong date and the Oops card | "She copies from the ID card. A wrong tap never blocks her. The app shows what would happen and the fix." |
 | 1:05 – 1:25 | A hiccup and the Teach moment | "Real forms surprise her, so we plant the surprises and teach one calm habit." |
@@ -124,4 +119,4 @@ Recorded by Maaz or whoever is free. Every spoken line is a draft; the 0:00 line
 
 ## Audio disclosure (for Maaz, README)
 
-Urdu voice clips were generated with the unofficial edge-tts tool (Microsoft Edge online text-to-speech), voice `ur-PK-UzmaNeural`, on 31 October 2026. Fallback route: gTTS (lang `ur`). All clips are drafts pending native-speaker review (`content/review-status.txt`).
+Urdu voice clips were generated with the unofficial edge-tts tool (Microsoft Edge online text-to-speech), voice `ur-PK-UzmaNeural`, on 31 October 2026. Fallback route: gTTS (lang `ur`). The 71 priority lines (safety lines, hiccup habits, Lesson 1 questions, main buttons) were reviewed and approved by a native Urdu speaker; the remaining clips are drafts (`content/review-status.txt`).
