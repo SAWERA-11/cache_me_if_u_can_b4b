@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { KB, LESSON1, LESSONS, STRINGS, VIDEOS } from '../../content';
+import { KB, LESSON1, LESSON_DELIVERY, LESSONS, STRINGS, VIDEOS } from '../../content';
 import { matchChip, matchQuestion } from '../../helper/matcher';
 import { createInitialState, reduce, type Action } from '../runner';
 import { buildResult, scoredEvents } from '../estimate';
@@ -80,4 +80,19 @@ assert.equal(supported.shown.size, 8);
 assert.equal(supported.result.hiccupsShown, 8);
 assert.equal(play('revealed').result.rung, 0);
 assert.ok(VIDEOS.length > 0);
-console.log(`realContent.test.ts passed (${matches}/20 KB matches, bilingual chips, follow-ups, real lesson rungs 2/1/0, 8 hiccups)`);
+
+// The delivery lesson finishes on the same engine, with every field solvable by its correct choice or example.
+assert.equal(LESSONS[LESSON_DELIVERY.id], LESSON_DELIVERY);
+let delivery = createInitialState(LESSON_DELIVERY, 0, 100);
+for (let clock = 100, i = 0; !delivery.done; clock += 10, i++) {
+  assert.ok(i < 40, 'delivery lesson did not finish');
+  if (delivery.hiccup) delivery = reduce(delivery, { type: 'resolveHiccup' }, clock);
+  const step = delivery.lesson.steps[delivery.stepIndex];
+  if (step.kind === 'field') {
+    delivery = reduce(delivery, { type: 'setInput', value: step.choices?.find((c) => c.correct)?.id ?? step.example ?? '' }, clock);
+  }
+  delivery = reduce(delivery, { type: 'submit', now: clock }, clock);
+  assert.equal(delivery.oops, null, `delivery step ${step.id} rejected its own answer`);
+}
+assert.equal(buildResult(scoredEvents(delivery.events, LESSON_DELIVERY), [], delivery.hiccupsShown, delivery.hiccupsRecovered).rung, 2);
+console.log(`realContent.test.ts passed (${matches}/20 KB matches, bilingual chips, follow-ups, real lesson rungs 2/1/0, 8 hiccups, delivery lesson)`);

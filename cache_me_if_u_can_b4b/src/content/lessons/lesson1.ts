@@ -1,7 +1,7 @@
 import type { Lesson, Persona } from '../../engine/types';
 
 // Fictional Practice Person. Not a real person, not a real ID number.
-const PERSONA: Persona = {
+export const PERSONA: Persona = {
   name: 'Bashir Ahmed',
   father: 'Nazir Ahmed',
   dobWords: '7 March 1958',
