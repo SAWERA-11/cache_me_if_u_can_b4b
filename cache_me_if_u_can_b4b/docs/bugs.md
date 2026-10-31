@@ -9,7 +9,7 @@
 | BUG-5 | Ahmer | major | Open: useRunner render-purity lint error |
 | BUG-6 | Anas | major | Open: plain .env files are not ignored |
 | BUG-7 | Ahmer | minor | Open: server README .env setup is not loaded by npm start |
-| BUG-8 | Maaz | major | Open: WebView JSX props typecheck fails after dependency installation |
+| BUG-8 | Maaz | major | Resolved: explicit WebView<object> generic; Guide compiler error cleared |
 
 ## BUG-1 | owner: Anas | severity: blocker
 Where: package.json / Guide screen.
@@ -71,7 +71,7 @@ Screenshot: Not applicable.
 Where: app/guide.tsx:46.
 Steps: 1) Merge ba72738. 2) Run npm ci, then npx tsc --noEmit.
 Expected: Guide WebView props typecheck with installed react-native-webview 14.0.1.
-Actual: TS2769 reports WebView props as never. Diagnose the WebView/React Native type integration and resolve in Maaz's code where possible; coordinate with Anas if dependency or shared configuration changes are required.
+Actual: Resolved in Maaz?s screen by explicitly supplying WebView<object> for the component and ref. The installed 14.0.1 declaration defaults P to undefined and intersects WebViewProps & P, yielding never in strict mode. Full typecheck now reports only absent content/audio imports in teammates? modules. No dependency or shared contract was changed.
 Phone/build: Windows source check after npm ci installed 811 packages.
 Screenshot: Not applicable; compiler output.
 
@@ -109,10 +109,11 @@ This is repository evidence as of 2026-10-31, not a claim about unpublished work
 
 ### Maaz
 
-- [ ] Resolve the newly exposed WebView JSX props typecheck failure (BUG-8); this is now visible because Anas supplied the dependency.
+- [x] Resolve the WebView JSX props typecheck failure (BUG-8).
 
 - [ ] Wire the Guide dictionary to Savera's actual GUIDE_TEXT/GLOSSARY when they arrive; verify audio IDs.
-- [ ] Recheck native Guide after Anas registers the route and replaces fake store/event bus; run both bundled forms and at least two public forms, including sensitive fields and Guide-off cleanup.
+- [x] Desktop safety/behavior tests pass for both bundled forms and two public demo forms; public shortcuts added.
+- [ ] Recheck native Guide after Anas registers the route and replaces fake store/event bus; repeat both bundled forms and public forms on Android, including sensitive fields and Guide-off cleanup.
 - [ ] Run the complete real-phone matrix twice, including offline, largest text, Urdu/RTL, helper, all hiccups, reset and Android back. Record actual phone/build evidence and file owner-specific bugs.
 - [ ] Build the first usable preview APK, then the final APK after integration checks; validate a clean installation on a second phone.
 - [ ] Optionally deploy the server with a hosting account/key and give Ahmer the URL; local no-key smoke tests already pass.

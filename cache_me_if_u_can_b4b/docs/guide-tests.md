@@ -3,7 +3,7 @@
 ## Setup
 
 Work directory: nested cache_me_if_u_can_b4b app directory containing package.json.
-Windows: Node v24.11.0, npm 11.20.0, Java 21 and EAS CLI 24.14.0 are installed. EAS authentication and team access were confirmed earlier. The EAS project is already linked in app.json. adb is not on PATH. GitHub has no published releases/tags as of this check. Latest main commit 15da65c was fast-forwarded into Maaz's branch without conflicts. App npm ci installed 804 packages; server npm ci installed 70 packages. Dependency declarations/lockfiles were not edited.
+Windows: Node v24.11.0, npm 11.20.0, Java 21 and EAS CLI 24.14.0 are installed. EAS authentication and team access were confirmed earlier. The EAS project is already linked in app.json. Android SDK platform-tools and emulator exist under %LOCALAPPDATA%/Android/Sdk (not on PATH). WHPX acceleration is usable. No physical Android device is attached. GitHub has no published releases/tags as of this check. Latest frontend main commit ba72738 was merged into Maaz's branch without conflicts. App npm ci installed 811 packages; server npm ci installed 70 packages. Dependency declarations/lockfiles were not edited.
 
 Validation on 2026-10-31:
 
@@ -17,13 +17,16 @@ Validation on 2026-10-31:
 | Local optional server without key | Empty/secret-like queries rejected with 400; ordinary uncached query returns 503; 31st valid request returns 429 |
 | Expo dependency compatibility | npx expo install --check passes |
 | Common credential-pattern scan | No matches in tracked text sources; no plain .env tracked; .env ignore gap filed as BUG-6 |
-| Full strict typecheck | Blocked by missing WebView, content index and audio map |
+| Maaz lint | npx eslint app/guide.tsx src/guide src/forms passes without disabling any rule |
+| Android JS/Hermes bundle export | npx expo export --platform android passes for the currently routed frontend; Guide is not registered yet |
+| Public forms in desktop Edge | Selenium and httpbin maps/focus/check/off/reinjection pass; Selenium password safety passes |
+| Full strict typecheck | Guide WebView typing fixed; remaining failures are absent content index and audio map in shared modules |
 | Full lint | Blocked by those imports plus Ahmer's useRunner render-purity error; Maaz's other lint findings corrected |
 | Native device/public WebView/build/release | Not run; integration gates remain open |
 
 Commands: node src/guide/test/run.cjs; node src/guide/test/forms.test.cjs; node src/guide/test/bridge.test.cjs; node src/helper/__tests__/matcher.test.cjs; npx tsc --noEmit; npm run lint. Engine TS fixtures were executed with an in-memory TypeScript transpilation hook, without modifying their source or adding packages. Guide browser runners use temporary Edge profiles; set MASHQ_TEST_BROWSER to override the executable path. Generated lens.js is refreshed by run.cjs. These results are desktop/fixture evidence, not Android evidence.
 
-Maaz-only ESLint check passes with import/no-unresolved temporarily disabled on the command line to separate the known missing WebView dependency from code lint issues; no lint rules/configuration were changed. Strict isolated typecheck of the dictionary, injected script and bundled form modules also passes.
+Maaz-only ESLint now passes with every configured rule enabled. The WebView JSX error was fixed by explicitly supplying its extra-props generic as object; no dependency or shared configuration was changed. Strict isolated typecheck of the dictionary, injected script and bundled form modules also passes.
 
 ## Desktop test
 
@@ -49,8 +52,10 @@ The website itself can still receive information you enter or submit.
 |---|---|---|---|---|---|---|
 | Bundled services form | Pending phone | Pending phone | Pending phone | Pending phone | Pending phone | Desktop fixture and actual bundled form pass |
 | Bundled wallet form | Pending phone | Pending phone | Pending phone | Pending phone | Pending phone | Actual bundled form passes desktop smoke checks |
-| <public URL 1> | Not run | Not run | Not run | Not run | Not run | Populate PUBLIC_FORMS after tests |
-| <public URL 2> | Not run | Not run | Not run | Not run | Not run | Do not submit personal information |
+| https://www.selenium.dev/selenium/web/web-form.html | Yes, desktop | Yes, 14 fields | Yes, password | Yes, desktop | N/A: no placeholder term | Cleanup and double reinjection pass; no typing/submission; Android pending |
+| https://httpbin.org/forms/post | Yes, desktop | Yes, 12 fields | N/A: no sensitive field | Yes, desktop | N/A: no placeholder term | Cleanup and double reinjection pass; no typing/submission; Android pending |
+
+Public test command: node src/guide/test/public-forms.test.cjs. It navigates real public demo pages using Edge DevTools, injects the actual Guide script, focuses boxes and checks emptiness. It never types, uploads or submits. Both URLs are now PUBLIC_FORMS shortcuts, with native acceptance explicitly pending. Jargon behavior is covered on the bundled fixture containing Domicile.
 
 Limitations: standard fields only; custom widgets, iframe forms, some single-page sites and restrictive page security rules may fail. Some sites block sign-in inside embedded browsers. Cross-origin iframe contents are not inspected.
 
@@ -81,3 +86,7 @@ Run twice: afternoon build and final APK. Record phone model, Android version, b
 ## Release checklist — not completed
 
 Resolve docs/bugs.md, install declared dependencies, run strict typecheck and lint; build preview APK; install on a real phone; complete matrix twice including a clean second phone; record final commit/time; prepare release tag v1.0-submission and attach APK; verify public repo/history and secret exclusions; verify <2 minute video in private window; add release QR; submit registered team on Hackathon Hub with screenshots and timestamped confirmation. Ahmer's server is now present and its no-key local smoke tests pass. Deployment still needs a hosting account and, for live search, a YouTube API key. Neither was supplied; no server was deployed and no external release/submission was published.
+
+## First EAS preview build
+
+Build a4e0e235-2805-49da-bcea-059fd6a1a0c1 was submitted to EAS on 2026-10-31 at 09:25 UTC (14:25 PKT), with preview/internal APK profile. EAS created the remote signing keystore successfully. Build dashboard: https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/a4e0e235-2805-49da-bcea-059fd6a1a0c1. This is an early frontend preview using fake wiring, not the final submission. EAS records base commit 5cb3d49; its uploaded working-tree snapshot also includes Maaz?s WebView fix and public-form shortcuts. Final submission commit must be recorded on a clean, fully integrated build.

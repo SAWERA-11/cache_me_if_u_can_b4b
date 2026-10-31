@@ -9,8 +9,11 @@ import { handleGuideMessage } from '../src/guide/bridge';
 import { buildLens } from '../src/guide/lens';
 import { useApp } from '../src/store/useApp';
 
-// TODO: Maaz must supply URLs after actual Android WebView tests. Do not claim desktop results as phone results.
-export const PUBLIC_FORMS: { label: string; url: string }[] = [];
+// Desktop-tested demo forms; Android WebView acceptance is still pending.
+export const PUBLIC_FORMS: { label: string; url: string }[] = [
+  { label: 'Demo web form', url: 'https://www.selenium.dev/selenium/web/web-form.html' },
+  { label: 'Demo contact fields', url: 'https://httpbin.org/forms/post' },
+];
 const OFF = "window.__mashq && window.__mashq.receive({type:'SET_GUIDE',on:false}); true;";
 
 function GuideButton({ label, onPress }: { label: string; onPress: () => void }) {
@@ -18,7 +21,9 @@ function GuideButton({ label, onPress }: { label: string; onPress: () => void })
 }
 
 export default function GuideScreen() {
-  const ref = useRef<WebView>(null);
+  // WebView 14 defaults its extra-props generic to undefined, which intersects
+  // with its declared props as never in strict TypeScript. Use object explicitly.
+  const ref = useRef<WebView<object>>(null);
   const guideOn = useApp(state => state.guideOn);
   const language = useApp(state => state.language);
   const [ready, setReady] = useState(false);
@@ -43,7 +48,7 @@ export default function GuideScreen() {
       <GuideButton label="Practice form 2" onPress={() => setSource({ html: WALLET_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
       {PUBLIC_FORMS.map(form => <GuideButton key={form.url} label={form.label} onPress={() => setSource({ uri: form.url })} />)}
     </ScrollView>
-    <WebView ref={ref} style={styles.web} source={source} originWhitelist={['*']} javaScriptEnabled domStorageEnabled setSupportMultipleWindows={false} incognito
+    <WebView<object> ref={ref} style={styles.web} source={source} originWhitelist={['*']} javaScriptEnabled domStorageEnabled setSupportMultipleWindows={false} incognito
       injectedJavaScript={enabled ? buildLens(language) : 'true;'}
       onLoadEnd={() => setReady(true)}
       onMessage={(event: { nativeEvent: { data: string } }) => { if (enabled) handleGuideMessage(event.nativeEvent.data); }}
