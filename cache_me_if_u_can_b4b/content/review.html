@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mashq: Urdu review (priority lines)</title>
+<style>
+@font-face { font-family: 'Naskh'; src: url('../assets/fonts/NotoNaskhArabic-Regular.ttf'); }
+body { font-family: system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 16px 16px 120px; background: #faf8f4; color: #1d1d1d; }
+h1 { font-size: 24px; } h2 { margin-top: 36px; font-size: 20px; border-bottom: 2px solid #ddd; padding-bottom: 6px; }
+.help { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 12px 16px; line-height: 1.6; }
+.item { background: #fff; border: 2px solid #e2e2e2; border-radius: 12px; padding: 14px 16px; margin: 14px 0; }
+.item.approved { border-color: #2e7d32; background: #f1f8f2; }
+.item.needsfix { border-color: #b26a00; background: #fff8ec; }
+.meta { font-size: 13px; color: #777; }
+.ur { font-family: 'Naskh', 'Noto Naskh Arabic', 'Segoe UI', serif; font-size: 28px; line-height: 1.9; margin: 6px 0; }
+.en { font-size: 17px; color: #444; margin-bottom: 8px; }
+.noaudio { font-size: 14px; color: #888; margin: 6px 0; }
+audio { width: 100%; margin: 6px 0; }
+.actions { display: flex; gap: 10px; margin-top: 8px; }
+.actions button { flex: 1; min-height: 52px; font-size: 18px; border-radius: 10px; border: 2px solid #999; background: #fff; cursor: pointer; }
+.item.approved .ok { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+.item.needsfix .fix { background: #b26a00; color: #fff; border-color: #b26a00; }
+.fixbox { display: none; margin-top: 10px; }
+.item.needsfix .fixbox { display: block; }
+.fixbox label { display: block; font-size: 14px; color: #555; margin-top: 8px; }
+textarea { width: 100%; box-sizing: border-box; font-size: 18px; padding: 8px; border-radius: 8px; border: 1px solid #bbb; margin-top: 4px; }
+textarea[dir=rtl] { font-family: 'Naskh', 'Noto Naskh Arabic', serif; font-size: 22px; }
+.bar { position: fixed; bottom: 0; left: 0; right: 0; background: #1d1d1d; color: #fff; padding: 12px 16px; display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.bar button { min-height: 44px; font-size: 16px; padding: 0 18px; border-radius: 8px; border: 0; cursor: pointer; }
+#out { width: 100%; max-width: 760px; display: none; direction: ltr; }
+</style>
+</head>
+<body>
+<h1>Mashq: Urdu review</h1>
+<div class="help">
+  <b>71 lines.</b> For each line: read the Urdu, press play if there is a clip, then press <b>Approve</b> or <b>Needs fix</b>.<br>
+  Check: respectful (آپ), no blame, no scary words, everyday words, numbers read correctly, no odd pauses, works for men and women.<br>
+  Your marks are saved in this browser. When done, press <b>Copy results</b> and paste them into the chat.
+</div>
+
+<h2>1. Safety lines</h2>
+
+<div class="item" data-id="safety_1">
+  <div class="meta">safety_1</div>
+  <div class="ur" dir="rtl" lang="ur">SMS سے آنے والا کوڈ کبھی کسی کو نہ بتائیں۔</div>
+  <div class="en">Never share a code that comes by SMS, with anyone.</div>
+  <audio controls preload="none" src="../assets/audio/safety_1.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="safety_2">
+  <div class="meta">safety_2</div>
+  <div class="ur" dir="rtl" lang="ur">اگر کوئی کال عجیب لگے تو فون بند کریں اور اپنے کارڈ پر لکھے سرکاری نمبر پر خود فون کریں۔</div>
+  <div class="en">If a call feels wrong, hang up and call the official number on your card.</div>
+  <audio controls preload="none" src="../assets/audio/safety_2.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="safety_3">
+  <div class="meta">safety_3</div>
+  <div class="ur" dir="rtl" lang="ur">ایسے انعام کا پیغام جس میں آپ نے حصہ ہی نہیں لیا، ایک چال ہے۔ آپ اسے بس مٹا سکتے ہیں۔</div>
+  <div class="en">A message about a prize you never entered is a trick. You can simply delete it.</div>
+  <audio controls preload="none" src="../assets/audio/safety_3.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="safety_4">
+  <div class="meta">safety_4</div>
+  <div class="ur" dir="rtl" lang="ur">بینک آپ کا پن کوڈ نہیں مانگتے۔ نہ فون پر، نہ پیغام میں۔</div>
+  <div class="en">Banks do not ask for your PIN. Not by phone, and not by message.</div>
+  <audio controls preload="none" src="../assets/audio/safety_4.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="safety_5">
+  <div class="meta">safety_5</div>
+  <div class="ur" dir="rtl" lang="ur">ٹیپ کرنے سے پہلے آپ ہمیشہ کسی بھروسے والے شخص سے پوچھ سکتے ہیں۔</div>
+  <div class="en">You can always ask someone you trust before you tap.</div>
+  <audio controls preload="none" src="../assets/audio/safety_5.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="safety_6">
+  <div class="meta">safety_6</div>
+  <div class="ur" dir="rtl" lang="ur">رک جانا اور بعد میں واپس آنا بالکل ٹھیک ہے۔</div>
+  <div class="en">It is okay to stop and come back later.</div>
+  <audio controls preload="none" src="../assets/audio/safety_6.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<h2>2. Hiccup habits (one calm habit for each surprise)</h2>
+
+<div class="item" data-id="h_vague_error">
+  <div class="meta">h_vague_error</div>
+  <div class="ur" dir="rtl" lang="ur">سرخ الفاظ پڑھیں۔ وہ بتاتے ہیں کہ کون سا خانہ ٹھیک کرنا ہے۔</div>
+  <div class="en">Read the red words. They point to the box to fix.</div>
+  <audio controls preload="none" src="../assets/audio/h_vague_error.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="h_wrong_format">
+  <div class="meta">h_wrong_format</div>
+  <div class="ur" dir="rtl" lang="ur">سرمئی مثال کی شکل میں لکھیں۔</div>
+  <div class="en">Copy the shape of the grey example.</div>
+  <audio controls preload="none" src="../assets/audio/h_wrong_format.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="h_unknown_word">
+  <div class="meta">h_unknown_word</div>
+  <div class="ur" dir="rtl" lang="ur">کسی لفظ کا مطلب دیکھنے کے لیے سوالیہ نشان پر ٹیپ کریں۔</div>
+  <div class="en">Tap the question mark to see what a word means.</div>
+  <audio controls preload="none" src="../assets/audio/h_unknown_word.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="h_find_answer">
+  <div class="meta">h_find_answer</div>
+  <div class="ur" dir="rtl" lang="ur">جواب اکثر کارڈ کی پچھلی طرف ہوتا ہے۔ &quot;یہ کہاں ہے&quot; پر ٹیپ کریں۔</div>
+  <div class="en">The answer is often on the back of the card. Tap Where it is.</div>
+  <audio controls preload="none" src="../assets/audio/h_find_answer.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="h_logged_out">
+  <div class="meta">h_logged_out</div>
+  <div class="ur" dir="rtl" lang="ur">اصلی فارم آپ کے جوابات کھو سکتے ہیں۔ اپنی معلومات تیار رکھیں اور دوبارہ لاگ اِن کریں۔ دوسری بار کام جلدی ہوتا ہے۔</div>
+  <div class="en">Real forms can lose your answers. Keep your details ready and log in again. The second time is faster.</div>
+  <audio controls preload="none" src="../assets/audio/h_logged_out.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="h_upload_rejected">
+  <div class="meta">h_upload_rejected</div>
+  <div class="ur" dir="rtl" lang="ur">دن کی روشنی میں، سیدھا رکھ کر، چاروں کونے دکھاتے ہوئے دوبارہ تصویر لیں۔</div>
+  <div class="en">Retake the photo in daylight, flat, with all four corners visible.</div>
+  <audio controls preload="none" src="../assets/audio/h_upload_rejected.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="h_verification_code">
+  <div class="meta">h_verification_code</div>
+  <div class="ur" dir="rtl" lang="ur">کوڈ صرف اسی ویب سائٹ پر لکھیں جہاں آپ نے کام شروع کیا تھا۔ فون کرنے والا کوئی بھی شخص یہ کوڈ کبھی نہ مانگے۔</div>
+  <div class="en">Type the code only on the site you started. Nobody who calls you should ever ask for it.</div>
+  <audio controls preload="none" src="../assets/audio/h_verification_code.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="h_back_fear">
+  <div class="meta">h_back_fear</div>
+  <div class="ur" dir="rtl" lang="ur">اگر فارم میں اپنا &quot;واپس&quot; کا بٹن ہو تو وہی استعمال کریں۔ آپ کے مشق والے جوابات محفوظ ہیں۔</div>
+  <div class="en">Use the form's own Back link when there is one. Your practice answers are saved.</div>
+  <audio controls preload="none" src="../assets/audio/h_back_fear.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<h2>3. Lesson 1: title, things to keep ready, and each question</h2>
+
+<div class="item" data-id="lesson_title">
+  <div class="meta">lesson_title</div>
+  <div class="ur" dir="rtl" lang="ur">سروس کارڈ کے لیے درخواست دیں</div>
+  <div class="en">Apply for a service card</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ready_1">
+  <div class="meta">ready_1</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کا شناختی کارڈ</div>
+  <div class="en">Your ID card</div>
+  <audio controls preload="none" src="../assets/audio/ready_1.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ready_2">
+  <div class="meta">ready_2</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کا فون نمبر</div>
+  <div class="en">Your phone number</div>
+  <audio controls preload="none" src="../assets/audio/ready_2.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ready_3">
+  <div class="meta">ready_3</div>
+  <div class="ur" dir="rtl" lang="ur">ایک صاف تصویر</div>
+  <div class="en">A clear photo</div>
+  <audio controls preload="none" src="../assets/audio/ready_3.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_ready">
+  <div class="meta">label_ready · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">شروع کرنے سے پہلے</div>
+  <div class="en">Before you start</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ready_asks">
+  <div class="meta">ready_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">یہ تین چیزیں اپنے پاس رکھیں۔</div>
+  <div class="en">Keep these three things near you.</div>
+  <audio controls preload="none" src="../assets/audio/ready_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_name">
+  <div class="meta">label_name · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">پورا نام</div>
+  <div class="en">Full name</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="name_asks">
+  <div class="meta">name_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کا پورا نام، جیسا شناختی کارڈ پر لکھا ہے۔</div>
+  <div class="en">Your full name as written on the ID card.</div>
+  <audio controls preload="none" src="../assets/audio/name_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_father">
+  <div class="meta">label_father · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">والد کا نام</div>
+  <div class="en">Father's name</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="father_asks">
+  <div class="meta">father_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کے والد کا نام، جیسا شناختی کارڈ پر لکھا ہے۔</div>
+  <div class="en">Your father's name as written on the ID card.</div>
+  <audio controls preload="none" src="../assets/audio/father_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_dob">
+  <div class="meta">label_dob · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">تاریخِ پیدائش</div>
+  <div class="en">Date of birth</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="dob_asks">
+  <div class="meta">dob_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کی تاریخِ پیدائش۔</div>
+  <div class="en">Your date of birth.</div>
+  <audio controls preload="none" src="../assets/audio/dob_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_id">
+  <div class="meta">label_id · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">شناختی کارڈ نمبر</div>
+  <div class="en">ID card number</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="id_asks">
+  <div class="meta">id_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کا 13 ہندسوں والا شناختی کارڈ نمبر۔</div>
+  <div class="en">Your 13-digit ID card number.</div>
+  <audio controls preload="none" src="../assets/audio/id_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_phone">
+  <div class="meta">label_phone · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">موبائل نمبر</div>
+  <div class="en">Mobile number</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="phone_asks">
+  <div class="meta">phone_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کا موبائل فون نمبر۔</div>
+  <div class="en">Your mobile phone number.</div>
+  <audio controls preload="none" src="../assets/audio/phone_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_city">
+  <div class="meta">label_city · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">شہر</div>
+  <div class="en">City</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="city_asks">
+  <div class="meta">city_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">کارڈ پر لکھا شہر چنیں۔</div>
+  <div class="en">Pick the city on the card.</div>
+  <audio controls preload="none" src="../assets/audio/city_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_domicile">
+  <div class="meta">label_domicile · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">ڈومیسائل</div>
+  <div class="en">Domicile</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="domicile_asks">
+  <div class="meta">domicile_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">اپنا ڈومیسائل والا صوبہ چنیں۔</div>
+  <div class="en">Pick your Domicile province.</div>
+  <audio controls preload="none" src="../assets/audio/domicile_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_session">
+  <div class="meta">label_session · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">سیشن</div>
+  <div class="en">Session</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="session_asks">
+  <div class="meta">session_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کا سیشن ختم ہو گیا ہے۔</div>
+  <div class="en">Your session has expired.</div>
+  <audio controls preload="none" src="../assets/audio/session_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_photo">
+  <div class="meta">label_photo · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">تصویر</div>
+  <div class="en">Photo</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="photo_asks">
+  <div class="meta">photo_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">فارم کے لیے سب سے اچھی تصویر چنیں۔</div>
+  <div class="en">Pick the best photo for the form.</div>
+  <audio controls preload="none" src="../assets/audio/photo_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_otp">
+  <div class="meta">label_otp · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">تصدیقی کوڈ</div>
+  <div class="en">Verification code</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="otp_asks">
+  <div class="meta">otp_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">مشق والے SMS میں آیا کوڈ لکھیں۔</div>
+  <div class="en">Type the code from the practice SMS.</div>
+  <audio controls preload="none" src="../assets/audio/otp_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_review">
+  <div class="meta">label_review · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">اپنے جوابات چیک کریں</div>
+  <div class="en">Check your answers</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="review_asks">
+  <div class="meta">review_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">ہر جواب ایک بار پھر آرام سے پڑھیں۔</div>
+  <div class="en">Read each answer once more, slowly.</div>
+  <audio controls preload="none" src="../assets/audio/review_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="label_submit">
+  <div class="meta">label_submit · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">جمع کرائیں</div>
+  <div class="en">Submit</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="submit_asks">
+  <div class="meta">submit_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">جب سب کچھ ٹھیک لگے تو &quot;جمع کرائیں&quot; پر ٹیپ کریں۔</div>
+  <div class="en">When everything looks right, tap Submit.</div>
+  <audio controls preload="none" src="../assets/audio/submit_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<h2>4. Main buttons and screen lines</h2>
+
+<div class="item" data-id="ui_start">
+  <div class="meta">ui_start</div>
+  <div class="ur" dir="rtl" lang="ur">شروع کریں</div>
+  <div class="en">Start</div>
+  <audio controls preload="none" src="../assets/audio/ui_start.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="str_next">
+  <div class="meta">str_next</div>
+  <div class="ur" dir="rtl" lang="ur">آگے</div>
+  <div class="en">Next</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="str_back">
+  <div class="meta">str_back</div>
+  <div class="ur" dir="rtl" lang="ur">پیچھے</div>
+  <div class="en">Back</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="str_try_again">
+  <div class="meta">str_try_again</div>
+  <div class="ur" dir="rtl" lang="ur">دوبارہ کوشش کریں</div>
+  <div class="en">Try again</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="str_got_it">
+  <div class="meta">str_got_it</div>
+  <div class="ur" dir="rtl" lang="ur">ٹھیک ہے</div>
+  <div class="en">Got it</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="str_listen">
+  <div class="meta">str_listen</div>
+  <div class="ur" dir="rtl" lang="ur">سنیں</div>
+  <div class="en">Listen</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="str_stuck">
+  <div class="meta">str_stuck</div>
+  <div class="ur" dir="rtl" lang="ur">مجھے مدد چاہیے</div>
+  <div class="en">I need help</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="str_helper">
+  <div class="meta">str_helper</div>
+  <div class="ur" dir="rtl" lang="ur">مددگار</div>
+  <div class="en">Helper</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="str_submit">
+  <div class="meta">str_submit</div>
+  <div class="ur" dir="rtl" lang="ur">جمع کرائیں</div>
+  <div class="en">Submit</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_practice_banner">
+  <div class="meta">ui_practice_banner</div>
+  <div class="ur" dir="rtl" lang="ur">مشق، یہاں کچھ بھی اصلی نہیں</div>
+  <div class="en">PRACTICE, nothing is real</div>
+  <audio controls preload="none" src="../assets/audio/ui_practice_banner.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_take_a_moment">
+  <div class="meta">ui_take_a_moment</div>
+  <div class="ur" dir="rtl" lang="ur">آرام سے۔ کوئی جلدی نہیں ہے۔</div>
+  <div class="en">Take a moment. There is no hurry.</div>
+  <audio controls preload="none" src="../assets/audio/ui_take_a_moment.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_layer_asks">
+  <div class="meta">ui_layer_asks</div>
+  <div class="ur" dir="rtl" lang="ur">یہ کیا پوچھ رہا ہے</div>
+  <div class="en">What it asks</div>
+  <audio controls preload="none" src="../assets/audio/ui_layer_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_layer_where">
+  <div class="meta">ui_layer_where</div>
+  <div class="ur" dir="rtl" lang="ur">یہ کہاں ہے</div>
+  <div class="en">Where it is</div>
+  <audio controls preload="none" src="../assets/audio/ui_layer_where.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_layer_format">
+  <div class="meta">ui_layer_format</div>
+  <div class="ur" dir="rtl" lang="ur">کیسے لکھیں</div>
+  <div class="en">How to write it</div>
+  <audio controls preload="none" src="../assets/audio/ui_layer_format.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_layer_unsure">
+  <div class="meta">ui_layer_unsure</div>
+  <div class="ur" dir="rtl" lang="ur">اگر یقین نہ ہو</div>
+  <div class="en">If you are unsure</div>
+  <audio controls preload="none" src="../assets/audio/ui_layer_unsure.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_oops_title">
+  <div class="meta">ui_oops_title</div>
+  <div class="ur" dir="rtl" lang="ur">اگر یہ اصلی فارم ہوتا</div>
+  <div class="en">If this were a real form</div>
+  <audio controls preload="none" src="../assets/audio/ui_oops_title.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_oops_fix">
+  <div class="meta">ui_oops_fix</div>
+  <div class="ur" dir="rtl" lang="ur">اسے ٹھیک کرنے کا طریقہ</div>
+  <div class="en">How to fix it</div>
+  <audio controls preload="none" src="../assets/audio/ui_oops_fix.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_session_expired">
+  <div class="meta">ui_session_expired</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کا سیشن ختم ہو گیا ہے</div>
+  <div class="en">Your session has expired</div>
+  <audio controls preload="none" src="../assets/audio/ui_session_expired.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_log_in_again">
+  <div class="meta">ui_log_in_again</div>
+  <div class="ur" dir="rtl" lang="ur">دوبارہ لاگ اِن کریں</div>
+  <div class="en">Log in again</div>
+  <audio controls preload="none" src="../assets/audio/ui_log_in_again.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_review_title">
+  <div class="meta">ui_review_title</div>
+  <div class="ur" dir="rtl" lang="ur">اپنے جوابات چیک کریں</div>
+  <div class="en">Check your answers</div>
+  <audio controls preload="none" src="../assets/audio/ui_review_title.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_consent_title">
+  <div class="meta">ui_consent_title</div>
+  <div class="ur" dir="rtl" lang="ur">شروع کرنے سے پہلے</div>
+  <div class="en">Before we begin</div>
+  <audio controls preload="none" src="../assets/audio/ui_consent_title.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_consent_line1">
+  <div class="meta">ui_consent_line1</div>
+  <div class="ur" dir="rtl" lang="ur">یہ مشق کی ایپ ہے۔ آپ جو کچھ لکھیں گے وہ کہیں نہیں بھیجا جاتا۔</div>
+  <div class="en">This is a practice app. Nothing you type is sent anywhere.</div>
+  <audio controls preload="none" src="../assets/audio/ui_consent_line1.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_consent_line2">
+  <div class="meta">ui_consent_line2</div>
+  <div class="ur" dir="rtl" lang="ur">اسباق میں دیا گیا شخص فرضی ہے۔ اسی کی معلومات استعمال کریں، اپنی نہیں۔</div>
+  <div class="en">The person in the lessons is made up. Use their details, not yours.</div>
+  <audio controls preload="none" src="../assets/audio/ui_consent_line2.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_consent_line3">
+  <div class="meta">ui_consent_line3</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کسی بھی وقت رک سکتے ہیں۔ آپ کی پیش رفت اسی فون پر رہتی ہے۔</div>
+  <div class="en">You can stop at any time. Your progress stays on this phone.</div>
+  <audio controls preload="none" src="../assets/audio/ui_consent_line3.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_rung_0">
+  <div class="meta">ui_rung_0</div>
+  <div class="ur" dir="rtl" lang="ur">رہنما ساتھ ہو تو</div>
+  <div class="en">With the guide beside me</div>
+  <audio controls preload="none" src="../assets/audio/ui_rung_0.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_rung_1">
+  <div class="meta">ui_rung_1</div>
+  <div class="ur" dir="rtl" lang="ur">تھوڑی سی مدد کے ساتھ</div>
+  <div class="en">With a little help</div>
+  <audio controls preload="none" src="../assets/audio/ui_rung_1.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ui_rung_2">
+  <div class="meta">ui_rung_2</div>
+  <div class="ur" dir="rtl" lang="ur">خود سے</div>
+  <div class="en">On my own</div>
+  <audio controls preload="none" src="../assets/audio/ui_rung_2.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="bar">
+  <span id="count"></span>
+  <button id="copy" type="button">Copy results</button>
+  <textarea id="out" rows="6" readonly></textarea>
+</div>
+<script>
+const KEY = 'mashq-review-v1';
+const state = JSON.parse(localStorage.getItem(KEY) || '{}');
+const items = [...document.querySelectorAll('.item')];
+function save() { localStorage.setItem(KEY, JSON.stringify(state)); render(); }
+function render() {
+  let done = 0;
+  for (const el of items) {
+    const s = state[el.dataset.id] || {};
+    el.classList.toggle('approved', s.mark === 'approved');
+    el.classList.toggle('needsfix', s.mark === 'needs-fix');
+    if (s.mark) done++;
+  }
+  document.getElementById('count').textContent = done + ' / ' + items.length + ' marked';
+}
+for (const el of items) {
+  const id = el.dataset.id;
+  const s = state[id] || {};
+  el.querySelector('.better').value = s.better || '';
+  el.querySelector('.why').value = s.why || '';
+  el.querySelector('.ok').onclick = () => { state[id] = { ...state[id], mark: 'approved' }; save(); };
+  el.querySelector('.fix').onclick = () => { state[id] = { ...state[id], mark: 'needs-fix' }; save(); };
+  el.querySelector('.better').oninput = (e) => { state[id] = { ...state[id], better: e.target.value }; save(); };
+  el.querySelector('.why').oninput = (e) => { state[id] = { ...state[id], why: e.target.value }; save(); };
+}
+document.getElementById('copy').onclick = async () => {
+  const lines = items.map((el) => {
+    const s = state[el.dataset.id] || {};
+    let line = el.dataset.id + ': ' + (s.mark || 'pending');
+    if (s.mark === 'needs-fix') line += ' | ur: ' + (s.better || '').trim() + ' | why: ' + (s.why || '').trim();
+    return line;
+  });
+  const text = lines.join('\n');
+  const out = document.getElementById('out');
+  out.value = text; out.style.display = 'block';
+  try { await navigator.clipboard.writeText(text); document.getElementById('copy').textContent = 'Copied'; }
+  catch { out.select(); }
+};
+render();
+</script>
+</body>
+</html>

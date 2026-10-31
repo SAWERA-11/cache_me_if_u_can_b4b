@@ -456,8 +456,8 @@ export const KB: KBEntry[] = [
       ur: 'اصلی بینک اور دفاتر کبھی فون پر آپ کا کوڈ نہیں مانگتے۔ کوڈ صرف اسی ویب سائٹ کے لیے ہے جو آپ استعمال کر رہے ہیں۔ فون بند کریں اور اپنے کارڈ پر لکھے سرکاری نمبر پر فون کریں۔', // TODO(UR-review)
     },
     tryNext: {
-      en: 'Say "I will call back", end the call, and dial the number on your card yourself.',
-      ur: 'کہیں "میں خود واپس فون کروں گا"، کال ختم کریں، اور کارڈ پر لکھا نمبر خود ملائیں۔', // TODO(UR-review)
+      en: 'End the call politely, then dial the number on your card yourself.',
+      ur: 'آرام سے کال ختم کریں، پھر کارڈ پر لکھا نمبر خود ملائیں۔', // TODO(UR-review)
     },
     audio: 'kb_caller_asks_code',
     chips: ['already_shared', 'check_if_real'],
