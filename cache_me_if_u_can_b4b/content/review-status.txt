@@ -245,3 +245,4 @@ str_guide_privacy_2: approved
 str_guide_privacy_3: approved
 str_guide_privacy_4: approved
 str_guide_privacy_5: approved
+str_practice_form_3: approved

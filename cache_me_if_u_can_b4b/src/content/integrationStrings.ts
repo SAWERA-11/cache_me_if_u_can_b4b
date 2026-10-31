@@ -7,7 +7,7 @@ export const INTEGRATION_STRINGS: Record<string, Bi> = {
   handled_surprises: { en: 'You handled {n} surprises', ur: 'آپ نے {n} اچانک صورت حال سنبھالیں' },
   practice_form_1: { en: 'Practice form 1', ur: 'مشق کا فارم ۱' },
   practice_form_2: { en: 'Practice form 2', ur: 'مشق کا فارم ۲' },
-  practice_form_3: { en: 'Practice form 3', ur: 'مشق کا فارم ۳' }, // TODO(UR-review): button for Maaz's ride practice form
+  practice_form_3: { en: 'Practice form 3', ur: 'مشق کا فارم ۳' },
   reload: { en: 'Reload', ur: 'دوبارہ کھولیں' },
   close_and_clear: { en: 'Close and clear', ur: 'بند کریں اور صاف کریں' },
   try_it_now: { en: 'Try it now', ur: 'اب مشق کریں' },
