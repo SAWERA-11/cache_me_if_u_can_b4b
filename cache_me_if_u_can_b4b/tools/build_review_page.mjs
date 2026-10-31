@@ -54,6 +54,30 @@ sections.push({
   items: Object.entries(INTEGRATION_STRINGS).map(([k, v]) => ({ id: `str_${k}`, en: v.en, ur: v.ur, audio: null })),
 });
 
+// Strings Anas added (src/content/teach.ts, src/content/uiExtra.ts). Screen text only.
+const { TEACH_STRINGS } = require('../src/content/teach.ts');
+const { UI_EXTRA_STRINGS } = require('../src/content/uiExtra.ts');
+sections.push({
+  title: '6. Teach moment: helping a neighbour (added by Anas)',
+  items: Object.entries(TEACH_STRINGS).map(([k, v]) => ({ id: `str_${k}`, en: v.en, ur: v.ur, audio: null })),
+});
+sections.push({
+  title: '7. Practice ID card labels and Guide privacy note (added by Anas)',
+  items: Object.entries(UI_EXTRA_STRINGS).map(([k, v]) => ({ id: `str_${k}`, en: v.en, ur: v.ur, audio: null })),
+});
+
+// Ride booking glossary words (for the practice ride form). The clip reads term, meaning and comparison.
+const { GLOSSARY } = require('../src/content/index.ts');
+sections.push({
+  title: '8. New glossary words for the ride form',
+  items: GLOSSARY.filter((t) => ['pickup', 'dropoff', 'fare', 'eta', 'surge'].includes(t.id)).map((t) => ({
+    id: t.audio,
+    en: `${t.term.en}. ${t.plain.en} ${t.analogy.en}`,
+    ur: `${t.term.ur}۔ ${t.plain.ur} ${t.analogy.ur}`,
+    audio: clip(t.audio),
+  })),
+});
+
 const total = sections.reduce((n, s) => n + s.items.length, 0);
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 

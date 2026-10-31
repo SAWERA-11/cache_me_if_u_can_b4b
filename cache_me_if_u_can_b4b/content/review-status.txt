@@ -220,3 +220,8 @@ str_video_topic_otp: approved
 str_video_topic_photo: approved
 str_video_topic_login: approved
 str_video_topic_safety: approved
+g_pickup: pending
+g_dropoff: pending
+g_fare: pending
+g_eta: pending
+g_surge: pending

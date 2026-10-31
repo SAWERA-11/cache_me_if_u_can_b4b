@@ -536,4 +536,76 @@ export const GLOSSARY: GlossaryTerm[] = [
       ur: 'جیسے دروازے کے نیچے سے ڈالے گئے پرچے جو آپ نے کبھی نہیں مانگے۔', // TODO(UR-review)
     },
   },
+
+  // Ride booking words (for the practice ride form in the Guide).
+  {
+    id: 'pickup',
+    audio: 'g_pickup',
+    pattern: '\\bpick[- ]?up\\b|پک اپ',
+    term: { en: 'Pickup', ur: 'پک اپ (لینے کی جگہ)' },
+    plain: {
+      en: 'The place where the car comes to collect you.',
+      ur: 'وہ جگہ جہاں گاڑی آپ کو لینے آتی ہے۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like asking a rickshaw driver to wait at your gate.',
+      ur: 'جیسے رکشے والے سے کہنا کہ آپ کے گیٹ پر انتظار کرے۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'dropoff',
+    audio: 'g_dropoff',
+    pattern: '\\bdrop[- ]?off\\b|ڈراپ آف|ڈراپ',
+    term: { en: 'Drop-off', ur: 'ڈراپ آف (اترنے کی جگہ)' },
+    plain: {
+      en: 'The place where you want to get out.',
+      ur: 'وہ جگہ جہاں آپ اترنا چاہتے ہیں۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like telling the bus conductor your stop.',
+      ur: 'جیسے بس کنڈکٹر کو اپنا اسٹاپ بتانا۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'fare',
+    audio: 'g_fare',
+    pattern: '\\bfares?\\b|کرایہ',
+    term: { en: 'Fare', ur: 'کرایہ' },
+    plain: {
+      en: 'The money you pay for the ride.',
+      ur: 'سواری کے لیے دی جانے والی رقم۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like the rickshaw fare you agree on before you sit down.',
+      ur: 'جیسے بیٹھنے سے پہلے رکشے کا طے کیا ہوا کرایہ۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'eta',
+    audio: 'g_eta',
+    pattern: '\\bETA\\b|ای ٹی اے|پہنچنے کا وقت',
+    term: { en: 'ETA', ur: 'پہنچنے کا وقت (ETA)' },
+    plain: {
+      en: 'The time the car is expected to reach you or your stop.',
+      ur: 'وہ وقت جب گاڑی کے آپ تک یا آپ کی منزل تک پہنچنے کی امید ہے۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like a relative phoning to say they will arrive in ten minutes.',
+      ur: 'جیسے کوئی رشتہ دار فون پر بتائے کہ وہ دس منٹ میں پہنچ جائیں گے۔', // TODO(UR-review)
+    },
+  },
+  {
+    id: 'surge',
+    audio: 'g_surge',
+    pattern: '\\bsurge( pricing)?\\b|سرج',
+    term: { en: 'Surge', ur: 'سرج (بڑھا ہوا کرایہ)' },
+    plain: {
+      en: 'The fare goes up for a while because many people want a ride at the same time. Waiting a little can bring it down.',
+      ur: 'کچھ دیر کے لیے کرایہ بڑھ جاتا ہے کیونکہ ایک ہی وقت میں بہت سے لوگ سواری چاہتے ہیں۔ تھوڑا انتظار کرنے سے یہ کم ہو سکتا ہے۔', // TODO(UR-review)
+    },
+    analogy: {
+      en: 'Like vegetables costing more on Chand Raat, when everyone is buying.',
+      ur: 'جیسے چاند رات کو سبزی مہنگی ہو جاتی ہے، جب سب خرید رہے ہوتے ہیں۔', // TODO(UR-review)
+    },
+  },
 ];
