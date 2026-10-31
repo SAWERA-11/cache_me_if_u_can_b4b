@@ -34,7 +34,7 @@ textarea[dir=rtl] { font-family: 'Naskh', 'Noto Naskh Arabic', serif; font-size:
 <body>
 <h1>Mashq: Urdu review</h1>
 <div class="help">
-  <b>140 lines.</b> For each line: read the Urdu, press play if there is a clip, then press <b>Approve</b> or <b>Needs fix</b>.<br>
+  <b>168 lines.</b> For each line: read the Urdu, press play if there is a clip, then press <b>Approve</b> or <b>Needs fix</b>.<br>
   Check: respectful (آپ), no blame, no scary words, everyday words, numbers read correctly, no odd pauses, works for men and women.<br>
   Your marks are saved in this browser. When done, press <b>Copy results</b> and paste them into the chat.
 </div>
@@ -2008,6 +2008,400 @@ textarea[dir=rtl] { font-family: 'Naskh', 'Noto Naskh Arabic', serif; font-size:
   <div class="ur" dir="rtl" lang="ur">رائیڈر آپ کے دروازے پر ہے۔ آپ کیا کریں گے؟</div>
   <div class="en">The rider is at your door. What do you do?</div>
   <audio controls preload="none" src="../assets/audio/delivery_receive_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<h2>10. Ride booking lesson: title, things to keep ready, and each question</h2>
+
+<div class="item" data-id="ride_title">
+  <div class="meta">ride_title</div>
+  <div class="ur" dir="rtl" lang="ur">رائیڈ بُک کریں</div>
+  <div class="en">Book a ride</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_ready_internet">
+  <div class="meta">ride_ready_internet</div>
+  <div class="ur" dir="rtl" lang="ur">انٹرنیٹ والا فون</div>
+  <div class="en">Phone with internet</div>
+  <audio controls preload="none" src="../assets/audio/ride_ready_internet.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_ready_location">
+  <div class="meta">ride_ready_location</div>
+  <div class="ur" dir="rtl" lang="ur">فون کی لوکیشن آن</div>
+  <div class="en">Phone location switched on</div>
+  <audio controls preload="none" src="../assets/audio/ride_ready_location.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_ready_cash">
+  <div class="meta">ride_ready_cash</div>
+  <div class="ur" dir="rtl" lang="ur">نقد رقم یا موبائل والٹ</div>
+  <div class="en">Cash or a mobile wallet</div>
+  <audio controls preload="none" src="../assets/audio/ride_ready_cash.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_ready">
+  <div class="meta">ride_label_ready · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">شروع کرنے سے پہلے</div>
+  <div class="en">Before you start</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_ready_asks">
+  <div class="meta">ride_ready_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">زیادہ تر رائیڈ ایپس ایک ہی طرح کام کرتی ہیں۔ یہ چیزیں اپنے پاس رکھیں۔</div>
+  <div class="en">Most ride apps work the same way. Keep these near you.</div>
+  <audio controls preload="none" src="../assets/audio/ride_ready_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_location">
+  <div class="meta">ride_label_location · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">لوکیشن</div>
+  <div class="en">Location</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_location_asks">
+  <div class="meta">ride_location_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">ایپ پوچھتی ہے: کیا وہ آپ کی لوکیشن استعمال کر سکتی ہے؟</div>
+  <div class="en">The app asks: may it use your location?</div>
+  <audio controls preload="none" src="../assets/audio/ride_location_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_pickup">
+  <div class="meta">ride_label_pickup · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">پک اپ کی جگہ</div>
+  <div class="en">Pickup point</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_pickup_asks">
+  <div class="meta">ride_pickup_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">ڈرائیور آپ سے کہاں ملے؟ پن کو ہلائیں یا جگہ کا نام لکھیں۔</div>
+  <div class="en">Where should the driver meet you? Move the pin or type the place.</div>
+  <audio controls preload="none" src="../assets/audio/ride_pickup_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_drop">
+  <div class="meta">ride_label_drop · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">ڈراپ آف کی جگہ</div>
+  <div class="en">Drop-off point</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_drop_asks">
+  <div class="meta">ride_drop_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کہاں جانا چاہتے ہیں؟ جگہ لکھیں اور فہرست میں سے چنیں۔</div>
+  <div class="en">Where do you want to go? Type the place and pick it from the list.</div>
+  <audio controls preload="none" src="../assets/audio/ride_drop_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_ride_type">
+  <div class="meta">ride_label_ride_type · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">رائیڈ کی قسم</div>
+  <div class="en">Ride type</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_ride_type_asks">
+  <div class="meta">ride_ride_type_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ اکیلے ہیں اور ایک چھوٹا بیگ ہے۔ سب سے سستی رائیڈ چنیں۔</div>
+  <div class="en">You are alone with a small bag. Pick the cheapest ride.</div>
+  <audio controls preload="none" src="../assets/audio/ride_ride_type_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_fare">
+  <div class="meta">ride_label_fare · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">کرایہ</div>
+  <div class="en">Fare</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_fare_asks">
+  <div class="meta">ride_fare_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">کرائے پر &quot;سرج پرائسنگ&quot; لکھا ہے۔ ابھی بہت لوگ رائیڈ مانگ رہے ہیں۔ آپ کیا کر سکتے ہیں؟</div>
+  <div class="en">The fare shows &quot;Surge pricing&quot;. Many people want a ride now. What can you do?</div>
+  <audio controls preload="none" src="../assets/audio/ride_fare_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_payment">
+  <div class="meta">ride_label_payment · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">ادائیگی</div>
+  <div class="en">Payment</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_payment_asks">
+  <div class="meta">ride_payment_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ ادائیگی کیسے کریں گے؟ مشق کے لیے &quot;نقد&quot; چنیں۔</div>
+  <div class="en">How will you pay? For practice, pick Cash.</div>
+  <audio controls preload="none" src="../assets/audio/ride_payment_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_phone">
+  <div class="meta">ride_label_phone · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">موبائل نمبر</div>
+  <div class="en">Mobile number</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_phone_asks">
+  <div class="meta">ride_phone_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">ڈرائیور آپ کو فون کر سکتا ہے۔ اپنا موبائل نمبر لکھیں۔</div>
+  <div class="en">The driver may call you. Type your mobile number.</div>
+  <audio controls preload="none" src="../assets/audio/ride_phone_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_session">
+  <div class="meta">ride_label_session · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">سیشن</div>
+  <div class="en">Session</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_session_asks">
+  <div class="meta">ride_session_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کا سیشن ختم ہو گیا ہے۔</div>
+  <div class="en">Your session has expired.</div>
+  <audio controls preload="none" src="../assets/audio/ride_session_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_confirm">
+  <div class="meta">ride_label_confirm · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">اپنی رائیڈ منگوائیں</div>
+  <div class="en">Request your ride</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_confirm_asks">
+  <div class="meta">ride_confirm_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">پک اپ، ڈراپ آف اور کرایہ چیک کریں، پھر &quot;جمع کرائیں&quot; دبائیں۔ اصلی ایپس میں اسے Request یا Confirm کہتے ہیں۔</div>
+  <div class="en">Check the pickup, drop-off and fare, then tap Submit. Real apps call it Request or Confirm.</div>
+  <audio controls preload="none" src="../assets/audio/ride_confirm_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_driver_check">
+  <div class="meta">ride_label_driver_check · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">ڈرائیور سے ملیں</div>
+  <div class="en">Meet the driver</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_driver_check_asks">
+  <div class="meta">ride_driver_check_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">ڈرائیور آ رہا ہے۔ ایپ میں نام، گاڑی کا نمبر اور باقی منٹ لکھے ہیں۔ ایک گاڑی آپ کے پاس رکتی ہے۔ سب سے پہلے کیا دیکھیں؟</div>
+  <div class="en">A driver is on the way. The app shows a name, a car number and minutes left. A car stops near you. What do you check first?</div>
+  <audio controls preload="none" src="../assets/audio/ride_driver_check_asks.mp3"></audio>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_label_safety">
+  <div class="meta">ride_label_safety · Box title</div>
+  <div class="ur" dir="rtl" lang="ur">آپ کی رائیڈ کے بارے میں فون</div>
+  <div class="en">A call about your ride</div>
+  <div class="noaudio">No voice clip (screen text only)</div>
+  <div class="actions">
+    <button class="ok" type="button">Approve</button>
+    <button class="fix" type="button">Needs fix</button>
+  </div>
+  <div class="fixbox">
+    <label>Better Urdu (optional)<textarea class="better" dir="rtl" lang="ur" rows="2"></textarea></label>
+    <label>What is wrong? (gender, tone, pronunciation, pause…)<textarea class="why" rows="2"></textarea></label>
+  </div>
+</div>
+<div class="item" data-id="ride_safety_asks">
+  <div class="meta">ride_safety_asks · Question</div>
+  <div class="ur" dir="rtl" lang="ur">ایک فون کرنے والا کہتا ہے &quot;میں رائیڈ ایپ سے ہوں&quot; اور آپ کے فون پر آیا کوڈ مانگتا ہے۔ آپ کیا کریں گے؟</div>
+  <div class="en">A caller says &quot;I am from the ride app&quot; and asks for the code sent to your phone. What do you do?</div>
+  <audio controls preload="none" src="../assets/audio/ride_safety_asks.mp3"></audio>
   <div class="actions">
     <button class="ok" type="button">Approve</button>
     <button class="fix" type="button">Needs fix</button>

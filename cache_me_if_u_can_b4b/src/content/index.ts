@@ -1,6 +1,7 @@
 export { LESSONS } from './lessons';
 export { LESSON1 } from './lessons/lesson1';
 export { LESSON_DELIVERY } from './lessons/delivery';
+export { LESSON_RIDE } from './lessons/ride';
 export { HICCUPS, SAFETY_LINES } from './hiccups';
 export { GLOSSARY } from './glossary';
 export { STRINGS } from './strings';

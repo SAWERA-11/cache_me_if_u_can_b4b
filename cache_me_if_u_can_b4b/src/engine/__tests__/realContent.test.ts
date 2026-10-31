@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { KB, LESSON1, LESSON_DELIVERY, LESSONS, STRINGS, VIDEOS } from '../../content';
+import { KB, LESSON1, LESSON_DELIVERY, LESSON_RIDE, LESSONS, STRINGS, VIDEOS } from '../../content';
 import { matchChip, matchQuestion } from '../../helper/matcher';
 import { createInitialState, reduce, type Action } from '../runner';
 import { buildResult, scoredEvents } from '../estimate';
@@ -95,4 +95,18 @@ for (let clock = 100, i = 0; !delivery.done; clock += 10, i++) {
   assert.equal(delivery.oops, null, `delivery step ${step.id} rejected its own answer`);
 }
 assert.equal(buildResult(scoredEvents(delivery.events, LESSON_DELIVERY), [], delivery.hiccupsShown, delivery.hiccupsRecovered).rung, 2);
-console.log(`realContent.test.ts passed (${matches}/20 KB matches, bilingual chips, follow-ups, real lesson rungs 2/1/0, 8 hiccups, delivery lesson)`);
+// The ride lesson finishes the same way.
+assert.equal(LESSONS[LESSON_RIDE.id], LESSON_RIDE);
+let ride = createInitialState(LESSON_RIDE, 0, 100);
+for (let clock = 100, i = 0; !ride.done; clock += 10, i++) {
+  assert.ok(i < 40, 'ride lesson did not finish');
+  if (ride.hiccup) ride = reduce(ride, { type: 'resolveHiccup' }, clock);
+  const step = ride.lesson.steps[ride.stepIndex];
+  if (step.kind === 'field') {
+    ride = reduce(ride, { type: 'setInput', value: step.choices?.find((c) => c.correct)?.id ?? step.example ?? '' }, clock);
+  }
+  ride = reduce(ride, { type: 'submit', now: clock }, clock);
+  assert.equal(ride.oops, null, `ride step ${step.id} rejected its own answer`);
+}
+assert.equal(buildResult(scoredEvents(ride.events, LESSON_RIDE), [], ride.hiccupsShown, ride.hiccupsRecovered).rung, 2);
+console.log(`realContent.test.ts passed (${matches}/20 KB matches, bilingual chips, follow-ups, real lesson rungs 2/1/0, 8 hiccups, delivery and ride lessons)`);

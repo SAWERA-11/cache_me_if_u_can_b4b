@@ -7,7 +7,7 @@ import { TapCard } from '../components/Card';
 import { Ladder } from '../components/Ladder';
 import { Screen } from '../components/Screen';
 import { colors, sizes } from '../theme/tokens';
-import { LESSON1, LESSON_DELIVERY, uiBus, useApp, useT } from '../theme/wire';
+import { LESSON1, LESSON_DELIVERY, LESSON_RIDE, uiBus, useApp, useT } from '../theme/wire';
 
 export default function Home() {
   const t = useT();
@@ -17,6 +17,7 @@ export default function Home() {
   const latest = (id: string) => results.filter((r) => r.lessonId === id).sort((a, b) => b.ts - a.ts)[0];
   const last = latest(LESSON1.id);
   const lastDelivery = latest(LESSON_DELIVERY.id);
+  const lastRide = latest(LESSON_RIDE.id);
   const exitedLessonId = useApp((state) => resumableLessonId(state.events));
 
   return (
@@ -35,6 +36,9 @@ export default function Home() {
       <TapCard glyph={'🛵'} label={LESSON_DELIVERY.title[lang] || LESSON_DELIVERY.title.en} hint={t('lessons')}
         onPress={() => router.push(`/lesson/${LESSON_DELIVERY.id}`)}
         trailing={<Ladder rung={lastDelivery ? lastDelivery.rung : null} compact />} />
+      <TapCard glyph={'🚕'} label={LESSON_RIDE.title[lang] || LESSON_RIDE.title.en} hint={t('lessons')}
+        onPress={() => router.push(`/lesson/${LESSON_RIDE.id}`)}
+        trailing={<Ladder rung={lastRide ? lastRide.rung : null} compact />} />
       <TapCard glyph="?" tint={colors.calm} ink={colors.calmInk} label={t('find_help')}
         onPress={() => uiBus.emit('helper', [])} />
       <TapCard glyph={'►'} tint={colors.warm} ink={colors.warmInk} label={t('find_video_title')}

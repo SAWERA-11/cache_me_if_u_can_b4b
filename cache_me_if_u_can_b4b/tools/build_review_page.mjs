@@ -90,6 +90,18 @@ for (const s of LESSON_DELIVERY.steps) {
 }
 sections.push({ title: '9. Delivery app lesson: title, things to keep ready, and each question', items: delivery });
 
+// Ride booking lesson (src/content/lessons/ride.ts): same layout as the delivery section.
+const { LESSON_RIDE } = require('../src/content/index.ts');
+const ride = [
+  { id: 'ride_title', en: LESSON_RIDE.title.en, ur: LESSON_RIDE.title.ur, audio: null },
+  ...LESSON_RIDE.ready.map((r) => ({ id: r.audio ?? `ride_${r.id}`, en: r.text.en, ur: r.text.ur, audio: clip(r.audio) })),
+];
+for (const s of LESSON_RIDE.steps) {
+  ride.push({ id: `ride_label_${s.id}`, en: s.label.en, ur: s.label.ur, audio: null, note: 'Box title' });
+  ride.push({ id: s.audio?.asks ?? `ride_asks_${s.id}`, en: s.asks.en, ur: s.asks.ur, audio: clip(s.audio?.asks), note: 'Question' });
+}
+sections.push({ title: '10. Ride booking lesson: title, things to keep ready, and each question', items: ride });
+
 const total = sections.reduce((n, s) => n + s.items.length, 0);
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
