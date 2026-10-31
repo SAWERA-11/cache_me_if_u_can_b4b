@@ -559,11 +559,11 @@ export const GLOSSARY: GlossaryTerm[] = [
     term: { en: 'Drop-off', ur: 'ڈراپ آف (اترنے کی جگہ)' },
     plain: {
       en: 'The place where you want to get out.',
-      ur: 'وہ جگہ جہاں آپ اترنا چاہتے ہیں۔', // TODO(UR-review)
+      ur: 'وہ جگہ جہاں آپ اترنا چاہتے ہیں۔',
     },
     analogy: {
       en: 'Like telling the bus conductor your stop.',
-      ur: 'جیسے بس کنڈکٹر کو اپنا اسٹاپ بتانا۔', // TODO(UR-review)
+      ur: 'جیسے بس کنڈکٹر کو اپنا اسٹاپ بتانا۔',
     },
   },
   {
@@ -573,11 +573,11 @@ export const GLOSSARY: GlossaryTerm[] = [
     term: { en: 'Fare', ur: 'کرایہ' },
     plain: {
       en: 'The money you pay for the ride.',
-      ur: 'سواری کے لیے دی جانے والی رقم۔', // TODO(UR-review)
+      ur: 'سواری کے لیے دی جانے والی رقم۔',
     },
     analogy: {
       en: 'Like the rickshaw fare you agree on before you sit down.',
-      ur: 'جیسے بیٹھنے سے پہلے رکشے کا طے کیا ہوا کرایہ۔', // TODO(UR-review)
+      ur: 'جیسے بیٹھنے سے پہلے رکشے کا طے کیا ہوا کرایہ۔',
     },
   },
   {
@@ -587,11 +587,11 @@ export const GLOSSARY: GlossaryTerm[] = [
     term: { en: 'ETA', ur: 'پہنچنے کا وقت (ETA)' },
     plain: {
       en: 'The time the car is expected to reach you or your stop.',
-      ur: 'وہ وقت جب گاڑی کے آپ تک یا آپ کی منزل تک پہنچنے کی امید ہے۔', // TODO(UR-review)
+      ur: 'وہ وقت جب گاڑی کے آپ تک یا آپ کی منزل تک پہنچنے کی امید ہے۔',
     },
     analogy: {
       en: 'Like a relative phoning to say they will arrive in ten minutes.',
-      ur: 'جیسے کوئی رشتہ دار فون پر بتائے کہ وہ دس منٹ میں پہنچ جائیں گے۔', // TODO(UR-review)
+      ur: 'جیسے کوئی رشتہ دار فون پر بتائے کہ وہ دس منٹ میں پہنچ جائیں گے۔',
     },
   },
   {

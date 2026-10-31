@@ -93,9 +93,6 @@ g_screenshot
 g_inbox
 g_spam
 g_pickup
-g_dropoff
-g_fare
-g_eta
 g_surge
 kb_what_is_otp
 kb_what_is_verification_code

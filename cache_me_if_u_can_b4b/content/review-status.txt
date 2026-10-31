@@ -220,8 +220,28 @@ str_video_topic_otp: approved
 str_video_topic_photo: approved
 str_video_topic_login: approved
 str_video_topic_safety: approved
-g_pickup: pending
-g_dropoff: pending
-g_fare: pending
-g_eta: pending
-g_surge: pending
+g_pickup: needs-fix | why: "pick" mispronounced
+g_dropoff: approved
+g_fare: approved
+g_eta: approved
+g_surge: needs-fix | why: "surge" mispronounced
+# Teach and card/privacy strings (teach.ts, uiExtra.ts), reviewed 31 Oct 2026
+str_teach_title: approved
+str_teach_q: approved
+str_teach_wrong_1: approved
+str_teach_wrong_2: approved
+str_teach_right: approved
+str_teach_gentle: approved
+str_card_title: approved
+str_flip: approved
+str_card_name: approved
+str_card_father: approved
+str_card_dob: approved
+str_card_phone: approved
+str_card_id: approved
+str_guide_privacy_title: approved
+str_guide_privacy_1: approved
+str_guide_privacy_2: approved
+str_guide_privacy_3: approved
+str_guide_privacy_4: approved
+str_guide_privacy_5: approved

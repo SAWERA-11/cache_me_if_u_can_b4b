@@ -2,7 +2,7 @@ import type { Bi } from '../engine/types';
 
 // Labels for the drawn practice ID card and the Guide privacy note (Settings > About).
 // The privacy lines mirror the five-line text in docs/guide-tests.md.
-// TODO(UR-review): new copy; needs the same native review as the main catalog.
+// Urdu reviewed and approved by a native speaker (Savera), 31 Oct 2026.
 export const UI_EXTRA_STRINGS: Record<string, Bi> = {
   card_title: { en: 'Citizen Services Portal (Practice)', ur: 'شہری خدمات پورٹل (مشق)' },
   flip: { en: 'Flip the card', ur: 'کارڈ پلٹیں' },

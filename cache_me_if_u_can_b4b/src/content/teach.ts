@@ -2,7 +2,7 @@ import type { Bi } from '../engine/types';
 
 // The Teach moment reuses each hiccup's `happened` (the neighbour's problem) and `habit`
 // (the right advice), so only these shared lines are new.
-// TODO(UR-review): new copy; needs the same native review as the main catalog.
+// Urdu reviewed and approved by a native speaker (Savera), 31 Oct 2026.
 export const TEACH_STRINGS: Record<string, Bi> = {
   teach_title: { en: 'Help a neighbour', ur: 'پڑوسی کی مدد کریں' },
   teach_q: {
