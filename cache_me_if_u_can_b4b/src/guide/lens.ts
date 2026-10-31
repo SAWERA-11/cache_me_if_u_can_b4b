@@ -64,7 +64,7 @@ const SCRIPT = String.raw`
     if (type === 'tel' || /phone|mobile/.test(hint)) return 'phone';
     if (type === 'email' || /email/.test(hint)) return 'email';
     if (/cnic|national[ _-]?id|id[ _-]?number/.test(hint)) return 'id_number';
-    if (/address/.test(hint)) return 'address';
+    if (/address|pick[ _-]?up|drop[ _-]?off|destination|location/.test(hint)) return 'address';
     if (/name/.test(hint)) return 'name';
     return 'generic';
   }

@@ -5,6 +5,7 @@ import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SERVICES_FORM_HTML } from '../src/forms/servicesForm';
 import { WALLET_FORM_HTML } from '../src/forms/walletForm';
+import { RIDE_FORM_HTML } from '../src/forms/rideForm';
 import { handleGuideMessage } from '../src/guide/bridge';
 import { buildLens } from '../src/guide/lens';
 import { useApp } from '../src/store/useApp';
@@ -71,6 +72,7 @@ export default function GuideScreen() {
     <ScrollView horizontal style={styles.shortcuts} contentContainerStyle={[styles.shortcutContent, { flexDirection: row }]}>
       <GuideButton label={t('practice_form_1')} onPress={() => setSource({ html: SERVICES_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
       <GuideButton label={t('practice_form_2')} onPress={() => setSource({ html: WALLET_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
+      <GuideButton label={t('practice_form_3')} onPress={() => setSource({ html: RIDE_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
       {PUBLIC_FORMS.map(form => <GuideButton key={form.url} label={form.label} onPress={() => setSource({ uri: form.url })} />)}
     </ScrollView>
     <WebView<object> ref={ref} style={styles.web} source={source} originWhitelist={['*']} javaScriptEnabled domStorageEnabled setSupportMultipleWindows={false} incognito
