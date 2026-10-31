@@ -5,7 +5,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 require('../src/guide/test/register.cjs');
-const { LESSON1, HICCUPS, SAFETY_LINES, GLOSSARY, STRINGS, KB, GUIDE_TEXT, GUIDE_MAP_LINE } = require('../src/content/index.ts');
+const { LESSON1, LESSONS, HICCUPS, SAFETY_LINES, GLOSSARY, STRINGS, KB, GUIDE_TEXT, GUIDE_MAP_LINE } = require('../src/content/index.ts');
 
 // UI strings that get a voice clip (audio id ui_<key>). Short button labels are left silent.
 const UI_KEYS = [
@@ -37,6 +37,18 @@ for (const s of LESSON1.steps) {
   if (s.audio?.where && s.where) add(s.audio.where, s.where.ur);
   if (s.audio?.format && s.format) add(s.audio.format, s.format.ur);
   if (s.audio?.ifUnsure && s.ifUnsure) add(s.audio.ifUnsure, s.ifUnsure.ur);
+}
+
+// Delivery lesson (and any other extra lesson): same layout as Lesson 1.
+for (const lesson of Object.values(LESSONS)) {
+  if (lesson.id === LESSON1.id) continue;
+  for (const r of lesson.ready) if (r.audio) add(r.audio, r.text.ur);
+  for (const s of lesson.steps) if (s.audio?.asks) add(s.audio.asks, s.asks.ur);
+  for (const s of lesson.steps) {
+    if (s.audio?.where && s.where) add(s.audio.where, s.where.ur);
+    if (s.audio?.format && s.format) add(s.audio.format, s.format.ur);
+    if (s.audio?.ifUnsure && s.ifUnsure) add(s.audio.ifUnsure, s.ifUnsure.ur);
+  }
 }
 
 // Priority 2: hiccup habits and safety lines.

@@ -5,7 +5,7 @@ import { PERSONA } from './lesson1';
 // no real app, shop or rider is involved.
 const digits = (s: string) => s.replace(/[-\s]/g, '');
 
-export const LESSON_DELIVERY: Lesson = {
+const DELIVERY_BASE: Lesson = {
   id: 'delivery',
   title: {
     en: 'Order from a delivery app',
@@ -459,4 +459,16 @@ export const LESSON_DELIVERY: Lesson = {
       },
     },
   ],
+};
+
+// Voice clips follow Lesson 1's naming: dv_ready_<n> and dv_<step>_<layer>. An id is only
+// assigned where the text exists, so every id here has a line in content/audio-script.csv.
+const LAYERS = ['asks', 'where', 'format', 'ifUnsure'] as const;
+export const LESSON_DELIVERY: Lesson = {
+  ...DELIVERY_BASE,
+  ready: DELIVERY_BASE.ready.map((item, i) => ({ ...item, audio: `dv_ready_${i + 1}` })),
+  steps: DELIVERY_BASE.steps.map((step) => ({
+    ...step,
+    audio: Object.fromEntries(LAYERS.filter((layer) => step[layer]).map((layer) => [layer, `dv_${step.id}_${layer}`])),
+  })),
 };

@@ -90,7 +90,7 @@ function LessonSession({ lessonId }: { lessonId: string }) {
       <>
         <AppText size="big" bold color={colors.ink}>{loggedOut ? pick(step.label, lang) : pick(runner.lesson.title, lang)}</AppText>
         {loggedOut ? <AppText size="heading">{t('session_expired')}</AppText> : <AppText size="heading">{pick(step.asks, lang)}</AppText>}
-        {loggedOut ? <AudioButton clipId={step.audio?.asks} /> : null}
+        <AudioButton clipId={step.audio?.asks} />
         {(step.id === 'ready' ? runner.lesson.ready : []).map((r) => (
           <Card key={r.id} style={styles.item}>
             <AppText size="heading">{pick(r.text, lang)}</AppText>
@@ -111,6 +111,7 @@ function LessonSession({ lessonId }: { lessonId: string }) {
         <Card style={styles.question}>
           <AppText size="big" bold color={colors.ink}>{pick(step.label, lang)}</AppText>
           <AppText size="heading">{pick(step.asks, lang)}</AppText>
+          <AudioButton clipId={step.audio?.asks} />
         </Card>
         {runner.openLayers.where && card ? (
           <IdCard key={step.id} persona={runner.lesson.persona} side={card.side} highlight={card.highlight} />
