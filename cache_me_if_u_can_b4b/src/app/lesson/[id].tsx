@@ -18,8 +18,9 @@ import { Row } from '../../components/Row';
 import { Screen } from '../../components/Screen';
 import { StuckButton } from '../../components/StuckButton';
 import { colors } from '../../theme/tokens';
-import { type LayerName, type Step, useApp, useRunner, useT } from '../../theme/wire';
+import { GLOSSARY, type Step, uiBus, useApp, useRunner, useT } from '../../theme/wire';
 
+type LayerName = 'asks' | 'where' | 'format' | 'ifUnsure';
 const LAYERS: [LayerName, string][] = [
   ['asks', 'layer_asks'], ['where', 'layer_where'], ['format', 'layer_format'], ['ifUnsure', 'layer_unsure'],
 ];
@@ -59,6 +60,9 @@ export default function LessonScreen() {
     return () => sub.remove();
   }, [actions]);
 
+  const fieldSteps = runner.lesson.steps.filter((s) => s.kind === 'field');
+  const fieldIndex = fieldSteps.findIndex((s) => s.id === step.id);
+
   let body: React.ReactNode;
   let bottom: React.ReactNode = null;
 
@@ -70,9 +74,10 @@ export default function LessonScreen() {
     const loggedOut = step.hiccup?.id === 'logged_out';
     body = (
       <>
-        <AppText size="big" bold color={colors.ink}>{pick(runner.lesson.title, lang)}</AppText>
-        {loggedOut ? <AppText size="heading">{t('session_expired')}</AppText> : null}
-        {runner.lesson.ready.map((r) => (
+        <AppText size="big" bold color={colors.ink}>{loggedOut ? pick(step.label, lang) : pick(runner.lesson.title, lang)}</AppText>
+        {loggedOut ? <AppText size="heading">{t('session_expired')}</AppText> : <AppText size="heading">{pick(step.asks, lang)}</AppText>}
+        {loggedOut ? <AudioButton clipId={step.audio?.asks} /> : null}
+        {(step.id === 'ready' ? runner.lesson.ready : []).map((r) => (
           <Card key={r.id} style={styles.item}>
             <AppText size="heading">{pick(r.text, lang)}</AppText>
             <AudioButton clipId={r.audio} />
@@ -85,9 +90,9 @@ export default function LessonScreen() {
     const card = CARD_MAP[step.id];
     body = (
       <>
-        <Progress index={runner.stepIndex - 1} total={runner.total - 2} />
+        <Progress index={fieldIndex} total={fieldSteps.length} />
         <AppText bold color={colors.muted}>
-          {t('step_of').replace('{n}', String(runner.stepIndex)).replace('{total}', String(runner.total - 2))}
+          {t('step_of').replace('{n}', String(fieldIndex + 1)).replace('{total}', String(fieldSteps.length))}
         </AppText>
         <Card style={styles.question}>
           <AppText size="big" bold color={colors.ink}>{pick(step.label, lang)}</AppText>
@@ -96,6 +101,12 @@ export default function LessonScreen() {
         {runner.openLayers.where && card ? (
           <IdCard key={step.id} persona={runner.lesson.persona} side={card.side} highlight={card.highlight} />
         ) : null}
+        {(step.glossary ?? []).map((gid) => {
+          const term = GLOSSARY.find((g) => g.id === gid);
+          return term ? (
+            <BigButton key={gid} variant="calm" label={pick(term.term, lang)} onPress={() => uiBus.emit('jargon', gid)} />
+          ) : null;
+        })}
         {runner.oops ? (
           <OopsCard oops={runner.oops} onTryAgain={actions.dismissOops} onUndo={actions.undo} />
         ) : (
@@ -125,7 +136,7 @@ export default function LessonScreen() {
   } else {
     body = (
       <ReviewView answers={answers} highlightField={runner.highlightField} vagueError={runner.highlightField !== null}
-        onSubmit={actions.submit} />
+        title={pick(step.label, lang)} buttonKey={step.kind === 'submit' ? 'submit' : 'next'} onSubmit={actions.submit} />
     );
   }
 

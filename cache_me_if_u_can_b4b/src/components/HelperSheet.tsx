@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { colors, sizes } from '../theme/tokens';
-import { looksLikeSecret, matchQuestion, useApp, useT, type KBEntry } from '../theme/wire';
+import { looksLikeSecret, matchChip, matchQuestion, useApp, useT, type KBEntry } from '../theme/wire';
 import { useDir } from '../theme/useDir';
 import { useTextSize } from '../theme/useTextSize';
 import { AppText } from './AppText';
@@ -31,13 +31,18 @@ export function HelperSheet({ visible, onClose }: Props) {
     const entry = matchQuestion(q);
     setView(entry ? { kind: 'answer', entry } : { kind: 'unsure' });
   };
+  // Chips use Ahmer's chip-to-entry map; free text and follow-up chips go through the matcher.
+  const askChip = (key: string) => {
+    const entry = matchChip(key);
+    setView(entry ? { kind: 'answer', entry } : { kind: 'unsure' });
+  };
   const label = (key: string, fallback: string) => (t(key) === key ? fallback : t(key));
   const close = () => { setText(''); setView({ kind: 'none' }); onClose(); };
 
   return (
     <Sheet visible={visible} onClose={close} title={t('helper_title')}>
       {CHIPS.map(([key, fallback]) => (
-        <BigButton key={key} variant="secondary" label={label(key, fallback)} onPress={() => ask(label(key, fallback))} />
+        <BigButton key={key} variant="secondary" label={label(key, fallback)} onPress={() => askChip(key)} />
       ))}
       <TextInput
         accessibilityLabel={t('helper_title')} value={text} onChangeText={setText}

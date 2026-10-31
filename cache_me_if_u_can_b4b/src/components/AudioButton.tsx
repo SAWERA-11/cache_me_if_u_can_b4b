@@ -11,7 +11,7 @@ export function AudioButton({ clipId, label }: Props) {
   const speed = useApp((s) => s.audioSpeed);
   const text = label ?? t('listen');
   // The text is always the source of truth: without a clip the button is a quiet no-op.
-  const onPress = () => { if (hasClip(clipId)) playClip(clipId, speed); };
+  const onPress = () => { if (clipId && hasClip(clipId)) playClip(clipId, speed); };
   return (
     <Pressable accessibilityRole="button" accessibilityLabel={text} onPress={onPress}
       style={({ pressed }) => [styles.base, pressed && styles.pressed]}>

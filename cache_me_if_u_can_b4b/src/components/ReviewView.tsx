@@ -7,15 +7,15 @@ import { BigButton } from './BigButton';
 import { Card } from './Card';
 
 export type Answer = { step: Step; value: string };
-type Props = { answers: Answer[]; highlightField: string | null; vagueError: boolean; onSubmit: () => void };
+type Props = { answers: Answer[]; highlightField: string | null; vagueError: boolean; title: string; buttonKey: string; onSubmit: () => void };
 
-export function ReviewView({ answers, highlightField, vagueError, onSubmit }: Props) {
+export function ReviewView({ answers, highlightField, vagueError, title, buttonKey, onSubmit }: Props) {
   const t = useT();
   const lang = useApp((s) => s.language);
   const banner = STRINGS.vague_error_banner ? t('vague_error_banner') : 'There was a problem with your submission';
   return (
     <>
-      <AppText size="big" bold color={colors.ink}>{t('review_title')}</AppText>
+      <AppText size="big" bold color={colors.ink}>{title || t('review_title')}</AppText>
       {vagueError ? (
         <View style={styles.banner} accessible><AppText bold color={colors.warmInk}>{banner}</AppText></View>
       ) : null}
@@ -31,7 +31,7 @@ export function ReviewView({ answers, highlightField, vagueError, onSubmit }: Pr
           </Card>
         );
       })}
-      <BigButton label={t('submit')} onPress={onSubmit} />
+      <BigButton label={t(buttonKey)} onPress={onSubmit} />
     </>
   );
 }
