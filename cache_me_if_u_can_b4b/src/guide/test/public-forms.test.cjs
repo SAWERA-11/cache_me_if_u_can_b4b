@@ -4,7 +4,6 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const cp = require('node:child_process');
-const ts = require('typescript');
 const assert = require('node:assert/strict');
 const forms = [
   'https://www.selenium.dev/selenium/web/web-form.html',
@@ -12,12 +11,7 @@ const forms = [
 ];
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'mashq-public-'));
-for (const file of ['dictionary', 'lens']) {
-  fs.writeFileSync(path.join(dir, file + '.js'), ts.transpileModule(fs.readFileSync('src/guide/' + file + '.ts', 'utf8'), {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
-  }).outputText);
-}
-const lens = require(path.join(dir, 'lens.js')).buildLens('en');
+const lens = require('./load-source.cjs')('src/guide/lens.ts').buildLens('en');
 
 async function main() {
   const browser = cp.spawn(process.env.MASHQ_TEST_BROWSER || 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', [

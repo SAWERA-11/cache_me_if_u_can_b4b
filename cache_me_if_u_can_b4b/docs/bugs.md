@@ -1,123 +1,85 @@
 # Integration and bug log
 
-| ID | Owner | Severity | Status |
+Current source: main 55c18b1 merged into Maaz's branch. Full strict typecheck passes. Uncached lint has zero errors and two require-import warnings in Ahmer's matcher. The frontend integration seam still exports fakes.
+
+| ID | Owner | Severity | Current status |
 |---|---|---|---|
-| BUG-1 | Anas | blocker | Dependency declared in ba72738; native integration verification pending |
-| BUG-2 | Ahmer | blocker | Resolved in 15da65c: shared modules supplied; audio content dependency tracked in BUG-4 |
-| BUG-3 | Anas | blocker | Open: Guide route integration |
-| BUG-4 | Savera | blocker | Open: content index and audioMap absent; blocks compiler and app imports |
-| BUG-5 | Ahmer | major | Open: useRunner render-purity lint error |
-| BUG-6 | Anas | major | Open: plain .env files are not ignored |
-| BUG-7 | Ahmer | minor | Open: server README .env setup is not loaded by npm start |
-| BUG-8 | Maaz | major | Resolved: explicit WebView<object> generic; Guide compiler error cleared |
-
-## BUG-1 | owner: Anas | severity: blocker
-Where: package.json / Guide screen.
-Steps: 1) Install declared packages. 2) Typecheck/import app/guide.tsx.
-Expected: react-native-webview resolves.
-Actual: Resolved in source by ba72738: package.json now declares react-native-webview 14.0.1. Native verification still depends on BUG-3 and content integration.
-Phone/build: Windows source review; no phone build.
-Screenshot: Not applicable; compiler evidence.
-
-## BUG-2 | owner: Ahmer | severity: blocker
-Where: src/guide/bridge.ts and app/guide.tsx.
-Steps: 1) Typecheck the Guide files. 2) Resolve shared imports.
-Expected: src/store/useApp, src/lib/audio and src/lib/uiBus exist with the MD contracts.
-Actual: Resolved by 15da65c: all three modules now exist with compatible Guide contracts. playClip still imports Savera's missing src/audio/audioMap (see BUG-4). Native integration remains untested.
-Phone/build: Windows source review; no phone build.
-Screenshot: Not applicable; missing source modules.
+| BUG-1 | Anas | blocker | Resolved: WebView 14.0.1 installed |
+| BUG-2 | Ahmer | blocker | Resolved: shared store/audio/event bus supplied |
+| BUG-3 | Anas | blocker | Open: /guide route and real frontend wiring |
+| BUG-4 | Savera | blocker | Source blocker resolved: content and audio supplied; human review pending |
+| BUG-5 | Ahmer | major | Resolved: latest hook passes typecheck and uncached lint |
+| BUG-6 | Anas | major | Partly resolved: server/.env ignored; root .env still not ignored |
+| BUG-7 | Ahmer | minor | Resolved: server setup accurately documents environment variables |
+| BUG-8 | Maaz | major | Resolved: explicit WebView<object> clears JSX typing failure |
+| BUG-9 | Ahmer / Savera | major | Open: real-content helper acceptance gets 13/20; target is at least 14 |
 
 ## BUG-3 | owner: Anas | severity: blocker
-Where: Expo Router root.
-Steps: 1) Inspect src/app/_layout.tsx. 2) Locate Maaz's allowed app/guide.tsx.
-Expected: A /guide route is reachable from the app.
-Actual: Existing routes use src/app; Maaz's allowed root app/guide.tsx is not registered there. Please expose/re-export the Guide from src/app/guide.tsx and add navigation as appropriate.
-Phone/build: Windows source review.
-Screenshot: Not applicable.
-
-## BUG-4 | owner: Savera | severity: blocker
-Where: src/content and src/audio/audioMap; Guide dictionary and backend imports.
-Steps: 1) Pull 15da65c and run npm ci. 2) Run npx tsc --noEmit and npm run lint.
-Expected: Reviewed content exports and AUDIO map resolve.
-Actual: src/content and src/audio/audioMap are absent. The engine/helper/translation/video modules import content; playClip imports the missing audio map. Please supply the agreed content exports, GUIDE_TEXT, GLOSSARY and AUDIO map. The Guide continues to use explicitly marked English placeholders.
-Phone/build: Windows source review.
-Screenshot: Not applicable.
-
-## BUG-5 | owner: Ahmer | severity: major
-Where: src/engine/useRunner.ts:14.
-Steps: 1) Run npm ci. 2) Run npm run lint.
-Expected: Lesson initialization passes React purity checks.
-Actual: react-hooks/purity rejects Date.now() during render in createInitialState(lesson, 0, Date.now()). Please initialize timing outside render using a pattern accepted by the configured rules.
-Phone/build: Windows / source 15da65c.
-Screenshot: Not applicable; lint output.
+Where: src/theme/wire/index.ts, src/components/GlobalSheets.tsx and src/app.
+Steps: Inspect the integration seam and Guide route registration.
+Expected: Screens, Guide and global sheets share Ahmer's real store and uiBus; /guide is reachable.
+Actual: The seam exports fakes.ts, so settings/consent/results and sheets use a different store/event bus from the Guide. src/app/guide.tsx is absent. Ahmer supplied src/lib/backend.ts as a real implementation barrel; Anas must connect it and register/re-export Maaz's app/guide.tsx.
+Phone/build: Source 55c18b1; Android 17/API 37 emulator Expo Go reaches Consent and Home using fake wiring.
+Screenshot: Temporary local capture, not submission evidence.
 
 ## BUG-6 | owner: Anas | severity: major
 Where: repository .gitignore.
-Steps: Run git check-ignore server/.env.
-Expected: A local server API-key file is ignored.
-Actual: No match; only .env*.local is ignored. Please ignore plain .env files before anyone follows server setup instructions. No key file was created during testing.
-Phone/build: Windows / source 15da65c.
+Steps: Run git check-ignore .env server/.env.
+Expected: Local environment files are ignored.
+Actual: Ahmer added server/.gitignore, protecting server/.env. The root .gitignore still only ignores .env*.local. Ignore root .env/.env.* while preserving examples. No key file was created during these checks.
+Phone/build: Source 55c18b1.
 Screenshot: Not applicable.
 
-## BUG-7 | owner: Ahmer | severity: minor
-Where: server/README.md and server/package.json.
-Steps: 1) Follow README to put YOUTUBE_API_KEY in .env. 2) Run npm start.
-Expected: The configured key is loaded for live search.
-Actual: npm start invokes node index.js, which reads process.env but does not load .env. This is a source-review finding; no real key was used. Please correct setup instructions or add an explicit environment-file loading mechanism compatible with the advertised Node version.
-Phone/build: Windows / Node 24; server no-key fallback tested.
-Screenshot: Not applicable.
+## BUG-9 | owner: Ahmer / Savera | severity: major
+Where: Actual KB/matcher acceptance, src/guide/test/acceptance.test.cjs.
+Steps: Run node src/guide/test/acceptance.test.cjs.
+Expected: At least 14 of 20 independently phrased questions return the expected KB answer; unmatched questions return null.
+Actual: 13/20 match. Misses return null (honest fallback), including 'What is a verification code?', 'What does account title mean?', 'What is captcha?', 'What is an optional box?', 'my file is too large', 'session khatam ho gaya', and 'can I try again please?'. Coordinate variants or matching improvements without weakening privacy guards. Do not change the acceptance questions just to obtain a passing result.
+Phone/build: Node desktop test using real KB and exported createMatcher; native sheet behavior pending integration.
+Screenshot: Not applicable; reproducible console evidence.
 
-## BUG-8 | owner: Maaz | severity: major
-Where: app/guide.tsx:46.
-Steps: 1) Merge ba72738. 2) Run npm ci, then npx tsc --noEmit.
-Expected: Guide WebView props typecheck with installed react-native-webview 14.0.1.
-Actual: Resolved in Maaz?s screen by explicitly supplying WebView<object> for the component and ref. The installed 14.0.1 declaration defaults P to undefined and intersects WebViewProps & P, yielding never in strict mode. Full typecheck now reports only absent content/audio imports in teammates? modules. No dependency or shared contract was changed.
-Phone/build: Windows source check after npm ci installed 811 packages.
-Screenshot: Not applicable; compiler output.
+## Resolved evidence
 
-## Team checklist after fetching ba72738
+- BUG-1/2: Anas's WebView dependency and Ahmer's actual contracts are installed/present.
+- BUG-4: Savera supplied LESSONS/LESSON1, 31 glossary terms, 40 KB entries, UI/Guide/fridge copy and generated audio/map. Maaz now imports GUIDE_TEXT and GLOSSARY directly. All 12 Guide audio identifiers resolve; Urdu and English dictionaries differ; glossary regex patterns compile.
+- BUG-5: npx tsc --noEmit passes; npx expo lint --no-cache has zero errors. Backend/service/server suites and content checker pass.
+- BUG-7: server/README.md now explains process environment configuration and the lack of automatic .env loading.
+- BUG-8: app/guide.tsx explicitly uses WebView<object> for component/ref; no dependencies or shared contracts changed.
 
-This is repository evidence as of 2026-10-31, not a claim about unpublished work on teammates' machines. Latest frontend source was merged into Maaz's branch without conflicts. Backend fixture and Guide desktop checks passed before that merge; native integration acceptance remains pending.
+## Remaining team work
 
 ### Anas
 
-- [ ] Replace src/theme/wire/fakes.ts exports with Ahmer's real store, runner, audio, translation, helper, video and event bus, and Savera's real content. GlobalSheets must listen to the same uiBus used by the Guide; Home/Settings must use the same store.
-- [ ] Register /guide under src/app (re-export Maaz's app/guide.tsx); verify Home navigation and Guide-off entry behavior.
-- [ ] Finish resume/continue wiring with Ahmer, real next-lesson/retry behavior, and before/after comfort flow. Verify the complete Try/Surprise/Teach journey against the lesson content.
-- [ ] Replace temporary English helper/video chips, fridge-card text and result literals with reviewed bilingual content.
-- [ ] Ignore plain .env files (BUG-6); run full lint/typecheck after integration.
-- [ ] Real-phone accessibility pass: Urdu/RTL/digits, all three text sizes, >=56dp targets, gallery, Android back, PDF font/rendering and sharing.
+- [ ] Connect src/theme/wire to real modules/content (Ahmer's src/lib/backend.ts is available); remove temporary fake runtime wiring.
+- [ ] Register /guide under src/app and verify Home navigation, shared Guide state and GlobalSheets events.
+- [ ] Finish resume/continue, retry/next lesson, comfort flow, translated fridge/result/helper/video UI and complete Try/Surprise/Teach journey with the real runner.
+- [ ] Ignore root .env files; include the bundled Noto font license.
+- [ ] Check Urdu/RTL/digits, largest text, tap targets, gallery, Android back, PDF and sharing on real phones.
 
 ### Ahmer
 
-- [ ] Fix useRunner Date.now render-purity failure (BUG-5).
-- [ ] Coordinate the real runner/store integration with Anas, including resume state, retry/reset, next-lesson/adaptation and result behavior. Current Home explicitly disables resume, and ResultView has a next/retry TODO.
-- [ ] Replace helper chip placeholder IDs with Savera's final KB IDs; run 20 real-content questions, at least 14 matches, with honest fallback for the rest.
-- [ ] Verify all eight hiccups, undo/stuck/recovery, rung/strength results and real completed/exited event recording with final lesson content.
-- [ ] Prewarm video caches with Savera; test curated/cache fallback with server offline, secret rejection, timeout and no-crash behavior. Current cache files are empty.
-- [ ] Fix server .env startup documentation/loading (BUG-7); coordinate optional API URL with Maaz after deployment.
-- [ ] Finish B8 privacy review and full lint/typecheck with final content/audio modules.
+- [ ] Resolve BUG-9 with Savera; at least 14/20 expected matches are required.
+- [ ] Help Anas connect the real runner, persistence, resume/catalog and shared event bus. Latest backend fixtures pass, but frontend still uses fakes.
+- [ ] Populate demo video cache with verified references from Savera; verify native offline/video fallback after wiring.
+- [ ] Optionally remove the two require-import lint warnings without changing behavior; full uncached lint currently exits successfully.
 
 ### Savera
 
-- [ ] Push src/content exports (including LESSONS/LESSON1) and src/audio/audioMap.ts first; both are absent in fetched branches and block shared-module imports.
-- [ ] Finish bilingual Lesson 1/persona/Teach content, all 8 hiccups and 6 safety lines, complete UI strings and GuideStrings/GUIDE_TEXT.
-- [ ] Supply 30 glossary terms (at least 20 voiced) and 40 helper KB entries; align IDs/patterns/chips with Ahmer and Maaz.
-- [ ] Generate audio CSV/scripts/assets/map; listen to priority 1 and 2 clips and obtain native-speaker approval. Give Maaz the TTS service/voice and font credits.
-- [ ] Supply 10-15 watched, verified video references and fridge-card content; coordinate cache population with Ahmer.
-- [ ] Push consented interview evidence, pitch notes and under-two-minute demo script. No evidence/pitch files are present in fetched source.
+- [ ] Perform native-speaker review of text AND audio; review-status.txt still marks clips pending. Remove TODO(UR-review) only after approval.
+- [ ] Complete real interview notes and permissions; docs/interviews.md is currently a template, not collected evidence.
+- [ ] Supply 10-15 watched/verified video references; VIDEOS and caches remain empty.
+- [ ] Improve the missing helper phrasings with Ahmer (BUG-9).
+- [ ] Finalize pitch/script with verified claims and actual demo/screenshots; provide any remaining asset credits.
 
 ### Maaz
 
-- [x] Resolve the WebView JSX props typecheck failure (BUG-8).
-
-- [ ] Wire the Guide dictionary to Savera's actual GUIDE_TEXT/GLOSSARY when they arrive; verify audio IDs.
-- [x] Desktop safety/behavior tests pass for both bundled forms and two public demo forms; public shortcuts added.
-- [ ] Recheck native Guide after Anas registers the route and replaces fake store/event bus; repeat both bundled forms and public forms on Android, including sensitive fields and Guide-off cleanup.
-- [ ] Run the complete real-phone matrix twice, including offline, largest text, Urdu/RTL, helper, all hiccups, reset and Android back. Record actual phone/build evidence and file owner-specific bugs.
-- [ ] Build the first usable preview APK, then the final APK after integration checks; validate a clean installation on a second phone.
-- [ ] Optionally deploy the server with a hosting account/key and give Ahmer the URL; local no-key smoke tests already pass.
-- [ ] Finalize README with actual features, interviews, audio/font credits, tested Android versions, final commit/time and APK/video links.
-- [ ] Publish v1.0-submission with APK, add QR/screenshots, verify public repo/history/secrets and video access, and submit on Hackathon Hub with timestamped confirmation. No APK/release/submission is verified yet.
-
-Recommended order: Savera publishes content/audio exports; Anas replaces fakes and registers Guide while Ahmer resolves hook/integration issues; everyone gets lint/typecheck passing; Maaz performs phone gates, APK and submission.
+- [x] Fix WebView typing and connect real Guide dictionaries/glossary/audio identifiers.
+- [x] Pass Guide desktop privacy/behavior tests on both bundled forms and two public demo forms; add public shortcuts.
+- [x] Run backend/server/content checks and the 20-question real-KB acceptance test; file its failure instead of claiming a pass.
+- [x] Export the Android JS/Hermes frontend bundle and submit the first EAS preview build; final APK/install gate is still pending.
+- [x] Verify emulator/SDK setup and reach Consent/Home in Expo Go; this is an emulator UI smoke test with fake wiring.
+- [ ] Check first preview build outcome, download/install APK if successful; it predates the latest content/backend pull and is not a submission build.
+- [ ] After Anas's integration, run Guide/native sheets/audio and the full phone matrix twice, including offline and a clean second physical phone.
+- [ ] Optionally deploy the server once hosting credentials and an API key are available.
+- [ ] Finalize README, actual tested Android versions, final commit/time, APK/video links and QR.
+- [ ] Publish final APK release and submit to Hackathon Hub with confirmation evidence.
