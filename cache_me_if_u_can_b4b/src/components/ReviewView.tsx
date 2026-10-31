@@ -7,9 +7,9 @@ import { BigButton } from './BigButton';
 import { Card } from './Card';
 
 export type Answer = { step: Step; value: string };
-type Props = { answers: Answer[]; highlightField: string | null; vagueError: boolean; title: string; buttonKey: string; onSubmit: () => void };
+type Props = { answers: Answer[]; highlightField: string | null; vagueError: boolean; title: string; buttonKey: string; onSubmit: () => void; onEdit: (stepId: string) => void };
 
-export function ReviewView({ answers, highlightField, vagueError, title, buttonKey, onSubmit }: Props) {
+export function ReviewView({ answers, highlightField, vagueError, title, buttonKey, onSubmit, onEdit }: Props) {
   const t = useT();
   const lang = useApp((s) => s.language);
   const banner = STRINGS.vague_error_banner ? t('vague_error_banner') : 'There was a problem with your submission';
@@ -19,8 +19,7 @@ export function ReviewView({ answers, highlightField, vagueError, title, buttonK
       {vagueError ? (
         <View style={styles.banner} accessible><AppText bold color={colors.warmInk}>{banner}</AppText></View>
       ) : null}
-      {/* TODO: wire to real hook. runner.answers is not in the contract, so answers are captured
-          from runner.input as each step completes. Tap-to-jump needs a runner navigation action. */}
+      {/* Answers come from the runner's in-memory session; edits return to this review. */}
       {answers.map(({ step, value }) => {
         const shown = step.choices?.find((c) => c.id === value)?.label;
         return (
@@ -28,6 +27,7 @@ export function ReviewView({ answers, highlightField, vagueError, title, buttonK
             <AppText color={colors.muted}>{step.label[lang] || step.label.en}</AppText>
             <AppText size="big" bold color={colors.ink}>{shown ? shown[lang] || shown.en : value}</AppText>
             <AudioButton clipId={step.audio?.asks} label={t('read_aloud')} />
+            <BigButton variant="secondary" label={t('change_answer')} onPress={() => onEdit(step.id)} />
           </Card>
         );
       })}

@@ -3,6 +3,8 @@ import { defaultOops } from './oopsDefaults';
 
 export type RunState = {
   lesson: Lesson;
+  runVersion: number;
+  returnIndex: number | null;
   stepIndex: number;
   input: string;
   previousInputs: Record<string, string>;
@@ -26,6 +28,8 @@ export type RunState = {
 };
 
 export type Action =
+  | { type: 'restart'; now: number }
+  | { type: 'goTo'; index: number; now: number }
   | { type: 'setInput'; value: string }
   | { type: 'openLayer'; layer: keyof RunState['openLayers'] }
   | { type: 'submit'; now: number }
@@ -88,7 +92,7 @@ function enter(state: RunState, index: number, now: number): RunState {
 export function createInitialState(lesson: Lesson, resumeIndex = 0, now = 0): RunState {
   if (!lesson.steps.length) throw new Error('A lesson must contain at least one step');
   const base: RunState = {
-    lesson, stepIndex: 0, input: '', previousInputs: {}, currentEvent: newEvent(lesson.id, lesson.steps[0].id),
+    lesson, runVersion: 0, returnIndex: null, stepIndex: 0, input: '', previousInputs: {}, currentEvent: newEvent(lesson.id, lesson.steps[0].id),
     events: [], firstActionRecorded: false, undoInput: null, exited: false,
     openLayers: { asks: false, where: false, format: false, ifUnsure: false },
     highlightField: null, hiccup: null, hiccupUnaided: true, hiccupsShown: 0, hiccupsRecovered: 0, hiccupsSeen: {},
@@ -104,8 +108,15 @@ function saveCurrent(state: RunState, event: StepEvent): RunState {
 }
 
 export function reduce(state: RunState, action: Action, now = 0): RunState {
+  if (action.type === 'restart') return { ...createInitialState(state.lesson, 0, action.now), runVersion: state.runVersion + 1 };
   if (state.done || state.exited) return state;
   switch (action.type) {
+    case 'goTo': {
+      const target = state.lesson.steps[action.index];
+      if (!target || target.kind !== 'field' || !(target.id in state.previousInputs)) return state;
+      const returnIndex = step(state).kind === 'review' || step(state).kind === 'submit' ? state.stepIndex : state.returnIndex;
+      return enter({ ...state, returnIndex }, action.index, action.now);
+    }
     case 'setInput':
       return action.value === state.input ? state : { ...withAction(state, now), input: action.value, undoInput: state.input, canUndo: true };
     case 'openLayer': {
@@ -144,7 +155,8 @@ export function reduce(state: RunState, action: Action, now = 0): RunState {
         const receiptNo = current.id === 'submit' ? `MASHQ-${Math.floor(100000 + (action.now % 900000))}` : null;
         return { ...saved, done: true, receiptNo };
       }
-      return enter({ ...saved, previousInputs: { ...saved.previousInputs, [current.id]: next.input } }, next.stepIndex + 1, action.now);
+      const destination = current.kind === 'field' && next.returnIndex !== null ? next.returnIndex : next.stepIndex + 1;
+      return enter({ ...saved, returnIndex: null, previousInputs: { ...saved.previousInputs, [current.id]: next.input } }, destination, action.now);
     }
     case 'stuck': {
       const next = withAction(state, action.now);

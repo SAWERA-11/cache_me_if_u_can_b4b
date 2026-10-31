@@ -82,3 +82,14 @@ state = reduce(state, { type: 'submit', now: 11 }, 11);
 assert.equal(state.done, true);
 assert.match(state.receiptNo ?? '', /^MASHQ-\d{6}$/);
 assert.equal(createInitialState(lesson, 999).stepIndex, 2);
+state = createInitialState(lesson, 1, 1000);
+state = reduce(state, { type: 'setInput', value: 'Ali' }, 1010);
+state = reduce(state, { type: 'submit', now: 1020 }, 1020);
+state = reduce(state, { type: 'goTo', index: 1, now: 1030 }, 1030);
+assert.equal(state.input, 'Ali');
+state = reduce(state, { type: 'submit', now: 1040 }, 1040);
+assert.equal(state.stepIndex, 2); // returns to the review/submit origin
+state = reduce(state, { type: 'restart', now: 1050 }, 1050);
+assert.equal(state.stepIndex, 0);
+assert.deepEqual(state.previousInputs, {});
+assert.equal(state.runVersion, 1);

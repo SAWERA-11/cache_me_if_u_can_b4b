@@ -3,14 +3,15 @@ import { StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import { colors } from '../theme/tokens';
 import { useApp, useT, type LessonResultView } from '../theme/wire';
+import { LESSONS } from '../content';
 import { AppText } from './AppText';
 import { BigButton } from './BigButton';
 import { Card } from './Card';
 import { Ladder } from './Ladder';
 
-type Props = { lessonId: string; result: LessonResultView | null };
+type Props = { lessonId: string; result: LessonResultView | null; onRetry: () => void };
 
-export function ResultView({ lessonId, result }: Props) {
+export function ResultView({ lessonId, result, onRetry }: Props) {
   const t = useT();
   const lang = useApp((s) => s.language);
   const [answered, setAnswered] = useState(false);
@@ -18,7 +19,9 @@ export function ResultView({ lessonId, result }: Props) {
 
   const answer = (n: number) => {
     const { comfort, set } = useApp.getState();
-    set({ comfort: [...comfort, { lessonId, after: n }] });
+    const index = comfort.findLastIndex((item) => item.lessonId === lessonId && item.before !== undefined && item.after === undefined);
+    set({ comfort: index < 0 ? [...comfort, { lessonId, after: n }]
+      : comfort.map((item, i) => i === index ? { ...item, after: n } : item) });
     setAnswered(true);
   };
   return (
@@ -29,8 +32,7 @@ export function ResultView({ lessonId, result }: Props) {
         <AppText size="heading" color={colors.calmInk}>{result.strength[lang] || result.strength.en}</AppText>
       </Card>
       {result.hiccupsRecovered > 0 ? (
-        // TODO(UR-review): needs a STRINGS key; English literal until Savera adds one.
-        <AppText color={colors.muted}>{`You handled ${result.hiccupsRecovered} surprises`}</AppText>
+        <AppText color={colors.muted}>{t('handled_surprises').replace('{n}', String(result.hiccupsRecovered))}</AppText>
       ) : null}
       {answered ? null : (
         <Card style={styles.comfort}>
@@ -40,9 +42,10 @@ export function ResultView({ lessonId, result }: Props) {
           <BigButton variant="secondary" label={t('comfort_notyet')} onPress={() => answer(0)} />
         </Card>
       )}
-      {/* TODO: next_lesson / practise_again need real lesson ids and a runner reset from Ahmer. */}
-      <BigButton label={t('next_lesson')} onPress={() => router.replace('/home')} />
-      <BigButton variant="secondary" label={t('practise_again')} onPress={() => router.replace(`/lesson/${lessonId}`)} />
+      <BigButton label={t(Object.keys(LESSONS)[Object.keys(LESSONS).indexOf(lessonId) + 1] ? 'next_lesson' : 'home_title')}
+        onPress={() => { const next = Object.keys(LESSONS)[Object.keys(LESSONS).indexOf(lessonId) + 1];
+          if (next) router.replace({ pathname: '/lesson/[id]', params: { id: next } }); else router.replace('/home'); }} />
+      <BigButton variant="secondary" label={t('practise_again')} onPress={onRetry} />
       <BigButton variant="secondary" label={t('fridge_card')} onPress={() => router.push('/fridge')} />
     </>
   );

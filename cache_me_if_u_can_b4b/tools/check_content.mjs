@@ -1,10 +1,8 @@
 // Sanity checks for src/content. Run: node --experimental-strip-types tools/check_content.mjs
-import { LESSON1 } from '../src/content/lessons/lesson1.ts';
-import { HICCUPS, SAFETY_LINES } from '../src/content/hiccups.ts';
-import { GLOSSARY } from '../src/content/glossary.ts';
-import { STRINGS } from '../src/content/strings.ts';
-import { KB } from '../src/content/kb.ts';
-import { GUIDE_TEXT } from '../src/content/guideText.ts';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+require('../src/guide/test/register.cjs');
+const { LESSON1, HICCUPS, SAFETY_LINES, GLOSSARY, STRINGS, KB, GUIDE_TEXT } = require('../src/content/index.ts');
 
 const REQUIRED_KEYS = `start listen stuck helper practice_banner next back undo try_again got_it take_a_moment yes no continue_card welcome_back
 consent_title consent_line1 consent_line2 consent_line3

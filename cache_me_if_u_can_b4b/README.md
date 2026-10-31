@@ -1,56 +1,89 @@
 # Mashq (مشق)
 
-An Urdu-first practice app for parents and grandparents who feel unsure about online forms. Team: Anas, Ahmer Ali, Maaz Ali, Savera (registration spelling <verify>).
+An Urdu-first Expo/React Native app for practising unfamiliar online forms using a fictional Practice Person. Team: Anas (frontend), Ahmer Ali (backend), Maaz Ali (Guide/release), Savera (content/audio).
 
-## Submission status
+## Current status
 
-Final submitted commit: <id and time>. APK: <GitHub Release link>. Demo: <video link>.
-Latest integrated team commit: `15da65c` (backend, store, audio interface, helper and video server). No GitHub release or tag was published when checked on 2026-10-31. The app still has a starter home screen and pending Guide routing/content integration. It is not a completed or phone-tested app. See [blockers](docs/bugs.md) and [test evidence](docs/guide-tests.md).
+The app is connected to the real content, store, runner, helper, audio map and video catalog. The Guide route is registered and its WebView typing blocker is fixed. Full TypeScript and uncached ESLint checks pass in this checkout.
 
-## Target user and evidence
+This is **not yet a phone-validated release**. No APK, real-device acceptance results, public-form acceptance results or final submission are claimed here. See the ordered remaining-work list below. Older entries in `docs/bugs.md` describe historical blockers; several have now been fixed in source.
 
-Mashq is designed for a parent who avoids online forms because unfamiliar boxes feel risky. Practice uses fictional details and lets the parent make the decisions. Actual interview findings and consent: <verify; docs/interviews.md has not been supplied>. No participant quotes or outcome numbers are claimed.
+## Implemented
 
-## Solution and features
+- Consent, Home, Settings, practice lesson, review/receipt/result, helper/jargon sheets, videos and printable fridge card.
+- Continue from the last exited step; pause-and-return; retry with a fresh runner; change an answer from review and return to review. Answers stay in memory, not persisted storage.
+- Optional comfort questions before and after a lesson. When there is no next lesson, the result screen returns Home rather than pretending another lesson exists.
+- All eight hiccups, undo, answer reveal, scoring and pure adaptation rules. A date field's visible boxes follow the runner value, including undo and revisits.
+- Real bilingual lesson, glossary, KB, Guide text, UI strings and generated local audio assets. New integration strings remain marked for Urdu review.
+- Guide on two bundled fictional forms, bilingual dictionary/audio, sensitive-field protection, jargon, required-field emptiness checks and Hide/off synchronization.
+- Offline curated video matching, relevant-topic ranking, at most three results, optional cached/live search, timeout and secret guards.
+- Local persisted preferences/progress with validation; cold-start hydration before navigation; Guide off on startup; plain `.env` files ignored.
 
-Planned team features: Try, Surprise, Teach loop; Form Coach; Oops mode; eight hiccups; independence ladder; jargon tap; helper; Guide browser; Find a video; fridge card. Their implementation in this checkout is <verify>.
+## Remaining work — do in this order
 
-Maaz's files provide a Guide injection script, English placeholder dictionary, two bundled fictional forms, a WebView screen awaiting route integration, a validated message bridge connected to Ahmer's shared interfaces, and an Android APK build profile. Urdu strings and audio are pending Savera's reviewed content. Ahmer's lesson engine, estimates, helper matcher and optional server are present; their fixture tests pass, but complete lesson/UI behavior is not yet verified.
+| Order | Owner | Required next step |
+|---|---|---|
+| 1 | Savera + native Urdu reviewer | Read every Urdu line and listen to priority 1/2 clips, including the new integration strings. Update `content/review-status.txt` only after actual approval; do not remove review markers automatically. |
+| 2 | Savera | Confirm who conducted each interview and obtain permission before using participant quotes in the pitch/video. Interview permission is currently not recorded. Watch each curated video completely and confirm it does not solicit a PIN/code; the catalog's watch-through TODO remains open. |
+| 3 | Anas + Ahmer | Run the full journey on Android: consent/restart, all fields and eight hiccups, review editing, pause/Continue, retry, comfort answers, receipt and result. Test offline, all text sizes, Urdu/RTL/digits, audio speed, reset, hardware back, PDF rendering/sharing and helper follow-ups. A desktop unit test is not evidence of phone behavior. |
+| 4 | Anas + Ahmer + Savera | Finish the separate Teach/advise-a-neighbour interaction from the original product loop. Recovery habits exist, but there is no distinct Teach interaction yet. Connect the tested adaptation rules to the next-lesson experience when additional lesson content is supplied; only Lesson 1 is bundled. |
+| 5 | Maaz | Verify Guide behavior on a real Android WebView, both bundled forms and at least two public forms without sign-in. Populate `PUBLIC_FORMS` only from successful tests. Check Guide-off cleanup and password/PIN/card/code privacy. |
+| 6 | Maaz | Create a preview APK with EAS, download/install it, complete the phone matrix, then repeat on the final build and a clean second phone. Record build IDs, device/Android versions and observed results in `docs/guide-tests.md`. EAS login access was verified; no build has been created or validated in this session. |
+| 7 | Maaz + team | Complete the demo video (under two minutes), screenshots, tested install instructions, asset/font/TTS credits and final release notes. Publish the tested APK/tag/release, add QR links, then submit on Hackathon Hub and save a timestamped confirmation. No release/submission should be marked complete without that evidence. |
+| Optional | Maaz + Ahmer + Savera | Deploy `server/`, configure `YOUTUBE_API_KEY` on the host and `EXPO_PUBLIC_API_URL` for the app, and test actual live searches. Cache files are still empty; populate them only from reviewed video references. The app's bundled curated results work without this server. |
 
-## Install and run
+## Run locally
 
-Judges: download the APK from <GitHub Release link>, open it, allow installation from that source if asked, and follow Android's install prompts. Tested Android versions: <verify>. No APK has been produced or validated in this session. A build has not passed the release gates.
+From this directory:
 
-Developers: from this directory, run `npm ci`, then `npx expo start` and scan with a compatible Expo Go. Guide integration requires `react-native-webview` and a route from Anas, plus content/audio exports from Savera. Ahmer's `useApp`, `playClip`, and `uiBus` interfaces are now present. The current Router root is `src/app`; Anas must expose the Guide route there. See docs/bugs.md before expecting the Guide to run.
+```sh
+npm ci
+npx expo start
+```
 
-Optional server: `cd server`, `npm ci`, then `npm start`. It listens on port 8787 by default. Without a key, uncached searches return a safe 503 response. For live search, set `YOUTUBE_API_KEY` in the process environment (PowerShell: `$env:YOUTUBE_API_KEY='<your key>'`), then start the server. The current start command does not load `.env` automatically, and plain `.env` files are not ignored yet; keep keys outside the repository. Deployment URL: <verify; no hosting account supplied>.
+Use an SDK-compatible Expo Go or development build. Routes live in `src/app/`; `src/app/guide.tsx` exposes the Guide screen. No native `ios/` or `android/` files are hand-maintained.
 
-Desktop checks (from the app root): `node src/guide/test/run.cjs`, `node src/guide/test/forms.test.cjs`, `node src/guide/test/bridge.test.cjs`. These use the installed Edge browser and do not add dependencies. Eleven fixture checks, both actual bundled-form smoke suites and bridge validation pass. Android WebView results remain pending.
+## Verification
 
-Android preview: `eas whoami`, then `eas build -p android --profile preview` after integration, typecheck and phone checks. The project is already linked in app.json. See [Expo build setup](https://docs.expo.dev/build/setup/).
+```sh
+npx tsc --noEmit
+npx expo lint --no-cache
+node src/lib/__tests__/run.cjs
+node src/lib/__tests__/typecheck.cjs
+node tools/check_content.mjs
+node server/index.test.js
+node src/guide/test/bridge.test.cjs
+node src/guide/test/run.cjs
+node src/guide/test/forms.test.cjs
+```
 
-## Stack and dependencies
+On Windows with a restrictive PowerShell script policy, use `npx.cmd` instead of `npx`. Guide desktop tests use installed Microsoft Edge; set `MASHQ_TEST_BROWSER` to override its executable path.
 
-Present: Expo SDK 58, React Native, TypeScript, Expo Router, Zustand, AsyncStorage, expo-audio, Fuse.js, safe-area support and ESLint. The optional server declares Express and CORS. Still absent: react-native-webview, expo-print and expo-sharing. Owners must add compatible versions; Maaz's work does not change dependency declarations.
+Verified in this session: full TypeScript and lint; backend/content suites; 19/20 representative real-KB questions with no incorrect answers; all eight hiccups and rungs 2/1/0 against the real lesson; 143 referenced clips bound to nonempty assets; offline ranked video results; server guards/cache/quota/timeout/rate-limit tests; Guide bridge, eleven desktop fixture checks and both bundled-form smoke suites. Generated speech quality and native playback remain human/device checks.
 
-## Privacy
+Android preview, once ready to run the phone gates:
 
-The Guide inspects field labels and metadata to explain standard boxes. It checks only whether non-sensitive required boxes are empty. It never forwards typed values or page text to the app. Password, PIN, verification-code and card fields show a safety card without inspecting their values. The bundled forms never submit data. Public websites have their own network behavior and privacy practices; incognito does not stop a website receiving anything entered or submitted. The store persists app state locally through AsyncStorage. Optional live video search sends the search query to the configured server and YouTube; it rejects secret-like queries before searching. Native runtime and full-app privacy checks remain <verify>.
+```sh
+npx eas-cli@latest whoami
+npx eas-cli@latest build --platform android --profile preview
+```
 
-## Known limitations and simulations
+The existing EAS project and preview APK profile are in `app.json` and `eas.json`. Build jobs/signing still require the configured account and available build capacity. Do not recreate the project link.
 
-Practice forms and the Practice Person are fictional; the persona content has not arrived. The Guide supports standard fields; custom widgets, iframe forms, some single-page sites and strict page security rules may not work. Embedded browsers may block sign-in. No public form or real Android device has been verified yet. English dictionary placeholders apply even when Urdu is selected. Audio playback and helper/jargon sheets need team integration. Generated Urdu speech and native-speaker review: <verify>. Video cache files are currently empty; curated content is missing and live search needs a server URL/key. Local server guards, no-key fallback and rate limiting pass smoke checks; live search and offline app behavior are unverified. The intended APK is a sideloaded prototype, not a Play Store release.
+## Optional video server
 
-## Credits
+Follow [server/README.md](server/README.md). Run `npm ci` and `npm start` inside `server/`. Set `YOUTUBE_API_KEY` in the process/host environment; Node does not load `.env` automatically. Default port: `8787`. Without a key, uncached requests return a safe unavailable response. Never commit keys or put the YouTube key in the mobile app.
 
-Codex assisted with Guide code and documentation drafting. Team review and ability to explain the implementation: <verify>. Urdu text-to-speech service and voice: <verify>. Font licenses and third-party asset credits: <verify>. No external scripts, fonts or images are loaded by the bundled forms.
+## Privacy and limitations
 
-## Draft release notes — v1.0-submission
+Practice details are fictional. Typed answers and helper text are not stored in AsyncStorage or sent by the lesson/helper. A cold resume restores the step pointer and event evidence, not typed answers; review answers and hiccup recovery counters are session-local. Preferences, counts, results and comfort answers stay on the device.
 
-Mashq helps parents practice unfamiliar online forms using fictional information. Its Guide explains standard fields and keeps sensitive boxes private.
+The Guide reads labels/metadata locally and only checks emptiness of ordinary required fields. Sensitive fields are not inspected; field values/page text are not forwarded to the app. Incognito does not prevent a public website from receiving information a person types or submits to that website. Bundled forms do not submit data.
 
-Download <APK link>, open it and allow installation from that source if asked. Follow Android's installation prompts; tested Android versions: <fill>. Open the Guide, choose a practice form, turn on “Guide me”, then focus a box. “Listen”, “Helper” and “Check” offer guidance; sensitive boxes show only a safety card. “Close and clear” exits the incognito browser.
+Optional video searches can send non-secret search queries to the configured server/YouTube. Thumbnails and embeds also require internet. Secret-like numbers are rejected before video search. The catalog contains reviewed-by-source candidates whose full watch-through approval is still pending; do not treat the UI's team-check label as completed human approval until Savera signs off.
 
-Limitations: standard fields only; custom widgets, iframe forms, some single-page sites, restrictive security rules and embedded sign-in may fail. Practice data is fictional. Urdu content/audio, offline behavior and video search need verification. Current checkout still has integration blockers; do not publish these notes as a tested release until resolved.
+The Guide supports ordinary fields, not every custom widget, iframe, strict site policy or embedded sign-in. Public forms, Android accessibility, PDF Urdu font rendering, deployment, APK installation and submission remain unverified until the corresponding remaining-work item has evidence.
 
-Final commit: <fill>. Android versions: <fill>.
+## Content and credits
+
+Interview notes: [docs/interviews.md](docs/interviews.md). Pitch/demo draft: [docs/pitch.md](docs/pitch.md). Backend contracts: [docs/api.md](docs/api.md). Generated audio scripts and map tools are under `tools/`; the configured default speech route is edge-tts with `ur-PK-UzmaNeural`, with a gTTS fallback. Confirm which route actually generated the shipped clips before final credits. Font packages/assets and any third-party video references need final license/attribution review. Codex assisted with implementation, tests and documentation.

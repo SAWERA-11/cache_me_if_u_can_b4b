@@ -73,6 +73,17 @@ try {
   render();
   assert.equal(app.results.length, 1);
   assert.ok(!JSON.stringify(app.events).includes('Fixture Person'));
+  view.actions.restart();
+  view = render();
+  assert.equal(view.done, false);
+  assert.equal(view.stepIndex, 0);
+  assert.deepEqual(view.answers, []);
+  const countBeforeExit = app.events.length;
+  view.actions.exit();
+  assert.equal(app.events.length, countBeforeExit + 1); // persists before navigation can unmount
+  assert.equal(app.events.at(-1).exited, true);
+  render();
+  assert.equal(app.events.length, countBeforeExit + 1);
   // A new mount starts from the beginning after successful completion.
   slots = [];
   assert.equal(render().stepIndex, 0);

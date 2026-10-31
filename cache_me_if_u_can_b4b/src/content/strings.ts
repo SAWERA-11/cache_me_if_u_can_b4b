@@ -1,4 +1,5 @@
 import type { Bi } from '../engine/types';
+import { INTEGRATION_STRINGS } from './integrationStrings';
 
 // Audio for a key, when it exists, has the id `ui_<key>` (see content/audio-script.csv).
 export const STRINGS: Record<string, Bi> = {
@@ -340,3 +341,4 @@ export const STRINGS: Record<string, Bi> = {
     ur: 'آپ چلتے رہے اور کام مکمل کیا۔ یہی سب سے اہم ہے۔', // TODO(UR-review)
   },
 };
+Object.assign(STRINGS, INTEGRATION_STRINGS);

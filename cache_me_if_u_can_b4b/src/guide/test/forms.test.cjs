@@ -3,21 +3,14 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const cp = require('node:child_process');
-const ts = require('typescript');
+require('./register.cjs');
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'mashq-forms-'));
-for (const file of ['guide/dictionary', 'guide/lens', 'forms/servicesForm', 'forms/walletForm']) {
-  const target = path.join(dir, file + '.js');
-  fs.mkdirSync(path.dirname(target), { recursive: true });
-  fs.writeFileSync(target, ts.transpileModule(fs.readFileSync('src/' + file + '.ts', 'utf8'), {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
-  }).outputText);
-}
-const lens = require(path.join(dir, 'guide/lens.js')).buildLens('en');
+const lens = require('../lens.ts').buildLens('en');
 const browser = process.env.MASHQ_TEST_BROWSER || 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 for (const [file, key, count, missing] of [
   ['servicesForm', 'SERVICES_FORM_HTML', 13, 10], ['walletForm', 'WALLET_FORM_HTML', 6, 3],
 ]) {
-  const html = require(path.join(dir, 'forms', file + '.js'))[key];
+  const html = require('../../forms/' + file + '.ts')[key];
   const check = `
 var failures=[];
 function assert(name,ok){if(!ok)failures.push(name);}

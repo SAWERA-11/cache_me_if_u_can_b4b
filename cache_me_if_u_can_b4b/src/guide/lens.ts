@@ -20,6 +20,7 @@ const SCRIPT = String.raw`
   function style(el, props) { for (var key in props) el.style[key] = props[key]; return el; }
   var host = style(document.createElement('div'), { position: 'fixed', insetInlineStart: '0', bottom: '0', width: '100%', zIndex: '2147483647' });
   var root = host.attachShadow({ mode: 'open' });
+  host.dir = dict.lang === 'ur' ? 'rtl' : 'ltr';
   var bar = style(document.createElement('section'), { background: '#fffbea', color: '#182f2b', padding: '16px', font: '20px sans-serif', maxHeight: '45vh', overflow: 'auto', borderTop: '3px solid #186458', boxSizing: 'border-box' });
   bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Form Guide');
   var text = document.createElement('div'); text.setAttribute('aria-live', 'polite'); bar.appendChild(text);
@@ -39,7 +40,7 @@ const SCRIPT = String.raw`
     post('ASK_HELPER', { kinds: kinds });
   });
   var check = button(dict.ui.check, checkFields);
-  button(dict.ui.hide, function () { state.receive({ type: 'SET_GUIDE', on: false }); });
+  button(dict.ui.hide, function () { post('GUIDE_OFF', {}); state.receive({ type: 'SET_GUIDE', on: false }); });
   function visible(el) { var css = window.getComputedStyle(el); return el.getClientRects().length > 0 && css.display !== 'none' && css.visibility !== 'hidden' && css.visibility !== 'collapse'; }
   function label(el) {
     var parts = [], i, ids;

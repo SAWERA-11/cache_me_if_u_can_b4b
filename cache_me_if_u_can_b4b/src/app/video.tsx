@@ -16,8 +16,8 @@ type Item = { id: string; title: string; channel?: string; checked?: boolean };
 type Source = 'curated' | 'cache' | 'live' | 'none';
 
 const CHIPS: [string, string][] = [
-  ['chip_word', 'What does this word mean?'], ['chip_box', 'What does this box want?'],
-  ['chip_error', 'The page shows an error'], ['chip_logged_out', 'I was logged out'],
+  ['video_topic_otp', 'otp'], ['video_topic_photo', 'photo'],
+  ['video_topic_login', 'login'], ['video_topic_safety', 'scam'],
 ];
 
 export default function VideoScreen() {
@@ -46,7 +46,7 @@ export default function VideoScreen() {
       <AppText size="big" bold color={colors.ink}>{t('find_video_title')}</AppText>
       <AppText bold color={colors.warmInk} style={styles.note}>{t('video_banner')}</AppText>
       {CHIPS.map(([k, f]) => (
-        <BigButton key={k} variant="secondary" label={label(k, f)} onPress={() => search(label(k, f))} />
+        <BigButton key={k} variant="secondary" label={label(k, f)} onPress={() => search(f)} />
       ))}
       <TextInput accessibilityLabel={t('find_video_title')} value={text} onChangeText={setText}
         style={[styles.input, { fontSize: body, textAlign: align }]} />
@@ -62,7 +62,7 @@ export default function VideoScreen() {
       ))}
       {after ? (
         <View style={styles.after}>
-          <BigButton label={'Try it now'} onPress={() => uiBus.emit('helper', [])} />
+          <BigButton label={t('try_it_now')} onPress={() => uiBus.emit('helper', [])} />
           <AppText bold>{t('video_helped_q')}</AppText>
           <Row style={styles.row}>
             <View style={styles.flex}><BigButton variant={helped === true ? 'primary' : 'secondary'} label={t('yes')} onPress={() => setHelped(true)} /></View>
@@ -73,7 +73,7 @@ export default function VideoScreen() {
       <Sheet visible={!!playing} onClose={close} title={playing?.title ?? ''}>
         {playing ? (
           <View style={styles.player}>
-            <WebView source={{ uri: `https://www.youtube.com/embed/${playing.id}?rel=0&playsinline=1` }} allowsFullscreenVideo />
+            <WebView<object> source={{ uri: `https://www.youtube.com/embed/${playing.id}?rel=0&playsinline=1` }} allowsFullscreenVideo incognito />
           </View>
         ) : null}
       </Sheet>

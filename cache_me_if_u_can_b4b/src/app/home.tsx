@@ -1,4 +1,5 @@
-import { router, type Href } from 'expo-router';
+import { router } from 'expo-router';
+import { resumableLessonId } from '../engine/catalog';
 import { Pressable, StyleSheet, Switch, View } from 'react-native';
 import { AppText } from '../components/AppText';
 import { Brand } from '../components/Brand';
@@ -14,8 +15,7 @@ export default function Home() {
   const guideOn = useApp((s) => s.guideOn);
   const results = useApp((s) => s.results);
   const last = results.filter((r) => r.lessonId === LESSON1.id).sort((a, b) => b.ts - a.ts)[0];
-  // TODO: wire to real hook. Ahmer will expose the id of an exited lesson; none exists yet.
-  const exitedLessonId: string | null = null;
+  const exitedLessonId = useApp((state) => resumableLessonId(state.events));
 
   return (
     <Screen>
@@ -38,7 +38,7 @@ export default function Home() {
         trailing={<Switch accessibilityLabel={t('guide_me')} value={guideOn} onValueChange={(v) => useApp.getState().set({ guideOn: v })} />} />
       {guideOn ? (
         <TapCard glyph={'✓'} tint={colors.calm} ink={colors.calmInk} label={t('guide_on_badge')}
-          onPress={() => router.push('/guide' as Href)} />
+          onPress={() => router.push('/guide')} />
       ) : null}
       <Pressable accessibilityRole="link" accessibilityLabel={t('settings')} onPress={() => router.push('/settings')} style={styles.link}>
         <AppText bold color={colors.primary}>{t('settings')}</AppText>

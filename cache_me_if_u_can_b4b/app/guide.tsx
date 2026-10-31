@@ -8,17 +8,24 @@ import { WALLET_FORM_HTML } from '../src/forms/walletForm';
 import { handleGuideMessage } from '../src/guide/bridge';
 import { buildLens } from '../src/guide/lens';
 import { useApp } from '../src/store/useApp';
+import { useT } from '../src/lib/t';
+import { useDir } from '../src/theme/useDir';
+import { useTextSize } from '../src/theme/useTextSize';
 
 // TODO: Maaz must supply URLs after actual Android WebView tests. Do not claim desktop results as phone results.
 export const PUBLIC_FORMS: { label: string; url: string }[] = [];
 const OFF = "window.__mashq && window.__mashq.receive({type:'SET_GUIDE',on:false}); true;";
 
 function GuideButton({ label, onPress }: { label: string; onPress: () => void }) {
-  return <Pressable accessibilityRole="button" style={styles.button} onPress={onPress}><Text style={styles.buttonText}>{label}</Text></Pressable>;
+  const { body } = useTextSize();
+  return <Pressable accessibilityRole="button" style={styles.button} onPress={onPress}><Text style={[styles.buttonText, { fontSize: body }]}>{label}</Text></Pressable>;
 }
 
 export default function GuideScreen() {
-  const ref = useRef<WebView>(null);
+  const t = useT();
+  const { row, align } = useDir();
+  const { body } = useTextSize();
+  const ref = useRef<WebView<object>>(null);
   const guideOn = useApp(state => state.guideOn);
   const language = useApp(state => state.language);
   const [ready, setReady] = useState(false);
@@ -36,23 +43,27 @@ export default function GuideScreen() {
     return () => subscription.remove();
   }, [canGoBack, leave]);
   return <SafeAreaView style={styles.screen}>
-    <View style={styles.row}><Text style={styles.text}>Guide me</Text><Switch accessibilityLabel="Guide me" value={enabled} onValueChange={on => useApp.getState().set({ guideOn: on })} /></View>
-    {enabled && <Text style={styles.badge}>Guide is ON</Text>}
-    <ScrollView horizontal style={styles.shortcuts} contentContainerStyle={styles.row}>
-      <GuideButton label="Practice form 1" onPress={() => setSource({ html: SERVICES_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
-      <GuideButton label="Practice form 2" onPress={() => setSource({ html: WALLET_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
+    <View style={[styles.row, { flexDirection: row }]}><Text style={[styles.text, { fontSize: body, textAlign: align }]}>{t('guide_me')}</Text><Switch accessibilityLabel={t('guide_me')} value={enabled} onValueChange={on => useApp.getState().set({ guideOn: on })} /></View>
+    {enabled && <Text style={[styles.badge, { fontSize: body, textAlign: align }]}>{t('guide_on_badge')}</Text>}
+    <ScrollView horizontal style={styles.shortcuts} contentContainerStyle={[styles.row, { flexDirection: row }]}>
+      <GuideButton label={t('practice_form_1')} onPress={() => setSource({ html: SERVICES_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
+      <GuideButton label={t('practice_form_2')} onPress={() => setSource({ html: WALLET_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
       {PUBLIC_FORMS.map(form => <GuideButton key={form.url} label={form.label} onPress={() => setSource({ uri: form.url })} />)}
     </ScrollView>
-    <WebView ref={ref} style={styles.web} source={source} originWhitelist={['*']} javaScriptEnabled domStorageEnabled setSupportMultipleWindows={false} incognito
+    <WebView<object> ref={ref} style={styles.web} source={source} originWhitelist={['*']} javaScriptEnabled domStorageEnabled setSupportMultipleWindows={false} incognito
       injectedJavaScript={enabled ? buildLens(language) : 'true;'}
       onLoadEnd={() => setReady(true)}
-      onMessage={(event: { nativeEvent: { data: string } }) => { if (enabled) handleGuideMessage(event.nativeEvent.data); }}
+      onMessage={(event: { nativeEvent: { data: string } }) => {
+        if (!enabled) return;
+        try { if (JSON.parse(event.nativeEvent.data)?.type === 'GUIDE_OFF') { useApp.getState().set({ guideOn: false }); return; } } catch { return; }
+        handleGuideMessage(event.nativeEvent.data);
+      }}
       onNavigationStateChange={(navigation: { canGoBack: boolean }) => setCanGoBack(navigation.canGoBack)}
       onShouldStartLoadWithRequest={(request: { url: string }) => /^(https?:|about:blank)/i.test(request.url)} />
-    <View style={styles.row}>
-      <GuideButton label="Back" onPress={() => { if (canGoBack) ref.current?.goBack(); else leave(); }} />
-      <GuideButton label="Reload" onPress={() => ref.current?.reload()} />
-      <GuideButton label="Close and clear" onPress={leave} />
+    <View style={[styles.row, { flexDirection: row }]}>
+      <GuideButton label={t('back')} onPress={() => { if (canGoBack) ref.current?.goBack(); else leave(); }} />
+      <GuideButton label={t('reload')} onPress={() => ref.current?.reload()} />
+      <GuideButton label={t('close_and_clear')} onPress={leave} />
     </View>
   </SafeAreaView>;
 }

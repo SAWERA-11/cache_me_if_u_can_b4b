@@ -26,7 +26,7 @@ export function useRunner(lessonId: string, testLesson?: Lesson) {
     lesson,
     initialize,
   );
-  const [previousEvents] = useState(() => {
+  const [previousEvents, setPreviousEvents] = useState(() => {
     const { events, results } = useApp.getState();
     const last = results.at(-1);
     const before = results.at(-2)?.ts ?? -Infinity;
@@ -39,15 +39,21 @@ export function useRunner(lessonId: string, testLesson?: Lesson) {
   const addResult = useApp((value) => value.addResult);
   const savedEvents = useRef(state.events.length);
   const savedResult = useRef(false);
+  const savedVersion = useRef(state.runVersion);
   const result: LessonResultView | null = state.done
     ? buildResult(scoredEvents(state.events, state.lesson), previousEvents, state.hiccupsShown, state.hiccupsRecovered, lookupStrength)
     : null;
 
   useEffect(() => {
+    if (savedVersion.current !== state.runVersion) {
+      savedVersion.current = state.runVersion;
+      savedEvents.current = 0;
+      savedResult.current = false;
+    }
     const newEvents = state.events.slice(savedEvents.current);
     newEvents.forEach(addEvent);
     savedEvents.current = state.events.length;
-  }, [addEvent, state.events]);
+  }, [addEvent, state.events, state.runVersion]);
 
   useEffect(() => {
     if (!result || savedResult.current) return;
@@ -63,6 +69,8 @@ export function useRunner(lessonId: string, testLesson?: Lesson) {
     stepIndex: state.stepIndex,
     total: state.lesson.steps.length,
     input: state.input,
+    answers: state.lesson.steps.filter((item) => item.kind === 'field' && Object.prototype.hasOwnProperty.call(state.previousInputs, item.id))
+      .map((item) => ({ step: item, value: state.previousInputs[item.id] })),
     openLayers: state.openLayers,
     highlightField: state.highlightField,
     hiccup: state.hiccup as HiccupId | null,
@@ -72,6 +80,8 @@ export function useRunner(lessonId: string, testLesson?: Lesson) {
     receiptNo: state.receiptNo,
     result,
     actions: {
+      restart: () => { setPreviousEvents(scoredEvents(state.events, state.lesson)); send({ type: 'restart', now: Date.now() }); },
+      goTo: (index: number) => send({ type: 'goTo', index, now: Date.now() }),
       setInput: (value: string) => send({ type: 'setInput', value }),
       submit: () => send({ type: 'submit', now: Date.now() }),
       openLayer: (layer: keyof typeof state.openLayers) => send({ type: 'openLayer', layer }),
@@ -81,7 +91,14 @@ export function useRunner(lessonId: string, testLesson?: Lesson) {
       resolveHiccup: () => send({ type: 'resolveHiccup' }),
       dismissOops: () => send({ type: 'dismissOops' }),
       backPressed: () => send({ type: 'backPressed' }),
-      exit: () => send({ type: 'exit', now: Date.now() }),
+      exit: () => {
+        const now = Date.now();
+        const action: Action = { type: 'exit', now };
+        const exiting = reduce(state, action, now);
+        exiting.events.slice(savedEvents.current).forEach(addEvent);
+        savedEvents.current = exiting.events.length;
+        send(action);
+      },
       replayAudio: () => send({ type: 'replayAudio' }),
     },
   };

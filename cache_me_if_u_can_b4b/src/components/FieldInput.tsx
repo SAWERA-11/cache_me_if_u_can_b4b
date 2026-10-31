@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 import { colors, sizes } from '../theme/tokens';
 import { useDir } from '../theme/useDir';
@@ -27,11 +26,10 @@ export function FieldInput({ step, value, onChange, highlighted }: Props) {
   const lang = useApp((s) => s.language);
   const label = step.label[lang] || step.label.en;
   // DOB boxes keep their own parts so typing in one box never clears another.
-  const [dob, setDob] = useState<[string, string, string]>(['', '', '']);
+  const dob = value.split('-');
   const setPart = (i: 0 | 1 | 2, v: string) => {
     const next = [...dob] as [string, string, string];
     next[i] = v.replace(/\D/g, '');
-    setDob(next);
     onChange(next.some(Boolean) ? next.join('-') : '');
   };
 
@@ -62,7 +60,7 @@ export function FieldInput({ step, value, onChange, highlighted }: Props) {
           {([['DD', 2], ['MM', 2], ['YYYY', 4]] as const).map(([ph, max], i) => (
             <View key={ph} style={{ flex: max }}>
               <Box highlighted={highlighted} accessibilityLabel={`${label} ${ph}`} placeholder={ph} maxLength={max}
-                keyboardType="number-pad" value={dob[i]} onChangeText={(v) => setPart(i as 0 | 1 | 2, v)} />
+                keyboardType="number-pad" value={dob[i] ?? ''} onChangeText={(v) => setPart(i as 0 | 1 | 2, v)} />
             </View>
           ))}
         </Row>

@@ -1,5 +1,7 @@
-import { useLocalSearchParams } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { LESSONS } from '../../content';
+import { stopClip } from '../../lib/audio';
 import { BackHandler, StyleSheet, View } from 'react-native';
 import { AppText } from '../../components/AppText';
 import { AudioButton } from '../../components/AudioButton';
@@ -13,12 +15,12 @@ import { IdCard } from '../../components/IdCard';
 import { OopsCard } from '../../components/OopsCard';
 import { ReceiptView } from '../../components/ReceiptView';
 import { ResultView } from '../../components/ResultView';
-import { type Answer, ReviewView } from '../../components/ReviewView';
+import { ReviewView } from '../../components/ReviewView';
 import { Row } from '../../components/Row';
 import { Screen } from '../../components/Screen';
 import { StuckButton } from '../../components/StuckButton';
 import { colors } from '../../theme/tokens';
-import { GLOSSARY, type Step, uiBus, useApp, useRunner, useT } from '../../theme/wire';
+import { GLOSSARY, uiBus, useApp, useRunner, useT } from '../../theme/wire';
 
 type LayerName = 'asks' | 'where' | 'format' | 'ifUnsure';
 const LAYERS: [LayerName, string][] = [
@@ -38,22 +40,26 @@ const pick = (b: { ur: string; en: string } | undefined, lang: 'ur' | 'en') => (
 
 export default function LessonScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const runner = useRunner(id ?? 'lesson1');
+  const t = useT();
+  if (!id || !Object.prototype.hasOwnProperty.call(LESSONS, id)) {
+    return <Screen><AppText>{t('helper_unsure')}</AppText><BigButton label={t('back')} onPress={() => router.replace('/home')} /></Screen>;
+  }
+  return <LessonSession key={id} lessonId={id} />;
+}
+
+function LessonSession({ lessonId }: { lessonId: string }) {
+  const runner = useRunner(lessonId);
   const { step, actions } = runner;
   const t = useT();
   const lang = useApp((s) => s.language);
   const [showResult, setShowResult] = useState(false);
-  const [answers, setAnswers] = useState<Answer[]>([]);
-  const prev = useRef<{ index: number; step: Step; input: string } | null>(null);
-
-  // Capture each answer as its step completes (the runner does not expose answers yet).
-  useEffect(() => {
-    const p = prev.current;
-    if (p && runner.stepIndex > p.index && p.step.kind === 'field') {
-      setAnswers((a) => [...a.filter((x) => x.step.id !== p.step.id), { step: p.step, value: p.input }]);
-    }
-    prev.current = { index: runner.stepIndex, step, input: runner.input };
-  }, [runner.stepIndex, runner.input, step]);
+  const [beforeAsked, setBeforeAsked] = useState(runner.stepIndex > 0);
+  const before = (value?: number) => {
+    if (value !== undefined) { const { comfort, set } = useApp.getState(); set({ comfort: [...comfort, { lessonId, before: value }] }); }
+    setBeforeAsked(true);
+  };
+  const retry = () => { actions.restart(); setShowResult(false); setBeforeAsked(false); };
+  useEffect(() => () => stopClip(), []);
 
   useEffect(() => {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => { actions.backPressed(); return true; });
@@ -66,10 +72,16 @@ export default function LessonScreen() {
   let body: React.ReactNode;
   let bottom: React.ReactNode = null;
 
-  if (runner.done && runner.receiptNo && !showResult) {
+  if (!beforeAsked) {
+    body = <><AppText size="big">{t('comfort_q')}</AppText>
+      <BigButton label={t('comfort_ok')} onPress={() => before(2)} />
+      <BigButton variant="secondary" label={t('comfort_unsure')} onPress={() => before(1)} />
+      <BigButton variant="secondary" label={t('comfort_notyet')} onPress={() => before(0)} />
+      <BigButton variant="secondary" label={t('next')} onPress={() => before()} /></>;
+  } else if (runner.done && runner.receiptNo && !showResult) {
     body = <ReceiptView receiptNo={runner.receiptNo} onContinue={() => setShowResult(true)} />;
   } else if (showResult) {
-    body = <ResultView lessonId={runner.lesson.id} result={runner.result} />;
+    body = <ResultView lessonId={runner.lesson.id} result={runner.result} onRetry={retry} />;
   } else if (step.kind === 'info') {
     const loggedOut = step.hiccup?.id === 'logged_out';
     body = (
@@ -135,14 +147,16 @@ export default function LessonScreen() {
     bottom = <BigButton label={t('next')} onPress={actions.submit} />;
   } else {
     body = (
-      <ReviewView answers={answers} highlightField={runner.highlightField} vagueError={runner.highlightField !== null}
-        title={pick(step.label, lang)} buttonKey={step.kind === 'submit' ? 'submit' : 'next'} onSubmit={actions.submit} />
+      <ReviewView answers={runner.answers} highlightField={runner.highlightField} vagueError={runner.highlightField !== null}
+        title={pick(step.label, lang)} buttonKey={step.kind === 'submit' ? 'submit' : 'next'} onSubmit={actions.submit}
+        onEdit={(stepId) => actions.goTo(runner.lesson.steps.findIndex((item) => item.id === stepId))} />
     );
   }
 
   return (
     <Screen top={showResult ? null : <Banner />} bottom={bottom}>
       {body}
+      {!runner.done && <BigButton variant="secondary" label={t('save_and_leave')} onPress={() => { actions.exit(); router.replace('/home'); }} />}
       <HiccupSheet hiccup={runner.hiccup} onResolve={actions.resolveHiccup} />
     </Screen>
   );
