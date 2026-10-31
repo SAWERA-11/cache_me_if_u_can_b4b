@@ -83,7 +83,7 @@ otp_unsure: pending
 h_vague_error: approved
 h_wrong_format: approved
 h_unknown_word: approved
-h_find_answer: pending | re-listen: button name changed to "یہ کہاں پر ہے"
+h_find_answer: approved
 h_logged_out: approved
 h_upload_rejected: approved
 h_verification_code: approved

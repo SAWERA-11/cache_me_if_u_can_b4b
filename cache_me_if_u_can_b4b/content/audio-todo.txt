@@ -42,7 +42,6 @@ photo_unsure
 otp_where
 otp_format
 otp_unsure
-h_find_answer
 kind_name
 kind_dob
 kind_id_number
