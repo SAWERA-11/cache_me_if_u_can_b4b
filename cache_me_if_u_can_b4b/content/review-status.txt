@@ -247,7 +247,7 @@ str_guide_privacy_4: approved
 str_guide_privacy_5: approved
 str_practice_form_3: approved
 delivery_ready_internet: approved
-delivery_ready_address: needs-fix | why: "gali" said as "gilli"
+delivery_ready_address: approved
 delivery_ready_cash: approved
 delivery_ready_asks: approved
 delivery_location_asks: approved
@@ -256,7 +256,7 @@ delivery_quantity_asks: approved
 delivery_total_asks: approved
 delivery_phone_asks: approved
 delivery_payment_asks: approved
-delivery_place_order_asks: needs-fix | why: "order" mispronounced
+delivery_place_order_asks: approved
 delivery_track_asks: approved
 delivery_rider_asks: approved
 delivery_safety_asks: approved

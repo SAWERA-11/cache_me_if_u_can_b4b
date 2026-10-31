@@ -14,8 +14,6 @@ ui_strength_fewer_hints
 ui_strength_careful_check
 ui_strength_default
 ui_consent
-delivery_ready_address
-delivery_place_order_asks
 name_where
 name_format
 name_unsure

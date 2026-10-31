@@ -19,7 +19,7 @@ export const LESSON_DELIVERY: Lesson = {
     } },
     { id: 'ready_address', audio: 'delivery_ready_address', text: {
       en: 'Your house number and street',
-      ur: 'آپ کا مکان نمبر اور گلی', // TODO(UR-review)
+      ur: 'آپ کا مکان نمبر اور سڑک',
     } },
     { id: 'ready_cash', audio: 'delivery_ready_cash', text: {
       en: 'Cash, card or mobile wallet',
@@ -305,7 +305,7 @@ export const LESSON_DELIVERY: Lesson = {
       },
       asks: {
         en: 'Check the address, number and total, then tap Submit. Real apps call it Place order.',
-        ur: 'پتہ، نمبر اور ٹوٹل چیک کریں، پھر "جمع کرائیں" دبائیں۔ اصلی ایپس میں اسے Place order کہتے ہیں۔', // TODO(UR-review)
+        ur: 'پتہ، نمبر اور ٹوٹل چیک کریں، پھر "جمع کرائیں" دبائیں۔ اصلی ایپس میں اسے Place order کہتے ہیں۔',
       },
       hiccup: { id: 'vague_error', when: 'submit_first' },
       audio: { asks: 'delivery_place_order_asks' },

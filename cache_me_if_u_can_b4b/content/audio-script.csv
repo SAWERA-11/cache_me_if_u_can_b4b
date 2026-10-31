@@ -37,7 +37,7 @@ ready_1,آپ کا شناختی کارڈ
 ready_2,آپ کا فون نمبر
 ready_3,ایک صاف تصویر
 delivery_ready_internet,انٹرنیٹ والا فون
-delivery_ready_address,آپ کا مکان نمبر اور گلی
+delivery_ready_address,آپ کا مکان نمبر اور سڑک
 delivery_ready_cash,نقد رقم، کارڈ یا موبائل والٹ
 ready_asks,یہ تین چیزیں اپنے پاس رکھیں۔
 name_asks,آپ کا پورا نام، جیسا شناختی کارڈ پر لکھا ہے۔
@@ -59,7 +59,7 @@ delivery_quantity_asks,ٹوکری میں بریانی کی 2 پلیٹیں ڈال
 delivery_total_asks,کھانا 700 روپے، ڈیلیوری فیس 99 روپے۔ آپ کتنے دیں گے؟
 delivery_phone_asks,آپ کا نمبر، تاکہ رائیڈر آپ کو فون کر سکے۔
 delivery_payment_asks,اس مشق میں، کھانا آنے پر نقد ادائیگی کریں۔
-delivery_place_order_asks,"پتہ، نمبر اور ٹوٹل چیک کریں، پھر ""جمع کرائیں"" دبائیں۔ اصلی ایپس میں اسے Place order کہتے ہیں۔"
+delivery_place_order_asks,"پتہ، نمبر اور ٹوٹل چیک کریں، پھر ""جمع کرائیں"" دبائیں۔ اصلی ایپس میں اسے پلیس آرڈر کہتے ہیں۔"
 delivery_track_asks,آرڈر ہو گیا۔ اب ایپ نقشے پر رائیڈر اور باقی منٹ دکھاتی ہے۔
 delivery_rider_asks,رائیڈر کو آپ کا گھر نہیں مل رہا۔ آپ کیا کریں گے؟
 delivery_safety_asks,"فون پر کوئی آرڈر ""کنفرم"" کرنے کے لیے آپ کے کارڈ کا PIN مانگتا ہے۔"
