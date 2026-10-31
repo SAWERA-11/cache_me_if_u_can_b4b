@@ -10,14 +10,13 @@ Built at **Build4Better, NED University, Karachi, 31 October 2026**.
 
 | | |
 |---|---|
-| **Final submitted commit** | The commit tagged [`v1.0-submission`](https://github.com/SAWERA-11/cache_me_if_u_can_b4b/commit/v1.0-submission), the last commit on `main` (31 Oct 2026) |
-| **Last code change** | [`83f0e65`](https://github.com/SAWERA-11/cache_me_if_u_can_b4b/commit/83f0e65) (17:34 PKT); later commits only edit the README |
+| **Final submitted commit** | The latest commit on [`main`](https://github.com/SAWERA-11/cache_me_if_u_can_b4b/commits/main) (31 Oct 2026); at the time of writing [`734e47a`](https://github.com/SAWERA-11/cache_me_if_u_can_b4b/commit/734e47a) |
 | **Source code** | https://github.com/SAWERA-11/cache_me_if_u_can_b4b (public, full commit history) |
 | **App folder** | [`cache_me_if_u_can_b4b/`](cache_me_if_u_can_b4b/) |
 | **APK** | [Download Mashq.apk](https://expo.dev/artifacts/eas/j64jvMn5trwG_TPnv-iyHmQMEyNqg2eq3MBJF1VkDck.apk) ([EAS build page](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/74945b6b-3832-4f13-9870-e65209f55535)) |
 | **Demo video** | [Mashq demo (Google Drive)](https://drive.google.com/file/d/1b_vcMMzc77Xok5mwrNHqQ37uiifwx6Y9/view?usp=drivesdk) |
 
-> The final submitted version is the commit tagged **`v1.0-submission`** ([view it](https://github.com/SAWERA-11/cache_me_if_u_can_b4b/commit/v1.0-submission)), which is the last commit on `main`. The app's code, content and audio last changed in `83f0e65`; the commits after it only edit README files. Nothing will be changed after the submission.
+> The final submitted version is the latest commit on `main` ([view the history](https://github.com/SAWERA-11/cache_me_if_u_can_b4b/commits/main)). The app's code, content and audio last changed in `f550d6f`; the commits after it only edit README files. Nothing will be changed after the submission.
 
 ---
 
