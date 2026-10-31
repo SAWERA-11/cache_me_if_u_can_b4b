@@ -10,5 +10,5 @@ export { useRunner } from '../../engine/useRunner';
 export { matchQuestion, looksLikeSecret, matchChip } from '../../helper/matcher';
 export { fetchVideos } from '../../video/api';
 export {
-  HICCUPS, GLOSSARY, LESSON1, STRINGS, KB, FRIDGE_STEPS, FRIDGE_IF_STUCK, FRIDGE_REMINDER,
+  HICCUPS, GLOSSARY, LESSON1, LESSON_DELIVERY, STRINGS, KB, FRIDGE_STEPS, FRIDGE_IF_STUCK, FRIDGE_REMINDER,
 } from '../../content';
