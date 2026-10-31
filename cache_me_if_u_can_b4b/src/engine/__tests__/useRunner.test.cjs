@@ -40,7 +40,7 @@ Module._load = function (request, parent, main) {
   if (parent?.filename.endsWith('useRunner.ts')) {
     if (request === 'react') return react;
     if (request === '../store/useApp') return { useApp };
-    if (request === '../content') return { LESSONS: [lesson], STRINGS: {
+    if (request === '../content') return { LESSONS: { [lesson.id]: lesson }, STRINGS: {
       strength_careful_check: { ur: 'fixture translation', en: 'Careful fixture check' },
     } };
   }

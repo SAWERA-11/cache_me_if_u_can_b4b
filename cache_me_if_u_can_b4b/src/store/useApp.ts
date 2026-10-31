@@ -2,7 +2,8 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { Lang, StepEvent } from '../engine/types';
-import { persistedState, privateEvent } from './persistence';
+import { persistedState, privateEvent, restoredState } from './persistence';
+import { median } from '../engine/estimate';
 
 export type AppResult = { lessonId: string; ts: number; score: number; rung: 0 | 1 | 2; strength: string };
 export type Comfort = { lessonId: string; before?: number; after?: number };
@@ -33,8 +34,12 @@ const initialState = {
 
 export const useApp = create<AppState>()(persist((set) => ({
   ...initialState,
-  set: (partial) => set(partial),
-  addEvent: (event) => set((state) => ({ events: [...state.events, privateEvent(event)].slice(-300) })),
+  set: (partial) => set((state) => ({ ...restoredState({ ...state, ...partial }, state),
+    guideOn: typeof partial.guideOn === 'boolean' ? partial.guideOn : state.guideOn })),
+  addEvent: (event) => set((state) => {
+    const events = [...state.events, privateEvent(event)].slice(-300);
+    return { events, baselineMs: median(events.map((item) => item.firstActionMs)) };
+  }),
   addResult: (result) => set((state) => ({ results: [...state.results, result].slice(-10) })),
   addStruggle: (kind) => set((state) => ({ struggles: { ...state.struggles, [kind]: (state.struggles[kind] ?? 0) + 1 } })),
   reset: () => set(initialState),
@@ -43,10 +48,7 @@ export const useApp = create<AppState>()(persist((set) => ({
   storage: createJSONStorage(() => AsyncStorage),
   partialize: persistedState,
   merge: (persisted, current) => {
-    if (!persisted || typeof persisted !== 'object') return current;
-    const candidate = { ...current, ...persisted } as AppState;
-    if (!Array.isArray(candidate.events) || !Array.isArray(candidate.results) || !Array.isArray(candidate.comfort)) return current;
-    return { ...current, ...persistedState(candidate) };
+    return { ...current, ...restoredState(persisted, current) };
   },
   onRehydrateStorage: () => (state) => {
     if (state) state.guideOn = false;

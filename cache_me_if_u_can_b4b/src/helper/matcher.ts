@@ -12,6 +12,11 @@ const chipIds: Record<string, string> = {
   chip_safe: 'safe',
 };
 
+const chipGroups: Record<string, KBEntry['group']> = {
+  chip_word: 'words', chip_box: 'fields', chip_error: 'errors',
+  chip_logged_out: 'logged_out', chip_safe: 'safety',
+};
+
 export function createMatcher(entries: KBEntry[]): {
   matchQuestion: (question: string) => KBEntry | null;
 } {
@@ -43,6 +48,7 @@ function getMatcher(): ReturnType<typeof createMatcher> {
 }
 
 export function matchQuestion(question: string): KBEntry | null {
+  if (!normalizeUrdu(question) || looksLikeSecret(question)) return null;
   return getMatcher().matchQuestion(question);
 }
 
@@ -58,6 +64,8 @@ export function looksLikeSecret(question: string): boolean {
 export function matchChip(chipId: string): KBEntry | null {
   const content = require('../content') as { KB: KBEntry[] };
   const id = chipIds[chipId];
-  return content.KB.find((entry) => entry.chips?.includes(chipId))
-    ?? content.KB.find((entry) => entry.id === id) ?? null;
+  // KBEntry.chips are follow-up targets, not aliases for the entry holding them.
+  return content.KB.find((entry) => entry.id === chipId)
+    ?? content.KB.find((entry) => entry.id === id)
+    ?? (chipGroups[chipId] ? content.KB.find((entry) => entry.group === chipGroups[chipId]) : null) ?? null;
 }

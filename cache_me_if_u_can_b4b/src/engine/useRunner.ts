@@ -3,6 +3,7 @@ import { LESSONS, STRINGS } from '../content';
 import { useApp } from '../store/useApp';
 import { buildResult, fallbackStrength, resumeIndex, scoredEvents } from './estimate';
 import { createInitialState, reduce, type Action } from './runner';
+import { findLesson } from './catalog';
 import type { HiccupId, Lesson, LessonResultView, Step } from './types';
 
 function initialize(lesson: Lesson) {
@@ -11,11 +12,12 @@ function initialize(lesson: Lesson) {
 
 function lookupStrength(key: string) {
   const value = STRINGS[key];
-  return value ?? fallbackStrength(key);
+  const fallback = fallbackStrength(key).en;
+  return { en: value?.en || fallback, ur: value?.ur || value?.en || fallback };
 }
 
 export function useRunner(lessonId: string, testLesson?: Lesson) {
-  const lesson = testLesson ?? LESSONS.find((item: Lesson) => item.id === lessonId);
+  const lesson = testLesson ?? findLesson(LESSONS, lessonId);
   if (!lesson) throw new Error(`Unknown lesson: ${lessonId}`);
   const [state, dispatch] = useReducer(
     (currentState: ReturnType<typeof createInitialState>, message: { action: Action; now: number }) =>
@@ -29,7 +31,7 @@ export function useRunner(lessonId: string, testLesson?: Lesson) {
     const before = results.at(-2)?.ts ?? -Infinity;
     if (!last) return [];
     const previous = events.filter((event) => event.lessonId === last.lessonId && event.ts > before && event.ts <= last.ts);
-    const previousLesson = LESSONS.find((item: Lesson) => item.id === last.lessonId);
+    const previousLesson = findLesson(LESSONS, last.lessonId);
     return previousLesson ? scoredEvents(previous, previousLesson) : previous;
   });
   const addEvent = useApp((value) => value.addEvent);

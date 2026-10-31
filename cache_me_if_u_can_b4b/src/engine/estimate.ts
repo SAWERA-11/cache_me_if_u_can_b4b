@@ -57,8 +57,9 @@ export function pickStrength(
   const currentHints = events.reduce((sum, event) => sum + event.hintTaps, 0);
   const previousHints = previousEvents.reduce((sum, event) => sum + event.hintTaps, 0);
   if (previousEvents.length > 0 && currentHints < previousHints) return lookup('strength_fewer_hints');
-  const check = events.find((event) => event.stepId === 'review' || event.stepId === 'submit');
-  if (check && check.wrongAttempts === 0 && check.completed) return lookup('strength_careful_check');
+  const carefulCheck = events.some((event) => (event.stepId === 'review' || event.stepId === 'submit')
+    && event.wrongAttempts === 0 && event.completed);
+  if (carefulCheck) return lookup('strength_careful_check');
   return lookup('strength_default');
 }
 

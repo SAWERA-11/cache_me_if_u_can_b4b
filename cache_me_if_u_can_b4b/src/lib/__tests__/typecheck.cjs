@@ -11,11 +11,14 @@ const parsed = ts.parseJsonConfigFileContent(config.config, ts.sys, root);
 const normalize = (filename) => path.resolve(filename).replace(/\\/g, '/').toLowerCase();
 const fixtures = new Map([
   [normalize(path.join(root, 'src/content.ts')), `
-    import type { Lesson, Bi, KBEntry, VideoItem } from './engine/types';
-    export declare const LESSONS: Lesson[];
+    import type { Lesson, Bi, KBEntry, VideoItem, HiccupId, Hiccup, GlossaryTerm } from './engine/types';
+    export declare const LESSONS: Record<string, Lesson>;
     export declare const STRINGS: Record<string, Bi>;
     export declare const KB: KBEntry[];
     export declare const VIDEOS: VideoItem[];
+    export declare const LESSON1: Lesson;
+    export declare const HICCUPS: Record<HiccupId, Hiccup>;
+    export declare const GLOSSARY: GlossaryTerm[];
   `],
   [normalize(path.join(root, 'src/audio/audioMap.ts')), 'export declare const AUDIO: Record<string, number>;'],
 ]);

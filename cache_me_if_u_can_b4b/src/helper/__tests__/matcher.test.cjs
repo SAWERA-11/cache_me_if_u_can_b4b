@@ -8,10 +8,10 @@ const ts = require('typescript');
 const vm = require('node:vm');
 
 const entries = [
-  { id: 'word', variants: ['what does domicile mean', 'domicile kya hai', 'لفظ کا مطلب'] },
+  { id: 'word', group: 'words', chips: ['chip_safe'], variants: ['what does domicile mean', 'domicile kya hai', 'لفظ کا مطلب'] },
   { id: 'box', variants: ['how do I fill this box', 'box kaise bharun'] },
   { id: 'error', variants: ['the form shows an error', 'form mein masla'] },
-  { id: 'actual_safe_id', chips: ['chip_safe'], variants: ['is practice safe'] },
+  { id: 'actual_safe_id', group: 'safety', variants: ['is practice safe'] },
 ];
 const matcherPath = path.resolve(__dirname, '../matcher.ts');
 const originalLoad = Module._load;
@@ -45,6 +45,7 @@ try {
   assert.equal(matchChip('chip_word'), entries[0]);
   assert.equal(matchChip('unknown'), null);
   assert.equal(matchChip('chip_safe'), entries[3]);
+  assert.equal(matchChip('actual_safe_id'), entries[3]);
   for (const query of ['123456789', '12345-1234567-1', '1234 5678', 'PIN: 1234',
     'password=12', '۱۲۳۴۵۶۷۸۹', '١٢٣٤٥٦٧٨٩', 'pin ۱۲۳۴']) {
     assert.equal(looksLikeSecret(query), true, query);

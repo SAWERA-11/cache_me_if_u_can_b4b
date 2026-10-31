@@ -17,6 +17,7 @@ export type RunState = {
   hiccupUnaided: boolean;
   hiccupsShown: number;
   hiccupsRecovered: number;
+  hiccupsSeen: Partial<Record<HiccupId, true>>;
   loggedOutShown: boolean;
   oops: { consequence: Bi; fix: Bi } | null;
   canUndo: boolean;
@@ -54,10 +55,16 @@ function withAction(state: RunState, now: number): RunState {
   return { ...state, firstActionRecorded: true, currentEvent: { ...state.currentEvent, firstActionMs: Math.max(0, now - state.currentEvent.ts) } };
 }
 
+function showHiccup(state: RunState, id: HiccupId): RunState {
+  if (state.hiccupsSeen[id]) return state;
+  return { ...state, hiccup: id, hiccupUnaided: true,
+    hiccupsShown: state.hiccupsShown + 1, hiccupsSeen: { ...state.hiccupsSeen, [id]: true } };
+}
+
 function enter(state: RunState, index: number, now: number): RunState {
   const nextStep = state.lesson.steps[index];
   const isLoggedOut = nextStep.id === 'session' && nextStep.hiccup?.id === 'logged_out';
-  const hiccup = nextStep.hiccup?.when === 'enter' && (!isLoggedOut || !state.loggedOutShown)
+  const hiccup = nextStep.hiccup?.when === 'enter' && !state.hiccupsSeen[nextStep.hiccup.id]
     ? nextStep.hiccup.id : null;
   return {
     ...state,
@@ -71,6 +78,7 @@ function enter(state: RunState, index: number, now: number): RunState {
     hiccup,
     hiccupUnaided: true,
     hiccupsShown: state.hiccupsShown + (hiccup ? 1 : 0),
+    hiccupsSeen: hiccup ? { ...state.hiccupsSeen, [hiccup]: true } : state.hiccupsSeen,
     loggedOutShown: state.loggedOutShown || Boolean(hiccup && isLoggedOut),
     oops: null,
     canUndo: false,
@@ -83,7 +91,7 @@ export function createInitialState(lesson: Lesson, resumeIndex = 0, now = 0): Ru
     lesson, stepIndex: 0, input: '', previousInputs: {}, currentEvent: newEvent(lesson.id, lesson.steps[0].id),
     events: [], firstActionRecorded: false, undoInput: null, exited: false,
     openLayers: { asks: false, where: false, format: false, ifUnsure: false },
-    highlightField: null, hiccup: null, hiccupUnaided: true, hiccupsShown: 0, hiccupsRecovered: 0,
+    highlightField: null, hiccup: null, hiccupUnaided: true, hiccupsShown: 0, hiccupsRecovered: 0, hiccupsSeen: {},
     loggedOutShown: false,
     oops: null, canUndo: false, done: false, receiptNo: null,
   };
@@ -118,17 +126,16 @@ export function reduce(state: RunState, action: Action, now = 0): RunState {
     case 'submit': {
       const next = withAction(state, action.now);
       const current = step(next);
-      if (current.kind === 'submit' && current.hiccup?.id === 'vague_error' && !next.highlightField) {
-        return { ...next, highlightField: 'phone', hiccup: 'vague_error', hiccupsShown: next.hiccupsShown + 1, hiccupUnaided: true };
+      if (current.kind === 'submit' && current.hiccup?.when === 'submit_first' && !next.hiccupsSeen[current.hiccup.id]) {
+        return { ...showHiccup(next, current.hiccup.id), highlightField: current.hiccup.id === 'vague_error' ? 'phone' : null };
       }
       const correctChoice = current.choices?.some((choice) => choice.id === next.input && choice.correct);
       const valid = current.kind === 'info' || current.kind === 'review' || current.kind === 'submit'
         || correctChoice || current.expected?.(next.input, next.lesson.persona) === true;
       if (!valid) {
         const wrongAttempts = next.currentEvent.wrongAttempts + 1;
-        const hiccup = current.hiccup?.when === 'wrong' && wrongAttempts === 1 ? current.hiccup.id : next.hiccup;
-        return { ...next, hiccup, hiccupsShown: next.hiccupsShown + (hiccup && !next.hiccup ? 1 : 0),
-          hiccupUnaided: hiccup && !next.hiccup ? true : next.hiccupUnaided,
+        const shown = current.hiccup?.when === 'wrong' && wrongAttempts === 1 ? showHiccup(next, current.hiccup.id) : next;
+        return { ...shown,
           oops: current.oops ?? defaultOops(current.fieldKind), currentEvent: { ...next.currentEvent, wrongAttempts } };
       }
       const event = { ...next.currentEvent, completed: true, ts: action.now };
@@ -164,7 +171,7 @@ export function reduce(state: RunState, action: Action, now = 0): RunState {
     }
     case 'backPressed':
       return state.stepIndex > 0 && !state.hiccup
-        ? { ...withAction(state, now), hiccup: 'back_fear', hiccupsShown: state.hiccupsShown + 1, hiccupUnaided: true }
+        ? showHiccup(withAction(state, now), 'back_fear')
         : state;
     case 'exit': {
       const next = withAction(state, action.now);

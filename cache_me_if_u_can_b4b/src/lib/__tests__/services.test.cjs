@@ -6,7 +6,7 @@ const originalTimer = global.setTimeout;
 const memory = new Map();
 const config = { API_URL: '' };
 const fixtures = {
-  KB: [], STRINGS: {}, LESSONS: [],
+  KB: [], STRINGS: { listen: { ur: 'fixture Urdu', en: 'Listen' } }, LESSONS: {},
   VIDEOS: [{ id: 'curated', title: 'Practice phone', topic: ['phone'], minutes: 2 }],
 };
 let pauses = 0, releases = 0, failPlay = false;
@@ -32,6 +32,25 @@ Module._load = function (request, parent, main) {
 
 module.exports = (async () => {
   try {
+    const { kv } = require('../storage.ts');
+    assert.equal(await kv.get('missing', 'fallback'), 'fallback');
+    await kv.set('preference', { value: 1 });
+    assert.deepEqual(await kv.get('preference', null), { value: 1 });
+    memory.set('broken', '{invalid');
+    assert.equal(await kv.get('broken', 'fallback'), 'fallback');
+    await kv.clear();
+    assert.equal(memory.size, 0);
+    const { uiBus } = require('../uiBus.ts');
+    const messages = [];
+    const off = uiBus.on('helper', (payload) => messages.push(payload));
+    uiBus.emit('helper', ['phone', 'name']);
+    off();
+    uiBus.emit('helper', ['file']);
+    assert.deepEqual(messages, [['phone', 'name']]);
+    const { tr } = require('../t.ts');
+    assert.equal(tr('listen', 'en'), 'Listen');
+    assert.equal(tr('listen', 'ur'), 'fixture Urdu');
+    assert.equal(tr('missing_key', 'ur'), 'missing_key');
     const { playClip, stopClip, hasClip, initAudio } = require('../audio.ts');
     assert.equal(hasClip(), false);
     assert.equal(playClip('missing'), false);
@@ -59,6 +78,23 @@ module.exports = (async () => {
     await useApp.persist.rehydrate();
     assert.equal(useApp.getState().guideOn, false);
     assert.equal(typeof useApp.getState().set, 'function');
+    useApp.getState().addEvent({ ...event, firstActionMs: 100 });
+    useApp.getState().addEvent({ ...event, firstActionMs: 200 });
+    assert.equal(useApp.getState().baselineMs, 100);
+    useApp.getState().set({ language: 'unsupported', textLevel: 99, guideOn: true, addEvent: 'invalid' });
+    assert.equal(useApp.getState().language, 'ur');
+    assert.equal(useApp.getState().textLevel, 0);
+    assert.equal(useApp.getState().guideOn, true);
+    assert.equal(typeof useApp.getState().addEvent, 'function');
+    const tampered = JSON.parse(memory.get('mashq-state'));
+    tampered.state.events = [null, { ...event, hintTaps: 'PRIVATE_TYPED_VALUE' }, event];
+    tampered.state.struggles = { phone: 2, other: 'PRIVATE_TYPED_VALUE' };
+    tampered.state.input = 'PRIVATE_TYPED_VALUE';
+    memory.set('mashq-state', JSON.stringify(tampered));
+    await useApp.persist.rehydrate();
+    assert.equal(useApp.getState().events.length, 1);
+    assert.deepEqual(useApp.getState().struggles, { phone: 2 });
+    assert.equal(useApp.getState().input, undefined);
     for (let i = 0; i < 305; i++) useApp.getState().addEvent({ ...event, ts: i });
     assert.equal(useApp.getState().events.length, 300);
     for (let i = 0; i < 12; i++) useApp.getState().addResult({ lessonId: 'fixture', ts: i, score: 1, rung: 2, strength: 'Practice' });
@@ -92,7 +128,7 @@ module.exports = (async () => {
       signal.addEventListener('abort', () => reject(new Error('Timed out')), { once: true });
     });
     assert.equal((await fetchVideos('timeout')).source, 'none');
-    console.log('services.test.cjs passed (audio, persistence privacy, video fallbacks)');
+    console.log('services.test.cjs passed (storage, bus, translation, audio, persistence privacy, video fallbacks)');
   } finally {
     Module._load = originalLoad;
     global.fetch = originalFetch;

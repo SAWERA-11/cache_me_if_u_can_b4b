@@ -32,3 +32,5 @@ assert.equal(resumeIndex(lesson, [event({ lessonId: 'other', exited: true })]), 
 assert.equal(buildResult([event()], [], 1, 1).strength.en, 'You found a way forward after a hiccup.');
 assert.equal(buildResult([event()], [event({ hintTaps: 2 })]).strength.en, 'You needed fewer hints this time.');
 assert.equal(buildResult([event()], [], 0, 0, () => ({ ur: 'translated', en: 'translated' })).strength.en, 'translated');
+assert.equal(buildResult([event({ stepId: 'review', wrongAttempts: 1 }), event({ stepId: 'submit' })]).strength.en,
+  'You checked the details carefully.');
