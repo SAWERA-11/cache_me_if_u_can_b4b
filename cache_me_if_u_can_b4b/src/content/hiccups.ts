@@ -10,7 +10,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: 'Read the red words. They point to the box to fix.',
-      ur: 'سرخ الفاظ پڑھیں۔ وہ بتاتے ہیں کہ کون سا خانہ ٹھیک کرنا ہے۔', // TODO(UR-review)
+      ur: 'سرخ الفاظ پڑھیں۔ وہ بتاتے ہیں کہ کون سا خانہ ٹھیک کرنا ہے۔',
     },
   },
   wrong_format: {
@@ -34,7 +34,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: 'Tap the question mark to see what a word means.',
-      ur: 'کسی لفظ کا مطلب دیکھنے کے لیے سوالیہ نشان پر ٹیپ کریں۔', // TODO(UR-review)
+      ur: 'کسی لفظ کا مطلب دیکھنے کے لیے سوالیہ نشان پر ٹیپ کریں۔',
     },
   },
   find_answer: {
@@ -46,7 +46,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: 'The answer is often on the back of the card. Tap Where it is.',
-      ur: 'جواب اکثر کارڈ کی پچھلی طرف ہوتا ہے۔ "یہ کہاں ہے" پر ٹیپ کریں۔', // TODO(UR-review)
+      ur: 'جواب اکثر کارڈ کی پچھلی طرف ہوتا ہے۔ "یہ کہاں ہے" پر ٹیپ کریں۔',
     },
   },
   logged_out: {
@@ -58,7 +58,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: 'Real forms can lose your answers. Keep your details ready and log in again. The second time is faster.',
-      ur: 'اصلی فارم آپ کے جوابات کھو سکتے ہیں۔ اپنی معلومات تیار رکھیں اور دوبارہ لاگ اِن کریں۔ دوسری بار کام جلدی ہوتا ہے۔', // TODO(UR-review)
+      ur: 'اصلی فارم آپ کے جوابات کھو سکتے ہیں۔ اپنی معلومات تیار رکھیں اور دوبارہ لاگ اِن کریں۔ دوسری بار کام جلدی ہوتا ہے۔',
     },
   },
   upload_rejected: {
@@ -70,7 +70,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: 'Retake the photo in daylight, flat, with all four corners visible.',
-      ur: 'دن کی روشنی میں، سیدھا رکھ کر، چاروں کونے دکھاتے ہوئے دوبارہ تصویر لیں۔', // TODO(UR-review)
+      ur: 'دن کی روشنی میں، سیدھا رکھ کر، چاروں کونے دکھاتے ہوئے دوبارہ تصویر لیں۔',
     },
   },
   verification_code: {
@@ -82,7 +82,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: 'Type the code only on the site you started. Nobody who calls you should ever ask for it.',
-      ur: 'کوڈ صرف اسی ویب سائٹ پر لکھیں جہاں آپ نے کام شروع کیا تھا۔ فون کرنے والا کوئی بھی شخص یہ کوڈ کبھی نہ مانگے۔', // TODO(UR-review)
+      ur: 'کوڈ صرف اسی ویب سائٹ پر لکھیں جہاں آپ نے کام شروع کیا تھا۔ فون کرنے والا کوئی بھی شخص یہ کوڈ کبھی نہ مانگے۔',
     },
   },
   back_fear: {
@@ -94,7 +94,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: "Use the form's own Back link when there is one. Your practice answers are saved.",
-      ur: 'اگر فارم میں اپنا "واپس" کا بٹن ہو تو وہی استعمال کریں۔ آپ کے مشق والے جوابات محفوظ ہیں۔', // TODO(UR-review)
+      ur: 'اگر فارم میں اپنا "واپس" کا بٹن ہو تو وہی استعمال کریں۔ آپ کے مشق والے جوابات محفوظ ہیں۔',
     },
   },
 };
@@ -103,26 +103,26 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
 export const SAFETY_LINES: Bi[] = [
   {
     en: 'Never share a code that comes by SMS, with anyone.',
-    ur: 'SMS سے آنے والا کوڈ کبھی کسی کو نہ بتائیں۔', // TODO(UR-review)
+    ur: 'SMS سے آنے والا کوڈ کبھی کسی کو نہ بتائیں۔',
   },
   {
     en: 'If a call feels wrong, hang up and call the official number on your card.',
-    ur: 'اگر کوئی کال عجیب لگے تو فون بند کریں اور اپنے کارڈ پر لکھے سرکاری نمبر پر خود فون کریں۔', // TODO(UR-review)
+    ur: 'اگر کوئی کال عجیب لگے تو فون بند کریں اور اپنے کارڈ پر لکھے سرکاری نمبر پر خود فون کریں۔',
   },
   {
     en: 'A message about a prize you never entered is a trick. You can simply delete it.',
-    ur: 'ایسے انعام کا پیغام جس میں آپ نے حصہ ہی نہیں لیا، ایک چال ہے۔ آپ اسے بس مٹا سکتے ہیں۔', // TODO(UR-review)
+    ur: 'ایسے انعام کا پیغام جس میں آپ نے حصہ ہی نہیں لیا، ایک چال ہے۔ آپ اسے بس مٹا سکتے ہیں۔',
   },
   {
     en: 'Banks do not ask for your PIN. Not by phone, and not by message.',
-    ur: 'بینک آپ کا پن کوڈ نہیں مانگتے۔ نہ فون پر، نہ پیغام میں۔', // TODO(UR-review)
+    ur: 'بینک آپ کا پن کوڈ نہیں مانگتے۔ نہ فون پر، نہ پیغام میں۔',
   },
   {
     en: 'You can always ask someone you trust before you tap.',
-    ur: 'ٹیپ کرنے سے پہلے آپ ہمیشہ کسی بھروسے والے شخص سے پوچھ سکتے ہیں۔', // TODO(UR-review)
+    ur: 'ٹیپ کرنے سے پہلے آپ ہمیشہ کسی بھروسے والے شخص سے پوچھ سکتے ہیں۔',
   },
   {
     en: 'It is okay to stop and come back later.',
-    ur: 'رک جانا اور بعد میں واپس آنا بالکل ٹھیک ہے۔', // TODO(UR-review)
+    ur: 'رک جانا اور بعد میں واپس آنا بالکل ٹھیک ہے۔',
   },
 ];

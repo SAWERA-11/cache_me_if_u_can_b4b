@@ -6,31 +6,31 @@ export const STRINGS: Record<string, Bi> = {
   // Common actions
   start: {
     en: 'Start',
-    ur: 'شروع کریں', // TODO(UR-review)
+    ur: 'شروع کریں',
   },
   listen: {
     en: 'Listen',
-    ur: 'سنیں', // TODO(UR-review)
+    ur: 'سنیں',
   },
   stuck: {
     en: 'I need help',
-    ur: 'مجھے مدد چاہیے', // TODO(UR-review)
+    ur: 'مجھے مدد چاہیے',
   },
   helper: {
     en: 'Helper',
-    ur: 'مددگار', // TODO(UR-review)
+    ur: 'مددگار',
   },
   practice_banner: {
     en: 'PRACTICE, nothing is real',
-    ur: 'مشق، یہاں کچھ بھی اصلی نہیں', // TODO(UR-review)
+    ur: 'مشق، یہاں کچھ بھی اصلی نہیں',
   },
   next: {
     en: 'Next',
-    ur: 'آگے', // TODO(UR-review)
+    ur: 'آگے',
   },
   back: {
     en: 'Back',
-    ur: 'پیچھے', // TODO(UR-review)
+    ur: 'پیچھے',
   },
   undo: {
     en: 'Undo',
@@ -38,15 +38,15 @@ export const STRINGS: Record<string, Bi> = {
   },
   try_again: {
     en: 'Try again',
-    ur: 'دوبارہ کوشش کریں', // TODO(UR-review)
+    ur: 'دوبارہ کوشش کریں',
   },
   got_it: {
     en: 'Got it',
-    ur: 'ٹھیک ہے', // TODO(UR-review)
+    ur: 'ٹھیک ہے',
   },
   take_a_moment: {
     en: 'Take a moment. There is no hurry.',
-    ur: 'آرام سے۔ کوئی جلدی نہیں ہے۔', // TODO(UR-review)
+    ur: 'آرام سے۔ کوئی جلدی نہیں ہے۔',
   },
   yes: {
     en: 'Yes',
@@ -68,19 +68,19 @@ export const STRINGS: Record<string, Bi> = {
   // Consent
   consent_title: {
     en: 'Before we begin',
-    ur: 'شروع کرنے سے پہلے', // TODO(UR-review)
+    ur: 'شروع کرنے سے پہلے',
   },
   consent_line1: {
     en: 'This is a practice app. Nothing you type is sent anywhere.',
-    ur: 'یہ مشق کی ایپ ہے۔ آپ جو کچھ لکھیں گے وہ کہیں نہیں بھیجا جاتا۔', // TODO(UR-review)
+    ur: 'یہ مشق کی ایپ ہے۔ آپ جو کچھ لکھیں گے وہ کہیں نہیں بھیجا جاتا۔',
   },
   consent_line2: {
     en: 'The person in the lessons is made up. Use their details, not yours.',
-    ur: 'اسباق میں دیا گیا شخص فرضی ہے۔ اسی کی معلومات استعمال کریں، اپنی نہیں۔', // TODO(UR-review)
+    ur: 'اسباق میں دیا گیا شخص فرضی ہے۔ اسی کی معلومات استعمال کریں، اپنی نہیں۔',
   },
   consent_line3: {
     en: 'You can stop at any time. Your progress stays on this phone.',
-    ur: 'آپ کسی بھی وقت رک سکتے ہیں۔ آپ کی پیش رفت اسی فون پر رہتی ہے۔', // TODO(UR-review)
+    ur: 'آپ کسی بھی وقت رک سکتے ہیں۔ آپ کی پیش رفت اسی فون پر رہتی ہے۔',
   },
 
   // Home
@@ -116,7 +116,7 @@ export const STRINGS: Record<string, Bi> = {
   },
   layer_asks: {
     en: 'What it asks',
-    ur: 'یہ کیا پوچھ رہا ہے', // TODO(UR-review)
+    ur: 'یہ کیا پوچھ رہا ہے',
   },
   layer_where: {
     en: 'Where it is',
@@ -124,19 +124,19 @@ export const STRINGS: Record<string, Bi> = {
   },
   layer_format: {
     en: 'How to write it',
-    ur: 'کیسے لکھیں', // TODO(UR-review)
+    ur: 'کیسے لکھیں',
   },
   layer_unsure: {
     en: 'If you are unsure',
-    ur: 'اگر یقین نہ ہو', // TODO(UR-review)
+    ur: 'اگر یقین نہ ہو',
   },
   oops_title: {
     en: 'If this were a real form',
-    ur: 'اگر یہ اصلی فارم ہوتا', // TODO(UR-review)
+    ur: 'اگر یہ اصلی فارم ہوتا',
   },
   oops_fix: {
     en: 'How to fix it',
-    ur: 'اسے ٹھیک کرنے کا طریقہ', // TODO(UR-review)
+    ur: 'اسے ٹھیک کرنے کا طریقہ',
   },
   sms_banner: {
     en: 'Practice SMS: your code is {code}',
@@ -144,11 +144,11 @@ export const STRINGS: Record<string, Bi> = {
   },
   session_expired: {
     en: 'Your session has expired',
-    ur: 'آپ کا سیشن ختم ہو گیا ہے', // TODO(UR-review)
+    ur: 'آپ کا سیشن ختم ہو گیا ہے',
   },
   log_in_again: {
     en: 'Log in again',
-    ur: 'دوبارہ لاگ اِن کریں', // TODO(UR-review)
+    ur: 'دوبارہ لاگ اِن کریں',
   },
   vague_error_banner: {
     en: 'Something went wrong. Please check the form.',
@@ -158,7 +158,7 @@ export const STRINGS: Record<string, Bi> = {
   // Review and submit
   review_title: {
     en: 'Check your answers',
-    ur: 'اپنے جوابات چیک کریں', // TODO(UR-review)
+    ur: 'اپنے جوابات چیک کریں',
   },
   read_aloud: {
     en: 'Read aloud',
@@ -166,7 +166,7 @@ export const STRINGS: Record<string, Bi> = {
   },
   submit: {
     en: 'Submit',
-    ur: 'جمع کرائیں', // TODO(UR-review)
+    ur: 'جمع کرائیں',
   },
   receipt_title: {
     en: 'Practice receipt',
@@ -184,15 +184,15 @@ export const STRINGS: Record<string, Bi> = {
   },
   rung_0: {
     en: 'With the guide beside me',
-    ur: 'رہنما ساتھ ہو تو', // TODO(UR-review)
+    ur: 'رہنما ساتھ ہو تو',
   },
   rung_1: {
     en: 'With a little help',
-    ur: 'تھوڑی سی مدد کے ساتھ', // TODO(UR-review)
+    ur: 'تھوڑی سی مدد کے ساتھ',
   },
   rung_2: {
     en: 'On my own',
-    ur: 'خود سے', // TODO(UR-review)
+    ur: 'خود سے',
   },
   comfort_q: {
     en: 'How do you feel about this form now?',

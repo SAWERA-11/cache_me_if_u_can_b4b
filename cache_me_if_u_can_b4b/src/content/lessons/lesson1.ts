@@ -18,21 +18,21 @@ export const LESSON1: Lesson = {
   id: 'lesson1',
   title: {
     en: 'Apply for a service card',
-    ur: 'سروس کارڈ کے لیے درخواست دیں', // TODO(UR-review)
+    ur: 'سروس کارڈ کے لیے درخواست دیں',
   },
   persona: PERSONA,
   ready: [
     { id: 'ready_1', audio: 'ready_1', text: {
       en: 'Your ID card',
-      ur: 'آپ کا شناختی کارڈ', // TODO(UR-review)
+      ur: 'آپ کا شناختی کارڈ',
     } },
     { id: 'ready_2', audio: 'ready_2', text: {
       en: 'Your phone number',
-      ur: 'آپ کا فون نمبر', // TODO(UR-review)
+      ur: 'آپ کا فون نمبر',
     } },
     { id: 'ready_3', audio: 'ready_3', text: {
       en: 'A clear photo',
-      ur: 'ایک صاف تصویر', // TODO(UR-review)
+      ur: 'ایک صاف تصویر',
     } },
   ],
   steps: [
@@ -41,11 +41,11 @@ export const LESSON1: Lesson = {
       kind: 'info',
       label: {
         en: 'Before you start',
-        ur: 'شروع کرنے سے پہلے', // TODO(UR-review)
+        ur: 'شروع کرنے سے پہلے',
       },
       asks: {
         en: 'Keep these three things near you.',
-        ur: 'یہ تین چیزیں اپنے پاس رکھیں۔', // TODO(UR-review)
+        ur: 'یہ تین چیزیں اپنے پاس رکھیں۔',
       },
       audio: { asks: 'ready_asks' },
     },
@@ -55,11 +55,11 @@ export const LESSON1: Lesson = {
       fieldKind: 'name',
       label: {
         en: 'Full name',
-        ur: 'پورا نام', // TODO(UR-review)
+        ur: 'پورا نام',
       },
       asks: {
         en: 'Your full name as written on the ID card.',
-        ur: 'آپ کا پورا نام، جیسا شناختی کارڈ پر لکھا ہے۔', // TODO(UR-review)
+        ur: 'آپ کا پورا نام، جیسا شناختی کارڈ پر لکھا ہے۔',
       },
       where: {
         en: 'On the front of the ID card.',
@@ -93,11 +93,11 @@ export const LESSON1: Lesson = {
       fieldKind: 'name',
       label: {
         en: "Father's name",
-        ur: 'والد کا نام', // TODO(UR-review)
+        ur: 'والد کا نام',
       },
       asks: {
         en: "Your father's name as written on the ID card.",
-        ur: 'آپ کے والد کا نام، جیسا شناختی کارڈ پر لکھا ہے۔', // TODO(UR-review)
+        ur: 'آپ کے والد کا نام، جیسا شناختی کارڈ پر لکھا ہے۔',
       },
       where: {
         en: 'On the front of the ID card, under your name.',
@@ -131,7 +131,7 @@ export const LESSON1: Lesson = {
       fieldKind: 'dob',
       label: {
         en: 'Date of birth',
-        ur: 'تاریخِ پیدائش', // TODO(UR-review)
+        ur: 'تاریخِ پیدائش',
       },
       asks: {
         en: 'Your date of birth.',
@@ -170,11 +170,11 @@ export const LESSON1: Lesson = {
       fieldKind: 'id_number',
       label: {
         en: 'ID card number',
-        ur: 'شناختی کارڈ نمبر', // TODO(UR-review)
+        ur: 'شناختی کارڈ نمبر',
       },
       asks: {
         en: 'Your 13-digit ID card number.',
-        ur: 'آپ کا 13 ہندسوں والا شناختی کارڈ نمبر۔', // TODO(UR-review)
+        ur: 'آپ کا 13 ہندسوں والا شناختی کارڈ نمبر۔',
       },
       where: {
         en: 'On the back of the ID card. Tap Where it is.',
@@ -209,11 +209,11 @@ export const LESSON1: Lesson = {
       fieldKind: 'phone',
       label: {
         en: 'Mobile number',
-        ur: 'موبائل نمبر', // TODO(UR-review)
+        ur: 'موبائل نمبر',
       },
       asks: {
         en: 'Your mobile phone number.',
-        ur: 'آپ کا موبائل فون نمبر۔', // TODO(UR-review)
+        ur: 'آپ کا موبائل فون نمبر۔',
       },
       where: {
         en: 'For practice, use the number on the practice card.',
@@ -247,11 +247,11 @@ export const LESSON1: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'City',
-        ur: 'شہر', // TODO(UR-review)
+        ur: 'شہر',
       },
       asks: {
         en: 'Pick the city on the card.',
-        ur: 'کارڈ پر لکھا شہر چنیں۔', // TODO(UR-review)
+        ur: 'کارڈ پر لکھا شہر چنیں۔',
       },
       where: {
         en: 'In the address on the back of the ID card.',
@@ -297,11 +297,11 @@ export const LESSON1: Lesson = {
       fieldKind: 'choice',
       label: {
         en: 'Domicile',
-        ur: 'ڈومیسائل', // TODO(UR-review)
+        ur: 'ڈومیسائل',
       },
       asks: {
         en: 'Pick your Domicile province.',
-        ur: 'اپنا ڈومیسائل والا صوبہ چنیں۔', // TODO(UR-review)
+        ur: 'اپنا ڈومیسائل والا صوبہ چنیں۔',
       },
       where: {
         en: 'On the practice card, next to the word Domicile.',
@@ -348,11 +348,11 @@ export const LESSON1: Lesson = {
       kind: 'info',
       label: {
         en: 'Session',
-        ur: 'سیشن', // TODO(UR-review)
+        ur: 'سیشن',
       },
       asks: {
         en: 'Your session has expired.',
-        ur: 'آپ کا سیشن ختم ہو گیا ہے۔', // TODO(UR-review)
+        ur: 'آپ کا سیشن ختم ہو گیا ہے۔',
       },
       ifUnsure: {
         en: 'This happens on real forms. Log in again and carry on.',
@@ -367,11 +367,11 @@ export const LESSON1: Lesson = {
       fieldKind: 'file',
       label: {
         en: 'Photo',
-        ur: 'تصویر', // TODO(UR-review)
+        ur: 'تصویر',
       },
       asks: {
         en: 'Pick the best photo for the form.',
-        ur: 'فارم کے لیے سب سے اچھی تصویر چنیں۔', // TODO(UR-review)
+        ur: 'فارم کے لیے سب سے اچھی تصویر چنیں۔',
       },
       where: {
         en: 'Look at the three photos below.',
@@ -419,11 +419,11 @@ export const LESSON1: Lesson = {
       fieldKind: 'code',
       label: {
         en: 'Verification code',
-        ur: 'تصدیقی کوڈ', // TODO(UR-review)
+        ur: 'تصدیقی کوڈ',
       },
       asks: {
         en: 'Type the code from the practice SMS.',
-        ur: 'مشق والے SMS میں آیا کوڈ لکھیں۔', // TODO(UR-review)
+        ur: 'مشق والے SMS میں آیا کوڈ لکھیں۔',
       },
       where: {
         en: 'In the message at the top of the screen.',
@@ -458,11 +458,11 @@ export const LESSON1: Lesson = {
       kind: 'review',
       label: {
         en: 'Check your answers',
-        ur: 'اپنے جوابات چیک کریں', // TODO(UR-review)
+        ur: 'اپنے جوابات چیک کریں',
       },
       asks: {
         en: 'Read each answer once more, slowly.',
-        ur: 'ہر جواب ایک بار پھر آرام سے پڑھیں۔', // TODO(UR-review)
+        ur: 'ہر جواب ایک بار پھر آرام سے پڑھیں۔',
       },
       audio: { asks: 'review_asks' },
     },
@@ -471,11 +471,11 @@ export const LESSON1: Lesson = {
       kind: 'submit',
       label: {
         en: 'Submit',
-        ur: 'جمع کرائیں', // TODO(UR-review)
+        ur: 'جمع کرائیں',
       },
       asks: {
         en: 'When everything looks right, tap Submit.',
-        ur: 'جب سب کچھ ٹھیک لگے تو "جمع کرائیں" پر ٹیپ کریں۔', // TODO(UR-review)
+        ur: 'جب سب کچھ ٹھیک لگے تو "جمع کرائیں" پر ٹیپ کریں۔',
       },
       hiccup: { id: 'vague_error', when: 'submit_first' },
       audio: { asks: 'submit_asks' },
