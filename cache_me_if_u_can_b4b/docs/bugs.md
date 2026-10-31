@@ -9,6 +9,7 @@
 | BUG-5 | Ahmer | major | Open: useRunner render-purity lint error |
 | BUG-6 | Anas | major | Open: plain .env files are not ignored |
 | BUG-7 | Ahmer | minor | Open: server README .env setup is not loaded by npm start |
+| BUG-8 | Maaz | major | Open: WebView JSX props typecheck fails after dependency installation |
 
 ## BUG-1 | owner: Anas | severity: blocker
 Where: package.json / Guide screen.
@@ -66,6 +67,14 @@ Actual: npm start invokes node index.js, which reads process.env but does not lo
 Phone/build: Windows / Node 24; server no-key fallback tested.
 Screenshot: Not applicable.
 
+## BUG-8 | owner: Maaz | severity: major
+Where: app/guide.tsx:46.
+Steps: 1) Merge ba72738. 2) Run npm ci, then npx tsc --noEmit.
+Expected: Guide WebView props typecheck with installed react-native-webview 14.0.1.
+Actual: TS2769 reports WebView props as never. Diagnose the WebView/React Native type integration and resolve in Maaz's code where possible; coordinate with Anas if dependency or shared configuration changes are required.
+Phone/build: Windows source check after npm ci installed 811 packages.
+Screenshot: Not applicable; compiler output.
+
 ## Team checklist after fetching ba72738
 
 This is repository evidence as of 2026-10-31, not a claim about unpublished work on teammates' machines. Latest frontend source was merged into Maaz's branch without conflicts. Backend fixture and Guide desktop checks passed before that merge; native integration acceptance remains pending.
@@ -99,6 +108,8 @@ This is repository evidence as of 2026-10-31, not a claim about unpublished work
 - [ ] Push consented interview evidence, pitch notes and under-two-minute demo script. No evidence/pitch files are present in fetched source.
 
 ### Maaz
+
+- [ ] Resolve the newly exposed WebView JSX props typecheck failure (BUG-8); this is now visible because Anas supplied the dependency.
 
 - [ ] Wire the Guide dictionary to Savera's actual GUIDE_TEXT/GLOSSARY when they arrive; verify audio IDs.
 - [ ] Recheck native Guide after Anas registers the route and replaces fake store/event bus; run both bundled forms and at least two public forms, including sensitive fields and Guide-off cleanup.
