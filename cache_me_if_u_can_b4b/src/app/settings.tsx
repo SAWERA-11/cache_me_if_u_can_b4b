@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { Pressable, StyleSheet, Switch, View } from 'react-native';
 import { AppText } from '../components/AppText';
 import { BigButton } from '../components/BigButton';
+import { Card } from '../components/Card';
 import { Row } from '../components/Row';
 import { Screen } from '../components/Screen';
 import { Sheet } from '../components/Sheet';
@@ -56,6 +57,10 @@ export default function Settings() {
       <BigButton variant="secondary" label={t('consent_title')} onPress={() => router.push('/consent')} />
       <BigButton variant="calm" label={t('settings_reset')} onPress={() => setConfirm(true)} />
       <AppText>{t('settings_about')}</AppText>
+      <Card style={styles.privacy}>
+        <AppText bold color={colors.ink}>{t('guide_privacy_title')}</AppText>
+        {[1, 2, 3, 4, 5].map((n) => <AppText key={n}>{t('guide_privacy_' + n)}</AppText>)}
+      </Card>
       <Sheet visible={confirm} onClose={() => setConfirm(false)} title={t('settings_reset')}>
         <BigButton label={t('yes')} onPress={() => { setConfirm(false); useApp.getState().reset(); router.replace('/consent'); }} />
         <BigButton variant="secondary" label={t('no')} onPress={() => setConfirm(false)} />
@@ -68,5 +73,6 @@ const styles = StyleSheet.create({
   group: { gap: 12 },
   choices: { gap: 12 },
   flex: { flex: 1 },
+  privacy: { gap: 8 },
   toggle: { minHeight: sizes.tap, justifyContent: 'center' },
 });

@@ -1,15 +1,17 @@
 # Integration and bug log
 
+Status refreshed 2026-10-31 from source checks only (tsc, eslint on src/, content and backend suites). "Resolved in source" is not phone evidence: no real-device run is recorded yet.
+
 | ID | Owner | Severity | Status |
 |---|---|---|---|
-| BUG-1 | Anas | blocker | Dependency declared in ba72738; native integration verification pending |
-| BUG-2 | Ahmer | blocker | Resolved in 15da65c: shared modules supplied; audio content dependency tracked in BUG-4 |
-| BUG-3 | Anas | blocker | Open: Guide route integration |
-| BUG-4 | Savera | blocker | Open: content index and audioMap absent; blocks compiler and app imports |
-| BUG-5 | Ahmer | major | Open: useRunner render-purity lint error |
-| BUG-6 | Anas | major | Open: plain .env files are not ignored |
-| BUG-7 | Ahmer | minor | Open: server README .env setup is not loaded by npm start |
-| BUG-8 | Maaz | major | Open: WebView JSX props typecheck fails after dependency installation |
+| BUG-1 | Anas | blocker | Resolved in source: react-native-webview declared and resolves; native verification pending (phone) |
+| BUG-2 | Ahmer | blocker | Resolved in 15da65c; audio map now present |
+| BUG-3 | Anas | blocker | Resolved in source: src/app/guide.tsx re-exports the Guide; Home links to /guide; phone check pending |
+| BUG-4 | Savera | blocker | Resolved: src/content and src/audio/audioMap exist; tsc passes |
+| BUG-5 | Ahmer | major | Resolved in source: eslint reports no errors in src/ |
+| BUG-6 | Anas | major | Resolved in source: plain .env files are ignored |
+| BUG-7 | Ahmer | minor | Resolved in docs: server README states Node does not load .env |
+| BUG-8 | Maaz | major | Resolved in source: npx tsc --noEmit passes |
 
 ## BUG-1 | owner: Anas | severity: blocker
 Where: package.json / Guide screen.

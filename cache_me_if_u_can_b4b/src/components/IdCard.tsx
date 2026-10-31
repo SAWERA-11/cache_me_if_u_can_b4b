@@ -23,7 +23,7 @@ export function IdCard({ persona, side, highlight = null, onFlip }: Props) {
   const t = useT();
   const [own, setOwn] = useState<'front' | 'back'>(side ?? 'front');
   const shown = onFlip ? side ?? 'front' : own;
-  const title = t('card_title') === 'card_title' ? 'Citizen Services Portal (Practice)' : t('card_title');
+  const title = t('card_title');
   const flip = () => (onFlip ? onFlip() : setOwn(own === 'front' ? 'back' : 'front'));
   return (
     <View style={styles.wrap}>
@@ -31,16 +31,16 @@ export function IdCard({ persona, side, highlight = null, onFlip }: Props) {
         <AppText bold color={colors.primary}>{title}</AppText>
         {shown === 'front' ? (
           <>
-            <Line label="Name" value={persona.name} on={highlight === 'name'} />
-            <Line label="Father" value={persona.father} on={highlight === 'father'} />
-            <Line label="Date of birth" value={persona.dobWords} on={highlight === 'dob'} />
-            <Line label="Phone" value={ltr(persona.phone)} on={highlight === 'phone'} />
+            <Line label={t('card_name')} value={persona.name} on={highlight === 'name'} />
+            <Line label={t('card_father')} value={persona.father} on={highlight === 'father'} />
+            <Line label={t('card_dob')} value={persona.dobWords} on={highlight === 'dob'} />
+            <Line label={t('card_phone')} value={ltr(persona.phone)} on={highlight === 'phone'} />
           </>
         ) : (
-          <Line label="ID number" value={ltr(persona.idNumber)} on={highlight === 'id'} />
+          <Line label={t('card_id')} value={ltr(persona.idNumber)} on={highlight === 'id'} />
         )}
       </View>
-      <BigButton variant="secondary" label={t('flip') === 'flip' ? 'Flip' : t('flip')} onPress={flip} />
+      <BigButton variant="secondary" label={t('flip')} onPress={flip} />
     </View>
   );
 }
