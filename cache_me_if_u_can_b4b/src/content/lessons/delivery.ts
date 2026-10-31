@@ -13,15 +13,15 @@ export const LESSON_DELIVERY: Lesson = {
   },
   persona: PERSONA,
   ready: [
-    { id: 'ready_internet', text: {
+    { id: 'ready_internet', audio: 'delivery_ready_internet', text: {
       en: 'Phone with internet',
       ur: 'انٹرنیٹ والا فون', // TODO(UR-review)
     } },
-    { id: 'ready_address', text: {
+    { id: 'ready_address', audio: 'delivery_ready_address', text: {
       en: 'Your house number and street',
       ur: 'آپ کا مکان نمبر اور گلی', // TODO(UR-review)
     } },
-    { id: 'ready_cash', text: {
+    { id: 'ready_cash', audio: 'delivery_ready_cash', text: {
       en: 'Cash, card or mobile wallet',
       ur: 'نقد رقم، کارڈ یا موبائل والٹ', // TODO(UR-review)
     } },
@@ -38,6 +38,7 @@ export const LESSON_DELIVERY: Lesson = {
         en: 'Most food and grocery apps work the same way. Keep these near you.',
         ur: 'زیادہ تر کھانے اور سودا سلف کی ایپس ایک ہی طرح کام کرتی ہیں۔ یہ چیزیں اپنے پاس رکھیں۔', // TODO(UR-review)
       },
+      audio: { asks: 'delivery_ready_asks' },
     },
     {
       id: 'location',
@@ -84,6 +85,7 @@ export const LESSON_DELIVERY: Lesson = {
         },
       },
       glossary: ['allow_access'],
+      audio: { asks: 'delivery_location_asks', where: 'delivery_location_where', format: 'delivery_location_format', ifUnsure: 'delivery_location_unsure' },
     },
     {
       id: 'address',
@@ -121,6 +123,7 @@ export const LESSON_DELIVERY: Lesson = {
           ur: 'مکان نمبر اور گلی نمبر لکھیں۔', // TODO(UR-review)
         },
       },
+      audio: { asks: 'delivery_address_asks', where: 'delivery_address_where', format: 'delivery_address_format', ifUnsure: 'delivery_address_unsure' },
     },
     {
       id: 'quantity',
@@ -161,6 +164,7 @@ export const LESSON_DELIVERY: Lesson = {
           ur: '+ اور − سے نمبر 2 کریں۔', // TODO(UR-review)
         },
       },
+      audio: { asks: 'delivery_quantity_asks', where: 'delivery_quantity_where', format: 'delivery_quantity_format', ifUnsure: 'delivery_quantity_unsure' },
     },
     {
       id: 'total',
@@ -201,6 +205,7 @@ export const LESSON_DELIVERY: Lesson = {
           ur: 'کھانا اور ڈیلیوری فیس جمع کریں: 700 + 99۔', // TODO(UR-review)
         },
       },
+      audio: { asks: 'delivery_total_asks', where: 'delivery_total_where', format: 'delivery_total_format', ifUnsure: 'delivery_total_unsure' },
     },
     {
       id: 'phone',
@@ -238,6 +243,7 @@ export const LESSON_DELIVERY: Lesson = {
           ur: 'مشق کارڈ سے نمبر ایک ایک ہندسہ کر کے لکھیں۔',
         },
       },
+      audio: { asks: 'delivery_phone_asks', where: 'delivery_phone_where', format: 'delivery_phone_format', ifUnsure: 'delivery_phone_unsure' },
     },
     {
       id: 'payment',
@@ -288,6 +294,7 @@ export const LESSON_DELIVERY: Lesson = {
         },
       },
       glossary: ['wallet'],
+      audio: { asks: 'delivery_payment_asks', where: 'delivery_payment_where', format: 'delivery_payment_format', ifUnsure: 'delivery_payment_unsure' },
     },
     {
       id: 'place_order',
@@ -301,6 +308,7 @@ export const LESSON_DELIVERY: Lesson = {
         ur: 'پتہ، نمبر اور ٹوٹل چیک کریں، پھر "جمع کرائیں" دبائیں۔ اصلی ایپس میں اسے Place order کہتے ہیں۔', // TODO(UR-review)
       },
       hiccup: { id: 'vague_error', when: 'submit_first' },
+      audio: { asks: 'delivery_place_order_asks' },
     },
     {
       id: 'track',
@@ -313,6 +321,7 @@ export const LESSON_DELIVERY: Lesson = {
         en: 'Order placed. The app now shows the rider on a map and the minutes left.',
         ur: 'آرڈر ہو گیا۔ اب ایپ نقشے پر رائیڈر اور باقی منٹ دکھاتی ہے۔', // TODO(UR-review)
       },
+      audio: { asks: 'delivery_track_asks' },
     },
     {
       id: 'rider',
@@ -362,6 +371,7 @@ export const LESSON_DELIVERY: Lesson = {
           ur: 'آرڈر والی اسکرین پر Call یا Chat کا بٹن استعمال کریں۔', // TODO(UR-review)
         },
       },
+      audio: { asks: 'delivery_rider_asks', where: 'delivery_rider_where', format: 'delivery_rider_format', ifUnsure: 'delivery_rider_unsure' },
     },
     {
       id: 'safety',
@@ -408,6 +418,7 @@ export const LESSON_DELIVERY: Lesson = {
         },
       },
       glossary: ['pin'],
+      audio: { asks: 'delivery_safety_asks', where: 'delivery_safety_where', format: 'delivery_safety_format', ifUnsure: 'delivery_safety_unsure' },
     },
     {
       id: 'receive',
@@ -457,6 +468,7 @@ export const LESSON_DELIVERY: Lesson = {
           ur: 'تھیلا چیک کریں، پھر ایپ میں لکھا ٹوٹل دیں۔', // TODO(UR-review)
         },
       },
+      audio: { asks: 'delivery_receive_asks', where: 'delivery_receive_where', format: 'delivery_receive_format', ifUnsure: 'delivery_receive_unsure' },
     },
   ],
 };

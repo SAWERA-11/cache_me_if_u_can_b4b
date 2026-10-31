@@ -78,6 +78,18 @@ sections.push({
   })),
 });
 
+// Delivery app lesson (src/content/lessons/delivery.ts): title, things to keep ready, each label and question.
+const { LESSON_DELIVERY } = require('../src/content/index.ts');
+const delivery = [
+  { id: 'delivery_title', en: LESSON_DELIVERY.title.en, ur: LESSON_DELIVERY.title.ur, audio: null },
+  ...LESSON_DELIVERY.ready.map((r) => ({ id: r.audio ?? `delivery_${r.id}`, en: r.text.en, ur: r.text.ur, audio: clip(r.audio) })),
+];
+for (const s of LESSON_DELIVERY.steps) {
+  delivery.push({ id: `delivery_label_${s.id}`, en: s.label.en, ur: s.label.ur, audio: null, note: 'Box title' });
+  delivery.push({ id: s.audio?.asks ?? `delivery_asks_${s.id}`, en: s.asks.en, ur: s.asks.ur, audio: clip(s.audio?.asks), note: 'Question' });
+}
+sections.push({ title: '9. Delivery app lesson: title, things to keep ready, and each question', items: delivery });
+
 const total = sections.reduce((n, s) => n + s.items.length, 0);
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 

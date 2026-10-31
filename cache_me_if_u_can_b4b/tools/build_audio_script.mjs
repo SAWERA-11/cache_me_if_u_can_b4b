@@ -5,7 +5,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 require('../src/guide/test/register.cjs');
-const { LESSON1, HICCUPS, SAFETY_LINES, GLOSSARY, STRINGS, KB, GUIDE_TEXT, GUIDE_MAP_LINE } = require('../src/content/index.ts');
+const { LESSONS, HICCUPS, SAFETY_LINES, GLOSSARY, STRINGS, KB, GUIDE_TEXT, GUIDE_MAP_LINE } = require('../src/content/index.ts');
 
 // UI strings that get a voice clip (audio id ui_<key>). Short button labels are left silent.
 const UI_KEYS = [
@@ -23,6 +23,7 @@ const SPOKEN = {
   dob_format: 'دن، مہینہ، سال۔ مثال کے طور پر: صفر سات، صفر تین، انیس سو اٹھاون۔',
   ui_layer_where: 'یہ کہاں پر ہے؟',
   phone_format: 'صفر تین سے شروع ہونے والے گیارہ ہندسے۔ جیسے: صفر تین سو، ایک دو تین چار پانچ چھ سات۔',
+  delivery_phone_format: 'صفر تین سے شروع ہونے والے گیارہ ہندسے۔ جیسے: صفر تین سو، ایک دو تین چار پانچ چھ سات۔',
 };
 
 const rows = [];
@@ -31,9 +32,11 @@ const add = (id, text) => rows.push([id, SPOKEN[id] ?? text]);
 // Priority 1: UI prompts, then Lesson 1 asks, then the other lesson layers.
 for (const k of UI_KEYS) add(`ui_${k}`, STRINGS[k].ur);
 add('ui_consent', [STRINGS.consent_line1.ur, STRINGS.consent_line2.ur, STRINGS.consent_line3.ur].join(' '));
-for (const r of LESSON1.ready) if (r.audio) add(r.audio, r.text.ur);
-for (const s of LESSON1.steps) if (s.audio?.asks) add(s.audio.asks, s.asks.ur);
-for (const s of LESSON1.steps) {
+// Every lesson, Lesson 1 first (LESSONS keeps insertion order).
+const ALL_LESSONS = Object.values(LESSONS);
+for (const lesson of ALL_LESSONS) for (const r of lesson.ready) if (r.audio) add(r.audio, r.text.ur);
+for (const lesson of ALL_LESSONS) for (const s of lesson.steps) if (s.audio?.asks) add(s.audio.asks, s.asks.ur);
+for (const s of ALL_LESSONS.flatMap((l) => l.steps)) {
   if (s.audio?.where && s.where) add(s.audio.where, s.where.ur);
   if (s.audio?.format && s.format) add(s.audio.format, s.format.ur);
   if (s.audio?.ifUnsure && s.ifUnsure) add(s.audio.ifUnsure, s.ifUnsure.ur);
