@@ -47,6 +47,13 @@ sections.push({
   }),
 });
 
+// Strings Ahmer added during app integration (src/content/integrationStrings.ts). Screen text only.
+const { INTEGRATION_STRINGS } = require('../src/content/integrationStrings.ts');
+sections.push({
+  title: '5. New app screen lines (added by Ahmer)',
+  items: Object.entries(INTEGRATION_STRINGS).map(([k, v]) => ({ id: `str_${k}`, en: v.en, ur: v.ur, audio: null })),
+});
+
 const total = sections.reduce((n, s) => n + s.items.length, 0);
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
