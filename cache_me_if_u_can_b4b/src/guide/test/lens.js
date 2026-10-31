@@ -1,4 +1,6 @@
 
+/* eslint-disable no-var -- The injected script must remain ES5-style JavaScript. */
+/* eslint-disable no-unused-expressions -- WebView injection must finish with true. */
 (function () {
   if (window.__mashq && window.__mashq.active) return;
   var dict = {"lang":"en","placeholder":true,"ui":{"listen":"Listen","helper":"Helper","check":"Check","hide":"Hide","missing":"Boxes still empty","allgood":"No empty required boxes found. This does not check correctness.","mapTitle":"Form map","boxes":"boxes","required":"required","needFile":"A file is requested","mapAudio":"guide_map"},"safety":{"title":"Keep this private","body":"This is a private box. The Guide does not inspect it. Never share a password, PIN, card detail or verification code.","audio":"guide_safety"},"kinds":{"name":{"title":"Name","asks":"This box asks for a name.","audio":"guide_name"},"dob":{"title":"Date of birth","asks":"This box asks for a birth date.","format":"Check the date order shown on the page.","audio":"guide_dob"},"id_number":{"title":"ID number","asks":"This box asks for an identity number.","audio":"guide_id"},"phone":{"title":"Phone","asks":"This box asks for a phone number.","audio":"guide_phone"},"email":{"title":"Email","asks":"This box asks for an email address.","audio":"guide_email"},"address":{"title":"Address","asks":"This box asks for an address.","audio":"guide_address"},"choice":{"title":"Choose an option","asks":"Open the list and choose an option.","audio":"guide_choice"},"file":{"title":"Attach a file","asks":"This box asks for a file from this device.","audio":"guide_file"},"checkbox":{"title":"Checkbox","asks":"Read the statement before ticking this box.","audio":"guide_checkbox"},"generic":{"title":"A form box","asks":"Read the label beside this box.","audio":"guide_generic"}},"glossary":[{"id":"domicile","pattern":"domicile"}]};
@@ -7,7 +9,7 @@
   function post(type, payload) {
     var msg = { type: type }, key;
     for (key in payload) if (Object.prototype.hasOwnProperty.call(payload, key)) msg[key] = payload[key];
-    try { window.ReactNativeWebView.postMessage(JSON.stringify(msg)); } catch (ignore) {}
+    try { window.ReactNativeWebView.postMessage(JSON.stringify(msg)); } catch (_ignore) {}
   }
   function style(el, props) { for (var key in props) el.style[key] = props[key]; return el; }
   var host = style(document.createElement('div'), { position: 'fixed', insetInlineStart: '0', bottom: '0', width: '100%', zIndex: '2147483647' });
@@ -74,6 +76,8 @@
       show(dict.ui.mapTitle + ': ' + state.fields.length + ' ' + dict.ui.boxes + ', ' + count + ' ' + dict.ui.required + (file ? '. ' + dict.ui.needFile : ''), dict.ui.mapAudio, false);
       post('GUIDE_READY', { url: url, fieldCount: state.fields.length, requiredCount: count });
     }
+    var active = document.activeElement;
+    if (active && /^(INPUT|SELECT|TEXTAREA)$/.test(active.tagName) && kind(active, label(active)) === 'sensitive') focus({ target: active });
   }
   function focus(event) {
     var el = event.target;
@@ -106,9 +110,9 @@
       while ((node = walker.nextNode())) nodes.push(node);
       nodes.some(function (textNode) {
         return dict.glossary.some(function (term) {
-          var match; try { match = new RegExp(term.pattern, 'i').exec(textNode.nodeValue); } catch (ignore) { return false; }
+          var match; try { match = new RegExp(term.pattern, 'i').exec(textNode.nodeValue); } catch (_ignore) { return false; }
           if (!match || !match[0]) return false;
-          var tail = textNode.splitText(match.index), after = tail.splitText(match[0].length);
+          var tail = textNode.splitText(match.index); tail.splitText(match[0].length);
           var span = style(document.createElement('span'), { textDecoration: 'underline dotted', cursor: 'pointer', display: 'inline-block', minHeight: '56px' });
           span.setAttribute('data-mashq-jargon', term.id); span.setAttribute('role', 'button'); span.tabIndex = 0;
           span.textContent = tail.nodeValue;

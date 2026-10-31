@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { BackHandler, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { WebView } from 'react-native-webview';
@@ -13,42 +13,46 @@ import { useApp } from '../src/store/useApp';
 export const PUBLIC_FORMS: { label: string; url: string }[] = [];
 const OFF = "window.__mashq && window.__mashq.receive({type:'SET_GUIDE',on:false}); true;";
 
+function GuideButton({ label, onPress }: { label: string; onPress: () => void }) {
+  return <Pressable accessibilityRole="button" style={styles.button} onPress={onPress}><Text style={styles.buttonText}>{label}</Text></Pressable>;
+}
+
 export default function GuideScreen() {
   const ref = useRef<WebView>(null);
   const guideOn = useApp(state => state.guideOn);
   const language = useApp(state => state.language);
+  const [ready, setReady] = useState(false);
+  const enabled = ready && guideOn;
   const [canGoBack, setCanGoBack] = useState(false);
   const [source, setSource] = useState<{ html: string; baseUrl: string } | { uri: string }>({ html: SERVICES_FORM_HTML, baseUrl: 'https://practice.mashq.local/' });
   useEffect(() => { useApp.getState().set({ guideOn: false }); return () => { useApp.getState().set({ guideOn: false }); }; }, []);
-  useEffect(() => { ref.current?.injectJavaScript(OFF + (guideOn ? buildLens(language) : '')); }, [guideOn, language]);
-  function leave() { ref.current?.stopLoading(); useApp.getState().set({ guideOn: false }); router.back(); }
+  useEffect(() => { ref.current?.injectJavaScript(OFF + (enabled ? buildLens(language) : '')); }, [enabled, language]);
+  const leave = useCallback(() => { ref.current?.stopLoading(); useApp.getState().set({ guideOn: false }); router.back(); }, []);
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
       if (canGoBack) ref.current?.goBack(); else leave();
       return true;
     });
     return () => subscription.remove();
-  }, [canGoBack]);
-  function action(label: string, onPress: () => void) {
-    return <Pressable key={label} accessibilityRole="button" style={styles.button} onPress={onPress}><Text style={styles.buttonText}>{label}</Text></Pressable>;
-  }
+  }, [canGoBack, leave]);
   return <SafeAreaView style={styles.screen}>
-    <View style={styles.row}><Text style={styles.text}>Guide me</Text><Switch accessibilityLabel="Guide me" value={guideOn} onValueChange={on => useApp.getState().set({ guideOn: on })} /></View>
-    {guideOn && <Text style={styles.badge}>Guide is ON</Text>}
+    <View style={styles.row}><Text style={styles.text}>Guide me</Text><Switch accessibilityLabel="Guide me" value={enabled} onValueChange={on => useApp.getState().set({ guideOn: on })} /></View>
+    {enabled && <Text style={styles.badge}>Guide is ON</Text>}
     <ScrollView horizontal style={styles.shortcuts} contentContainerStyle={styles.row}>
-      {action('Practice form 1', () => setSource({ html: SERVICES_FORM_HTML, baseUrl: 'https://practice.mashq.local/' }))}
-      {action('Practice form 2', () => setSource({ html: WALLET_FORM_HTML, baseUrl: 'https://practice.mashq.local/' }))}
-      {PUBLIC_FORMS.map(form => action(form.label, () => setSource({ uri: form.url })))}
+      <GuideButton label="Practice form 1" onPress={() => setSource({ html: SERVICES_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
+      <GuideButton label="Practice form 2" onPress={() => setSource({ html: WALLET_FORM_HTML, baseUrl: 'https://practice.mashq.local/' })} />
+      {PUBLIC_FORMS.map(form => <GuideButton key={form.url} label={form.label} onPress={() => setSource({ uri: form.url })} />)}
     </ScrollView>
     <WebView ref={ref} style={styles.web} source={source} originWhitelist={['*']} javaScriptEnabled domStorageEnabled setSupportMultipleWindows={false} incognito
-      injectedJavaScript={guideOn ? buildLens(language) : 'true;'}
-      onMessage={event => handleGuideMessage(event.nativeEvent.data)}
-      onNavigationStateChange={navigation => setCanGoBack(navigation.canGoBack)}
-      onShouldStartLoadWithRequest={request => /^(https?:|about:blank)/i.test(request.url)} />
+      injectedJavaScript={enabled ? buildLens(language) : 'true;'}
+      onLoadEnd={() => setReady(true)}
+      onMessage={(event: { nativeEvent: { data: string } }) => { if (enabled) handleGuideMessage(event.nativeEvent.data); }}
+      onNavigationStateChange={(navigation: { canGoBack: boolean }) => setCanGoBack(navigation.canGoBack)}
+      onShouldStartLoadWithRequest={(request: { url: string }) => /^(https?:|about:blank)/i.test(request.url)} />
     <View style={styles.row}>
-      {action('Back', () => { if (canGoBack) ref.current?.goBack(); else leave(); })}
-      {action('Reload', () => ref.current?.reload())}
-      {action('Close and clear', leave)}
+      <GuideButton label="Back" onPress={() => { if (canGoBack) ref.current?.goBack(); else leave(); }} />
+      <GuideButton label="Reload" onPress={() => ref.current?.reload()} />
+      <GuideButton label="Close and clear" onPress={leave} />
     </View>
   </SafeAreaView>;
 }
