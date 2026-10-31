@@ -11,6 +11,16 @@ export const UI_EXTRA_STRINGS: Record<string, Bi> = {
   card_dob: { en: 'Date of birth', ur: 'تاریخ پیدائش' },
   card_phone: { en: 'Phone', ur: 'فون' },
   card_id: { en: 'ID number', ur: 'شناختی نمبر' },
+  guide_address_hint: { en: 'Type a website address', ur: 'ویب سائٹ کا پتہ لکھیں' },
+  guide_open: { en: 'Open', ur: 'کھولیں' },
+  guide_address_invalid: {
+    en: 'That does not look like a website address. Try something like example.com.',
+    ur: 'یہ ویب سائٹ کا پتہ نہیں لگتا۔ اس طرح لکھ کر دیکھیں: example.com۔',
+  },
+  guide_address_secret: {
+    en: 'That looks like a private number. Please do not type codes or card numbers here.',
+    ur: 'یہ نجی نمبر لگتا ہے۔ یہاں کوڈ یا کارڈ نمبر نہ لکھیں۔',
+  },
   guide_privacy_title: { en: 'What the Guide can and cannot see', ur: 'گائیڈ کیا دیکھ سکتا ہے اور کیا نہیں' },
   guide_privacy_1: {
     en: 'The Guide looks at box labels to explain what a form asks for.',
