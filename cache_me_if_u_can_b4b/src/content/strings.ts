@@ -120,7 +120,7 @@ export const STRINGS: Record<string, Bi> = {
   },
   layer_where: {
     en: 'Where it is',
-    ur: 'یہ کہاں ہے', // TODO(UR-review)
+    ur: 'یہ کہاں پر ہے',
   },
   layer_format: {
     en: 'How to write it',

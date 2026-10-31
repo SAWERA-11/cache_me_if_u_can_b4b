@@ -1,7 +1,6 @@
 # Audio ids whose Urdu text is still a draft (TODO(UR-review)). Regenerate their mp3 after the text is fixed.
 ui_welcome_back
 ui_continue_card
-ui_layer_where
 ui_vague_error_banner
 ui_read_aloud
 ui_receipt_save
@@ -15,7 +14,6 @@ ui_strength_fewer_hints
 ui_strength_careful_check
 ui_strength_default
 ui_consent
-dob_asks
 name_where
 name_format
 name_unsure
@@ -44,7 +42,7 @@ photo_unsure
 otp_where
 otp_format
 otp_unsure
-h_wrong_format
+h_find_answer
 kind_name
 kind_dob
 kind_id_number

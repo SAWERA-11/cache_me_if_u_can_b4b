@@ -1,11 +1,12 @@
 // Builds content/review.html: the priority Urdu lines (safety, hiccup habits, Lesson 1 questions,
 // main buttons) with English beside them and a play button where a clip exists.
 // Open the file in a browser, mark each line, then press "Copy results" and paste them to the team.
-// Run: node --experimental-strip-types --no-warnings tools/build_review_page.mjs
+// Run: node tools/build_review_page.mjs
 import { existsSync, writeFileSync } from 'node:fs';
-import { LESSON1 } from '../src/content/lessons/lesson1.ts';
-import { HICCUPS, SAFETY_LINES } from '../src/content/hiccups.ts';
-import { STRINGS } from '../src/content/strings.ts';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+require('../src/guide/test/register.cjs');
+const { LESSON1, HICCUPS, SAFETY_LINES, STRINGS } = require('../src/content/index.ts');
 
 const clip = (id) => (id && existsSync(`assets/audio/${id}.mp3`) ? id : null);
 const sections = [];

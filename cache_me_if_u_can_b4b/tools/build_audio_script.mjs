@@ -1,13 +1,11 @@
 // Builds content/audio-script.csv (id,text_ur) from src/content, sorted by the S6 priority order.
 // Also writes content/audio-todo.txt: every id whose Urdu is still a draft (TODO(UR-review)).
-// Run: node --experimental-strip-types --no-warnings tools/build_audio_script.mjs
+// Run: node tools/build_audio_script.mjs
 import { writeFileSync, readFileSync } from 'node:fs';
-import { LESSON1 } from '../src/content/lessons/lesson1.ts';
-import { HICCUPS, SAFETY_LINES } from '../src/content/hiccups.ts';
-import { GLOSSARY } from '../src/content/glossary.ts';
-import { STRINGS } from '../src/content/strings.ts';
-import { KB } from '../src/content/kb.ts';
-import { GUIDE_TEXT, GUIDE_MAP_LINE } from '../src/content/guideText.ts';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+require('../src/guide/test/register.cjs');
+const { LESSON1, HICCUPS, SAFETY_LINES, GLOSSARY, STRINGS, KB, GUIDE_TEXT, GUIDE_MAP_LINE } = require('../src/content/index.ts');
 
 // UI strings that get a voice clip (audio id ui_<key>). Short button labels are left silent.
 const UI_KEYS = [
@@ -23,6 +21,7 @@ const UI_KEYS = [
 // Lines whose on-screen text does not read well aloud (digit patterns). Same meaning, spoken form.
 const SPOKEN = {
   dob_format: 'دن، مہینہ، سال۔ مثال کے طور پر: صفر سات، صفر تین، انیس سو اٹھاون۔',
+  ui_layer_where: 'یہ کہاں پر ہے؟',
   phone_format: 'صفر تین سے شروع ہونے والے گیارہ ہندسے۔ جیسے: صفر تین سو، ایک دو تین چار پانچ چھ سات۔',
 };
 

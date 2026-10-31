@@ -12,7 +12,7 @@ ui_consent_line1: approved
 ui_consent_line2: approved
 ui_consent_line3: approved
 ui_layer_asks: approved
-ui_layer_where: needs-fix | why: pronunciation, kahan said wrong
+ui_layer_where: approved
 ui_layer_format: approved
 ui_layer_unsure: approved
 ui_oops_title: approved
@@ -42,7 +42,7 @@ ready_3: approved
 ready_asks: approved
 name_asks: approved
 father_asks: approved
-dob_asks: needs-fix | why: pronunciation of taareekh paidaish
+dob_asks: approved
 id_asks: approved
 phone_asks: approved
 city_asks: approved
@@ -81,9 +81,9 @@ otp_where: pending
 otp_format: pending
 otp_unsure: pending
 h_vague_error: approved
-h_wrong_format: needs-fix | why: pronunciation, likhein not likhin
+h_wrong_format: approved
 h_unknown_word: approved
-h_find_answer: approved
+h_find_answer: pending | re-listen: button name changed to "یہ کہاں پر ہے"
 h_logged_out: approved
 h_upload_rejected: approved
 h_verification_code: approved

@@ -134,8 +134,8 @@ export const LESSON1: Lesson = {
         ur: 'تاریخِ پیدائش',
       },
       asks: {
-        en: 'Your date of birth.',
-        ur: 'آپ کی تاریخِ پیدائش۔', // TODO(UR-review)
+        en: 'What is your date of birth?',
+        ur: 'آپ کی تاریخ پیدائش کیا ہے؟',
       },
       where: {
         en: 'On the front of the ID card.',
@@ -158,7 +158,7 @@ export const LESSON1: Lesson = {
         },
         fix: {
           en: 'Copy the shape of the grey example.',
-          ur: 'سرمئی مثال کی شکل میں لکھیں۔', // TODO(UR-review)
+          ur: 'سرمئی مثال کی شکل میں لکھیے۔', // TODO(UR-review)
         },
       },
       hiccup: { id: 'wrong_format', when: 'wrong' },
@@ -178,7 +178,7 @@ export const LESSON1: Lesson = {
       },
       where: {
         en: 'On the back of the ID card. Tap Where it is.',
-        ur: 'شناختی کارڈ کی پچھلی طرف۔ "یہ کہاں ہے" پر ٹیپ کریں۔', // TODO(UR-review)
+        ur: 'شناختی کارڈ کی پچھلی طرف۔ "یہ کہاں پر ہے" پر ٹیپ کریں۔', // TODO(UR-review)
       },
       format: {
         en: 'Thirteen digits. The dashes are fine.',
@@ -225,7 +225,7 @@ export const LESSON1: Lesson = {
       },
       ifUnsure: {
         en: 'Copy the shape of the grey example.',
-        ur: 'سرمئی مثال کی شکل میں لکھیں۔', // TODO(UR-review)
+        ur: 'سرمئی مثال کی شکل میں لکھیے۔', // TODO(UR-review)
       },
       example: '0300-1234567',
       expected: (v, p) => digits(v) === digits(p.phone),

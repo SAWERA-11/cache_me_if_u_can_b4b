@@ -22,7 +22,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: 'Copy the shape of the grey example.',
-      ur: 'سرمئی مثال کی شکل میں لکھیں۔', // TODO(UR-review)
+      ur: 'سرمئی مثال کی شکل میں لکھیے۔',
     },
   },
   unknown_word: {
@@ -46,7 +46,7 @@ export const HICCUPS: Record<HiccupId, Hiccup> = {
     },
     habit: {
       en: 'The answer is often on the back of the card. Tap Where it is.',
-      ur: 'جواب اکثر کارڈ کی پچھلی طرف ہوتا ہے۔ "یہ کہاں ہے" پر ٹیپ کریں۔',
+      ur: 'جواب اکثر کارڈ کی پچھلی طرف ہوتا ہے۔ "یہ کہاں پر ہے" پر ٹیپ کریں۔',
     },
   },
   logged_out: {

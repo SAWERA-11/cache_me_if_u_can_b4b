@@ -133,7 +133,7 @@ export const KB: KBEntry[] = [
     },
     tryNext: {
       en: 'Copy the shape of the grey example, for example 07-03-1958.',
-      ur: 'سرمئی مثال کی شکل میں لکھیں، جیسے 07-03-1958۔', // TODO(UR-review)
+      ur: 'سرمئی مثال کی شکل میں لکھیے، جیسے 07-03-1958۔', // TODO(UR-review)
     },
     audio: 'kb_date_format',
     chips: ['wrong_format'],
@@ -162,7 +162,7 @@ export const KB: KBEntry[] = [
     },
     tryNext: {
       en: 'Copy the shape of the grey example in the box.',
-      ur: 'خانے میں لکھی سرمئی مثال کی شکل میں لکھیں۔', // TODO(UR-review)
+      ur: 'خانے میں لکھی سرمئی مثال کی شکل میں لکھیے۔', // TODO(UR-review)
     },
     audio: 'kb_phone_number',
   },
@@ -293,7 +293,7 @@ export const KB: KBEntry[] = [
     },
     tryNext: {
       en: 'Copy the shape of the grey example, including dashes or slashes.',
-      ur: 'سرمئی مثال کی شکل میں لکھیں، ڈیش یا ترچھی لکیر سمیت۔', // TODO(UR-review)
+      ur: 'سرمئی مثال کی شکل میں لکھیے، ڈیش یا ترچھی لکیر سمیت۔', // TODO(UR-review)
     },
     audio: 'kb_wrong_format',
     chips: ['date_format'],
