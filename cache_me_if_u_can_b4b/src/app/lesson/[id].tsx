@@ -19,8 +19,9 @@ import { ReviewView } from '../../components/ReviewView';
 import { Row } from '../../components/Row';
 import { Screen } from '../../components/Screen';
 import { StuckButton } from '../../components/StuckButton';
+import { TeachSheet } from '../../components/TeachSheet';
 import { colors } from '../../theme/tokens';
-import { GLOSSARY, uiBus, useApp, useRunner, useT } from '../../theme/wire';
+import { GLOSSARY, type HiccupId, uiBus, useApp, useRunner, useT } from '../../theme/wire';
 
 type LayerName = 'asks' | 'where' | 'format' | 'ifUnsure';
 const LAYERS: [LayerName, string][] = [
@@ -53,6 +54,7 @@ function LessonSession({ lessonId }: { lessonId: string }) {
   const t = useT();
   const lang = useApp((s) => s.language);
   const [showResult, setShowResult] = useState(false);
+  const [teachFor, setTeachFor] = useState<HiccupId | null>(null);
   const [beforeAsked, setBeforeAsked] = useState(runner.stepIndex > 0);
   const before = (value?: number) => {
     if (value !== undefined) { const { comfort, set } = useApp.getState(); set({ comfort: [...comfort, { lessonId, before: value }] }); }
@@ -157,7 +159,9 @@ function LessonSession({ lessonId }: { lessonId: string }) {
     <Screen top={showResult ? null : <Banner />} bottom={bottom}>
       {body}
       {!runner.done && <BigButton variant="secondary" label={t('save_and_leave')} onPress={() => { actions.exit(); router.replace('/home'); }} />}
-      <HiccupSheet hiccup={runner.hiccup} onResolve={actions.resolveHiccup} />
+      <HiccupSheet hiccup={runner.hiccup}
+        onResolve={() => { setTeachFor(runner.hiccup); actions.resolveHiccup(); }} />
+      <TeachSheet hiccup={runner.hiccup ? null : teachFor} onDone={() => setTeachFor(null)} />
     </Screen>
   );
 }

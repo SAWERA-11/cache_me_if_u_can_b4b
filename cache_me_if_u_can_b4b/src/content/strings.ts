@@ -1,5 +1,6 @@
 import type { Bi } from '../engine/types';
 import { INTEGRATION_STRINGS } from './integrationStrings';
+import { TEACH_STRINGS } from './teach';
 
 // Audio for a key, when it exists, has the id `ui_<key>` (see content/audio-script.csv).
 export const STRINGS: Record<string, Bi> = {
@@ -342,3 +343,4 @@ export const STRINGS: Record<string, Bi> = {
   },
 };
 Object.assign(STRINGS, INTEGRATION_STRINGS);
+Object.assign(STRINGS, TEACH_STRINGS);
