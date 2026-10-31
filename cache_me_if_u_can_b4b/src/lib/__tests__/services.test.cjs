@@ -109,7 +109,8 @@ module.exports = (async () => {
     assert.equal((await fetchVideos('cached')).source, 'cache');
     assert.equal((await fetchVideos('unknown')).source, 'none');
     config.API_URL = 'https://fixture.invalid';
-    for (const query of ['', '123456789', '\u06f1\u06f2\u06f3\u06f4\u06f5\u06f6\u06f7\u06f8\u06f9', 'pin 1234']) {
+    for (const query of ['', '123456789', '\u06f1\u06f2\u06f3\u06f4\u06f5\u06f6\u06f7\u06f8\u06f9', 'pin 1234',
+      '03.00.12.34.56.7', '\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19']) {
       assert.equal((await fetchVideos(query)).source, 'none');
     }
     assert.equal(calls, 0);

@@ -22,6 +22,13 @@ const fixtures = new Map([
   `],
   [normalize(path.join(root, 'src/audio/audioMap.ts')), 'export declare const AUDIO: Record<string, number>;'],
 ]);
+// Once teammates supply real modules, check those instead of masking them with fixtures.
+if (ts.sys.fileExists(path.join(root, 'src/content.ts')) || ts.sys.fileExists(path.join(root, 'src/content/index.ts'))) {
+  fixtures.delete(normalize(path.join(root, 'src/content.ts')));
+}
+if (ts.sys.fileExists(path.join(root, 'src/audio/audioMap.ts'))) {
+  fixtures.delete(normalize(path.join(root, 'src/audio/audioMap.ts')));
+}
 const host = ts.createCompilerHost(parsed.options);
 const originalExists = host.fileExists.bind(host);
 const originalSource = host.getSourceFile.bind(host);
@@ -41,4 +48,4 @@ if (diagnostics.length) {
     getCanonicalFileName: (filename) => filename, getCurrentDirectory: () => root, getNewLine: () => '\n',
   }));
   process.exitCode = 1;
-} else console.log('Backend strict typecheck passed against virtual content/audio contracts');
+} else console.log('Backend strict typecheck passed' + (fixtures.size ? ' (pending modules use virtual contracts)' : ' against real content/audio modules'));

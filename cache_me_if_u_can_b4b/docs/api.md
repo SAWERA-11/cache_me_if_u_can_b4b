@@ -26,6 +26,7 @@
 - `findLesson` looks up Savera's keyed `Record<string, Lesson>` catalog.
 - `resumableLessonId` selects the most recently exited lesson whose latest event is still an exit.
 - `restoredState` validates persisted preferences/progress and removes unexpected fields without replacing store actions.
+- `restoreRun` resumes an exited lesson with earlier event evidence, without restoring or persisting typed answers; completed runs start fresh.
 - `src/lib/backend.ts` re-exports the real backend and content contracts for the frontend integration seam.
 
 ## Team integration
@@ -35,6 +36,8 @@ Savera's S0/S2 define `LESSONS` as `Record<string, Lesson>`, not an array. The r
 Anas's pulled frontend currently imports temporary fakes from `src/theme/wire/index.ts`. After Savera supplies the real `src/content` exports and `src/audio/audioMap.ts`, Anas can replace that file's fake exports with `export * from '../../lib/backend';`. This also provides the `Runner`/`LayerName` type aliases used by the frontend. Home can derive its Continue target with `useApp(s => resumableLessonId(s.events))`; the step pointer uses event IDs and contains no typed input.
 
 F5's answer review/jump API is not in the agreed runner contract. The pulled UI temporarily captures answers in screen state; this backend does not add unagreed fields/actions or persist typed answers. Review navigation requires agreement with Anas/Savera. Maaz still owns deployment, Android validation, and Guide route integration.
+
+After merging Maaz's latest Guide branch, BUG-5's render-purity issue and BUG-7's setup instructions are already addressed by the backend commits. `server/.gitignore` now protects plain local `.env` files (and variants) while retaining `.env.example`; Anas still owns repository-wide ignore policy. Both secret guards also reject full-width and punctuation-separated numbers before cache/network access. Resumed history is retained for scoring and is not written to storage twice. Hiccup counters remain session-local; old `StepEvent` records cannot reconstruct prior recovery counts.
 
 ## Verification
 

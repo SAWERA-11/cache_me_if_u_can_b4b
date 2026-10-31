@@ -67,6 +67,7 @@ try {
   view = render();
   assert.equal(view.done, true);
   assert.equal(view.result.strength.en, 'Careful fixture check');
+  assert.equal(view.result.score, 0.75); // the earlier exit remains part of the resumed run
   assert.equal(app.results.length, 1);
   assert.equal(app.events.length, 4); // old exit plus three new completed steps
   render();

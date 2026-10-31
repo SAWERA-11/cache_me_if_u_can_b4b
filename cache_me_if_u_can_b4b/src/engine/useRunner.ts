@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { LESSONS, STRINGS } from '../content';
 import { useApp } from '../store/useApp';
-import { buildResult, fallbackStrength, resumeIndex, scoredEvents } from './estimate';
+import { buildResult, fallbackStrength, scoredEvents } from './estimate';
 import { createInitialState, reduce, type Action } from './runner';
 import { findLesson } from './catalog';
+import { restoreRun } from './session';
 import type { HiccupId, Lesson, LessonResultView, Step } from './types';
 
 function initialize(lesson: Lesson) {
-  return createInitialState(lesson, resumeIndex(lesson, useApp.getState().events), Date.now());
+  return restoreRun(lesson, useApp.getState().events, Date.now());
 }
 
 function lookupStrength(key: string) {
@@ -36,7 +37,7 @@ export function useRunner(lessonId: string, testLesson?: Lesson) {
   });
   const addEvent = useApp((value) => value.addEvent);
   const addResult = useApp((value) => value.addResult);
-  const savedEvents = useRef(0);
+  const savedEvents = useRef(state.events.length);
   const savedResult = useRef(false);
   const result: LessonResultView | null = state.done
     ? buildResult(scoredEvents(state.events, state.lesson), previousEvents, state.hiccupsShown, state.hiccupsRecovered, lookupStrength)

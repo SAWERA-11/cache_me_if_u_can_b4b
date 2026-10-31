@@ -5,9 +5,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export function isSecret(value) {
-  const normalized = value.replace(/[\u0660-\u0669\u06F0-\u06F9]/g,
+  const normalized = value.normalize('NFKC').replace(/[\u0660-\u0669\u06F0-\u06F9]/g,
     (digit) => String(digit.charCodeAt(0) & 15));
-  const compact = normalized.replace(/[\s-]/g, '');
+  const compact = normalized.replace(/[\s\p{P}]/gu, '');
   return /\d{9,}/.test(compact) || /\d{4}.*\d{4}/.test(compact) || /\b(?:password|pin)\s*[:=]?\s*\d+/i.test(normalized);
 }
 

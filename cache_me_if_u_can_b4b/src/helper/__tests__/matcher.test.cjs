@@ -47,7 +47,8 @@ try {
   assert.equal(matchChip('chip_safe'), entries[3]);
   assert.equal(matchChip('actual_safe_id'), entries[3]);
   for (const query of ['123456789', '12345-1234567-1', '1234 5678', 'PIN: 1234',
-    'password=12', '۱۲۳۴۵۶۷۸۹', '١٢٣٤٥٦٧٨٩', 'pin ۱۲۳۴']) {
+    'password=12', '۱۲۳۴۵۶۷۸۹', '١٢٣٤٥٦٧٨٩', 'pin ۱۲۳۴',
+    '03.00.12.34.56.7', '１２３４５６７８９', 'PIN：１２３４', '03/00/12/34/56/7']) {
     assert.equal(looksLikeSecret(query), true, query);
     assert.equal(isServerSecret(query), true, 'server: ' + query);
   }

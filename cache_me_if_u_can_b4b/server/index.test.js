@@ -27,7 +27,8 @@ const server = app.listen(0, '127.0.0.1');
 await new Promise((resolve) => server.once('listening', resolve));
 const request = (query) => fetch(`http://127.0.0.1:${server.address().port}/api/videos?q=${encodeURIComponent(query)}`);
 try {
-  for (const query of ['', '123456789', 'PIN 1234', '\u06f1\u06f2\u06f3\u06f4\u06f5\u06f6\u06f7\u06f8\u06f9']) {
+  for (const query of ['', '123456789', 'PIN 1234', '\u06f1\u06f2\u06f3\u06f4\u06f5\u06f6\u06f7\u06f8\u06f9',
+    '03.00.12.34.56.7', '\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19']) {
     assert.equal((await request(query)).status, 400);
   }
   assert.equal(calls, 0);

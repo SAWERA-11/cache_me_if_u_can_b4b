@@ -9,7 +9,7 @@ require.extensions['.ts'] = (module, filename) => {
   }).outputText, filename);
 };
 (async () => {
-  for (const name of ['validators', 'runner', 'estimate', 'integration']) {
+  for (const name of ['validators', 'runner', 'estimate', 'integration', 'session']) {
     require(path.resolve(__dirname, '../../engine/__tests__/' + name + '.test.ts'));
   }
   if (fs.existsSync(path.resolve(__dirname, '../../helper/__tests__/matcher.test.ts'))) {
