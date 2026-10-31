@@ -2,35 +2,10 @@
 // engine, helper, video) and Savera (content). Delete this file and re-point
 // src/theme/wire/index.ts at the real modules once they land.
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { create } from 'zustand';
+import { useApp } from '../../store/useApp';
 import type {
-  Bi, GlossaryTerm, Hiccup, HiccupId, KBEntry, Lang, LayerName, Lesson, Persona, Runner,
+  Bi, GlossaryTerm, Hiccup, HiccupId, KBEntry, LayerName, Lesson, Persona, Runner,
 } from './types';
-
-// ---------- store ----------
-type AppState = {
-  language: Lang; textLevel: 0 | 1 | 2; audioSpeed: 0.8 | 1; consented: boolean; guideOn: boolean;
-  shareProgress: boolean;
-  results: { lessonId: string; ts: number; score: number; rung: 0 | 1 | 2; strength: string }[];
-  struggles: Record<string, number>;
-  comfort: { lessonId: string; before?: number; after?: number }[];
-  exitedLessonId: string | null; // TODO: Ahmer to expose the real "exited lesson" flag
-  set(partial: Partial<Omit<AppState, 'set' | 'addStruggle' | 'reset'>>): void;
-  addStruggle(kind: string): void;
-  reset(): void;
-};
-const initial = {
-  language: 'ur' as Lang, textLevel: 0 as 0 | 1 | 2, audioSpeed: 1 as 0.8 | 1, consented: false,
-  guideOn: false, shareProgress: false, results: [], struggles: {}, comfort: [],
-  exitedLessonId: null,
-};
-export const useApp = create<AppState>((set) => ({
-  ...initial,
-  set: (partial) => set(partial),
-  addStruggle: (kind) =>
-    set((s) => ({ struggles: { ...s.struggles, [kind]: (s.struggles[kind] ?? 0) + 1 } })),
-  reset: () => set({ ...initial }),
-}));
 
 // ---------- strings ----------
 const S = (en: string, ur = ''): Bi => ({ en, ur });
@@ -86,18 +61,10 @@ export function useT(): (key: string) => string {
   );
 }
 
-// ---------- audio / bus / ltr ----------
+// ---------- audio ----------
 export const playClip = (_id?: string, _rate?: number): boolean => false;
 export const stopClip = (): void => {};
 export const hasClip = (_id?: string): boolean => false;
-
-type BusEvent = 'jargon' | 'helper';
-const listeners: Record<BusEvent, Set<(p: unknown) => void>> = { jargon: new Set(), helper: new Set() };
-export const uiBus = {
-  emit(e: BusEvent, payload: unknown) { listeners[e].forEach((fn) => fn(payload)); },
-  on(e: BusEvent, fn: (p: unknown) => void) { listeners[e].add(fn); return () => { listeners[e].delete(fn); }; },
-};
-export const ltr = (s: string): string => '‪' + s + '‬';
 
 // ---------- content ----------
 export const HICCUPS: Record<HiccupId, Hiccup> = (() => {
