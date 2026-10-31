@@ -3,7 +3,7 @@
 ## Setup
 
 Work directory: nested cache_me_if_u_can_b4b app directory containing package.json.
-Windows: Node v24.11.0, npm 11.20.0, Java 21 and EAS CLI 24.14.0 are installed. EAS authentication and team access were confirmed earlier. The EAS project is already linked in app.json. adb is not on PATH. GitHub has no published releases/tags as of this check. Latest main commit 15da65c was fast-forwarded into Maaz's branch without conflicts. App npm ci installed 804 packages; server npm ci installed 70 packages. Dependency declarations/lockfiles were not edited.
+Windows: Node v24.11.0, npm 11.20.0, Java 21 and EAS CLI 24.14.0 are installed. EAS authentication and team access were confirmed earlier. The EAS project is already linked in app.json. Android SDK platform-tools and emulator exist under %LOCALAPPDATA%/Android/Sdk (not on PATH). WHPX acceleration is usable. No physical Android device is attached. GitHub has no published releases/tags as of this check. Latest main ca55cbf, including content/audio/backend fixes, is merged; conflicts with older copies of Maaz files were resolved preserving the current fixes/evidence. App npm ci installed 811 packages; server npm ci installed 70 packages. Dependency declarations/lockfiles were not edited.
 
 Validation on 2026-10-31:
 
@@ -17,13 +17,20 @@ Validation on 2026-10-31:
 | Local optional server without key | Empty/secret-like queries rejected with 400; ordinary uncached query returns 503; 31st valid request returns 429 |
 | Expo dependency compatibility | npx expo install --check passes |
 | Common credential-pattern scan | No matches in tracked text sources; no plain .env tracked; .env ignore gap filed as BUG-6 |
-| Full strict typecheck | Blocked by missing WebView, content index and audio map |
-| Full lint | Blocked by those imports plus Ahmer's useRunner render-purity error; Maaz's other lint findings corrected |
-| Native device/public WebView/build/release | Not run; integration gates remain open |
+| Maaz lint | npx eslint app/guide.tsx src/guide src/forms passes without disabling any rule |
+| Android JS/Hermes bundle export | npx expo export --platform android passes for the currently routed frontend; Guide is not registered yet |
+| Public forms in desktop Edge | Selenium and httpbin maps/focus/check/off/reinjection pass; Selenium password safety passes |
+| Full strict typecheck | PASS after latest content/audio pull and explicit WebView<object> fix |
+| Full uncached lint | PASS: zero errors, two require-import warnings in matcher.ts |
+| Actual content/Guide audio | Content checker passes; Urdu/English dictionaries, 38 glossary patterns and all 12 Guide audio IDs validate |
+| Real KB acceptance | FAIL: 13/20 expected answers; target >=14, filed as BUG-9 |
+| Emulator UI smoke | Android 17 / API 37, Expo Go reaches Consent and Home; frontend now uses real modules |
+| First preview APK | FINISHED, downloaded, installed; Consent rendered on emulator, but OS ANR dialogs block reliable interaction |
+| Native Guide / physical phone / final release | Pending missing route and reliable device tests |
 
 Commands: node src/guide/test/run.cjs; node src/guide/test/forms.test.cjs; node src/guide/test/bridge.test.cjs; node src/helper/__tests__/matcher.test.cjs; npx tsc --noEmit; npm run lint. Engine TS fixtures were executed with an in-memory TypeScript transpilation hook, without modifying their source or adding packages. Guide browser runners use temporary Edge profiles; set MASHQ_TEST_BROWSER to override the executable path. Generated lens.js is refreshed by run.cjs. These results are desktop/fixture evidence, not Android evidence.
 
-Maaz-only ESLint check passes with import/no-unresolved temporarily disabled on the command line to separate the known missing WebView dependency from code lint issues; no lint rules/configuration were changed. Strict isolated typecheck of the dictionary, injected script and bundled form modules also passes.
+Maaz-only ESLint passes with every configured rule enabled. Full uncached Expo lint also passes after the latest backend fixes. The WebView JSX error was fixed by explicitly supplying its extra-props generic as object; no dependency or shared configuration was changed. Strict isolated typecheck of the dictionary, injected script and bundled form modules also passes.
 
 ## Desktop test
 
@@ -31,7 +38,7 @@ Open src/guide/test/page.html in Chrome, open Developer Tools Console, and paste
 
 ## Safety review
 
-The only injected-script .value access is `el.value.length === 0` in lens.ts:105 checkFields, after sensitive reclassification and visibility/required checks at line 100. It produces a boolean only. Password/PIN/code/card detection precedes other field kinds at line 57. No input innerText reads, autofill or field writes occur in the injected script. Label/legend text is read locally for classification and jargon matching; it is never posted. Local missing-field labels are shown only inside the page. Protocol sends are at lines 36, 39, 83, 92, 94, 109 and 135.
+The only injected-script .value access is `el.value.length === 0` in lens.ts:106 checkFields, after sensitive reclassification and visibility/required checks at line 101. It produces a boolean only. Password/PIN/code/card detection precedes other field kinds at line 58. No input innerText reads, autofill or field writes occur in the injected script. Label/legend text is read locally for classification and jargon matching; it is never posted. Local missing-field labels are shown only inside the page. Protocol sends are at lines 37, 40, 84, 93, 95, 110, 136.
 
 Outgoing messages contain fixed types and kinds, dictionary identifiers, counts, or the page origin/path. Query strings and fragments are excluded from GUIDE_READY URLs. The native bridge ignores READY, CHECK_RESULT and SENSITIVE_FOCUS and validates the accepted identifier/kind payloads. It never stores messages. Bundled mock forms separately read their own phone input to simulate validation; this is not Guide inspection and no network submission occurs.
 
@@ -49,8 +56,10 @@ The website itself can still receive information you enter or submit.
 |---|---|---|---|---|---|---|
 | Bundled services form | Pending phone | Pending phone | Pending phone | Pending phone | Pending phone | Desktop fixture and actual bundled form pass |
 | Bundled wallet form | Pending phone | Pending phone | Pending phone | Pending phone | Pending phone | Actual bundled form passes desktop smoke checks |
-| <public URL 1> | Not run | Not run | Not run | Not run | Not run | Populate PUBLIC_FORMS after tests |
-| <public URL 2> | Not run | Not run | Not run | Not run | Not run | Do not submit personal information |
+| https://www.selenium.dev/selenium/web/web-form.html | Yes, desktop | Yes, 14 fields | Yes, password | Yes, desktop | Yes with real glossary | Cleanup and double reinjection pass; no typing/submission; Android pending |
+| https://httpbin.org/forms/post | Yes, desktop | Yes, 12 fields | N/A: no sensitive field | Yes, desktop | N/A: no matching term | Cleanup and double reinjection pass; no typing/submission; Android pending |
+
+Public test command: node src/guide/test/public-forms.test.cjs. It navigates real public demo pages using Edge DevTools, injects the actual Guide script, focuses boxes and checks emptiness. It never types, uploads or submits. Both URLs are now PUBLIC_FORMS shortcuts, with native acceptance explicitly pending. Jargon behavior passes on the bundled Domicile fixture and Selenium form with the actual glossary.
 
 Limitations: standard fields only; custom widgets, iframe forms, some single-page sites and restrictive page security rules may fail. Some sites block sign-in inside embedded browsers. Cross-origin iframe contents are not inspected.
 
@@ -81,3 +90,21 @@ Run twice: afternoon build and final APK. Record phone model, Android version, b
 ## Release checklist — not completed
 
 Resolve docs/bugs.md, install declared dependencies, run strict typecheck and lint; build preview APK; install on a real phone; complete matrix twice including a clean second phone; record final commit/time; prepare release tag v1.0-submission and attach APK; verify public repo/history and secret exclusions; verify <2 minute video in private window; add release QR; submit registered team on Hackathon Hub with screenshots and timestamped confirmation. Ahmer's server is now present and its no-key local smoke tests pass. Deployment still needs a hosting account and, for live search, a YouTube API key. Neither was supplied; no server was deployed and no external release/submission was published.
+
+## First EAS preview build
+
+Build a4e0e235-2805-49da-bcea-059fd6a1a0c1 was submitted to EAS on 2026-10-31 at 09:25 UTC (14:25 PKT), with preview/internal APK profile. EAS created the remote signing keystore successfully. Build dashboard: https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/a4e0e235-2805-49da-bcea-059fd6a1a0c1. This successful early preview was built from the older fake-wired frontend, not the latest integrations or final submission. EAS records base commit 5cb3d49; its uploaded working-tree snapshot also includes Maaz's WebView fix and public-form shortcuts. Final submission commit must be recorded on a clean, fully integrated build.
+
+## Latest integration evidence
+
+The latest team pull supplies real GUIDE_TEXT/GLOSSARY and AUDIO; dictionary.ts no longer has English placeholders. Desktop loaders now transpile the real content dependencies without importing native modules. Run node src/guide/test/acceptance.test.cjs to reproduce the helper acceptance failure and dictionary/audio checks. This test intentionally fails below 14/20; its questions must not be weakened to hide missing matches.
+
+No physical phone is attached. A read-only, headless Medium_Phone_API_37.0 emulator boots with WHPX and reaches Consent/Home through existing Expo Go and local Metro. This does not pass the fresh-APK, offline, Guide route, real-runner, reviewed Urdu or second-phone gates. ca55cbf replaces the fake frontend wiring with real modules; /guide route is still missing.
+
+## Latest Maaz follow-up
+
+Guide controls now use shared AppText/Row/useDir helpers, so native text sizes and logical direction follow the real app settings. The switch/badge/Back use supplied translations; four remaining chrome keys are requested from Savera with English fallbacks. The injected bar explicitly selects rtl for Urdu and ltr for English. Both bundled forms pass all four language/form combinations, including direction and sensitive value getter guards. One transient headless focus failure disappeared on an isolated rerun; native focus still needs device verification.
+
+EAS build a4e0e235-2805-49da-bcea-059fd6a1a0c1 FINISHED. APK: https://expo.dev/artifacts/eas/E__ywbzEPaFe8jtt95kg5_J5rIaYPbKUYQAXu0-2xAs.apk. Downloaded locally to %USERPROFILE%/Downloads/Mashq/mashq-preview-a4e0e235.apk (102691964 bytes), SHA-256 8C50FF2425E83612BA8860AA85426016CC3597A3DFF63C282E9D964D1577BD7E. adb install returned Success and MainActivity reached the Consent screen on the read-only Android 17/API 37 emulator. Repeated Android System UI/Pixel Launcher ANR dialogs prevented reliable interaction testing. This is not a reported Mashq crash and does not pass physical-phone/clean-second-phone gates.
+
+The latest source typechecks and uncached lint exits successfully with two matcher warnings. Backend/server suites pass. Real helper acceptance remains 13/20, below the required 14. Videos now contains 12 entries, and interview notes are supplied; full-watch/native-speaker/quote permissions still require team confirmation.

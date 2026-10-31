@@ -22,6 +22,7 @@ const SCRIPT = String.raw`
   var root = host.attachShadow({ mode: 'open' });
   host.dir = dict.lang === 'ur' ? 'rtl' : 'ltr';
   var bar = style(document.createElement('section'), { background: '#fffbea', color: '#182f2b', padding: '16px', font: '20px sans-serif', maxHeight: '45vh', overflow: 'auto', borderTop: '3px solid #186458', boxSizing: 'border-box' });
+  bar.dir = dict.lang === 'ur' ? 'rtl' : 'ltr';
   bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Form Guide');
   var text = document.createElement('div'); text.setAttribute('aria-live', 'polite'); bar.appendChild(text);
   var buttons = style(document.createElement('div'), { display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '12px' });

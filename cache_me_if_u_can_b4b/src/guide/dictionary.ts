@@ -1,6 +1,11 @@
-import { GLOSSARY, GUIDE_TEXT } from '../content';
+import { GUIDE_TEXT, GLOSSARY } from '../content';
+import type { Lang } from '../engine/types';
 
-export function buildDictionary(lang: 'ur' | 'en') {
-  return { lang, placeholder: false, ...GUIDE_TEXT[lang],
-    glossary: GLOSSARY.map(({ id, pattern }) => ({ id, pattern })) };
+export function buildDictionary(lang: Lang) {
+  return {
+    ...GUIDE_TEXT[lang],
+    lang,
+    placeholder: false,
+    glossary: GLOSSARY.map(({ id, pattern }) => ({ id, pattern })),
+  };
 }
