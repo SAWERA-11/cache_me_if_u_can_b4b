@@ -2,7 +2,7 @@
 
 > **Download the Android APK:** `<APK_LINK>`
 >
-> **Watch the demo video:** `<DEMO_VIDEO_LINK>`
+> **Watch the demo video:** [Mashq demo (Google Drive)](https://drive.google.com/file/d/1b_vcMMzc77Xok5mwrNHqQ37uiifwx6Y9/view?usp=drivesdk)
 
 Mashq ("practice" in Urdu) is an Urdu-first Android app for parents and grandparents who avoid online forms because they are afraid of breaking something or looking foolish. It gives them a safe place to practise, with nothing real at stake, and teaches them to do the task **themselves**. It never fills anything in for them.
 
@@ -14,7 +14,7 @@ Built at **Build4Better, NED University, Karachi, 31 October 2026**.
 | **Source code** | https://github.com/SAWERA-11/cache_me_if_u_can_b4b (public, full commit history) |
 | **App folder** | [`cache_me_if_u_can_b4b/`](cache_me_if_u_can_b4b/) |
 | **APK** | `<APK_LINK>` (built from `83f0e65`; [EAS build page](https://expo.dev/accounts/maazaypys-team/projects/build4bettergang/builds/74945b6b-3832-4f13-9870-e65209f55535)) |
-| **Demo video** | `<DEMO_VIDEO_LINK>` |
+| **Demo video** | [Mashq demo (Google Drive)](https://drive.google.com/file/d/1b_vcMMzc77Xok5mwrNHqQ37uiifwx6Y9/view?usp=drivesdk) |
 
 > The final submitted version is commit `83f0e65`. Commits after it only edit the README files (documentation). There are no code, content or audio changes after the submitted commit.
 
@@ -27,7 +27,7 @@ Built at **Build4Better, NED University, Karachi, 31 October 2026**.
 | Anas | Frontend: screens, components, theme, right-to-left layout |
 | Ahmer Ali | Backend and logic: lesson engine, store, helper matching, audio player, video search, optional server |
 | Maaz Ali | Guide (form-explaining browser), testing, builds and release |
-| Savera | Content and audio: lesson scripts, Urdu text, glossary, helper answers, voice clips, interviews, pitch |
+| Sawera Arif | Content and audio: lesson scripts, Urdu text, glossary, helper answers, voice clips, interviews, pitch |
 
 ---
 
