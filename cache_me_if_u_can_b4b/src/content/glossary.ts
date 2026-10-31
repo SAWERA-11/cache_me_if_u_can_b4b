@@ -545,11 +545,11 @@ export const GLOSSARY: GlossaryTerm[] = [
     term: { en: 'Pickup', ur: 'پک اپ (لینے کی جگہ)' },
     plain: {
       en: 'The place where the car comes to collect you.',
-      ur: 'وہ جگہ جہاں گاڑی آپ کو لینے آتی ہے۔', // TODO(UR-review)
+      ur: 'وہ جگہ جہاں گاڑی آپ کو لینے آتی ہے۔',
     },
     analogy: {
       en: 'Like asking a rickshaw driver to wait at your gate.',
-      ur: 'جیسے رکشے والے سے کہنا کہ آپ کے گیٹ پر انتظار کرے۔', // TODO(UR-review)
+      ur: 'جیسے رکشے والے سے کہنا کہ آپ کے گیٹ پر انتظار کرے۔',
     },
   },
   {
@@ -601,11 +601,11 @@ export const GLOSSARY: GlossaryTerm[] = [
     term: { en: 'Surge', ur: 'سرج (بڑھا ہوا کرایہ)' },
     plain: {
       en: 'The fare goes up for a while because many people want a ride at the same time. Waiting a little can bring it down.',
-      ur: 'کچھ دیر کے لیے کرایہ بڑھ جاتا ہے کیونکہ ایک ہی وقت میں بہت سے لوگ سواری چاہتے ہیں۔ تھوڑا انتظار کرنے سے یہ کم ہو سکتا ہے۔', // TODO(UR-review)
+      ur: 'کچھ دیر کے لیے کرایہ بڑھ جاتا ہے کیونکہ ایک ہی وقت میں بہت سے لوگ سواری چاہتے ہیں۔ تھوڑا انتظار کرنے سے یہ کم ہو سکتا ہے۔',
     },
     analogy: {
       en: 'Like vegetables costing more on Chand Raat, when everyone is buying.',
-      ur: 'جیسے چاند رات کو سبزی مہنگی ہو جاتی ہے، جب سب خرید رہے ہوتے ہیں۔', // TODO(UR-review)
+      ur: 'جیسے چاند رات کو سبزی مہنگی ہو جاتی ہے، جب سب خرید رہے ہوتے ہیں۔',
     },
   },
 ];

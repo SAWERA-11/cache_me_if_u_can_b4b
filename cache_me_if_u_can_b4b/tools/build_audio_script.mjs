@@ -49,7 +49,10 @@ add('guide_map', GUIDE_MAP_LINE.ur);
 add('guide_safety', `${GUIDE_TEXT.ur.safety.title}۔ ${GUIDE_TEXT.ur.safety.body}`);
 
 // Priority 4: glossary.
-for (const t of GLOSSARY) add(t.audio, `${t.term.ur}۔ ${t.plain.ur} ${t.analogy.ur}`);
+// Glossary terms the Urdu voice mispronounces in Urdu script; the reviewer chose the English spelling.
+const SPOKEN_TERM = { g_pickup: ['پک اپ', 'Pickup'], g_surge: ['سرج', 'Surge'] };
+const spokenTerm = (t) => (SPOKEN_TERM[t.audio] ? t.term.ur.replace(...SPOKEN_TERM[t.audio]) : t.term.ur);
+for (const t of GLOSSARY) add(t.audio, `${spokenTerm(t)}۔ ${t.plain.ur} ${t.analogy.ur}`);
 
 // Priority 5: helper answers.
 for (const e of KB) if (e.audio) add(e.audio, `${e.answer.ur} ${e.tryNext.ur}`);

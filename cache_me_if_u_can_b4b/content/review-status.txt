@@ -220,11 +220,11 @@ str_video_topic_otp: approved
 str_video_topic_photo: approved
 str_video_topic_login: approved
 str_video_topic_safety: approved
-g_pickup: needs-fix | why: "pick" mispronounced
+g_pickup: approved
 g_dropoff: approved
 g_fare: approved
 g_eta: approved
-g_surge: needs-fix | why: "surge" mispronounced
+g_surge: approved
 # Teach and card/privacy strings (teach.ts, uiExtra.ts), reviewed 31 Oct 2026
 str_teach_title: approved
 str_teach_q: approved
