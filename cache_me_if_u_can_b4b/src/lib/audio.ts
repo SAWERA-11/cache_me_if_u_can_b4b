@@ -11,16 +11,22 @@ export async function initAudio(): Promise<void> {
   }
 }
 
-export function hasClip(id: string): boolean {
-  return Object.prototype.hasOwnProperty.call(AUDIO, id);
+export function hasClip(id?: string): boolean {
+  return !!id && Object.prototype.hasOwnProperty.call(AUDIO, id);
 }
 
 export function stopClip(): void {
+  const current = player;
+  player = null;
   try {
-    player?.pause();
-    player = null;
+    current?.pause();
   } catch {
-    player = null;
+    // Still release the native player when pausing fails.
+  }
+  try {
+    current?.remove();
+  } catch {
+    // Repeated cleanup is safe for callers.
   }
 }
 
@@ -33,7 +39,7 @@ export function playClip(id?: string, rate = 1): boolean {
     player.play();
     return true;
   } catch {
-    player = null;
+    stopClip();
     return false;
   }
 }

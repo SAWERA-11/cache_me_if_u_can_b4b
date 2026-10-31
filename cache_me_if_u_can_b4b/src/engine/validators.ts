@@ -1,4 +1,4 @@
-const NAME_LETTER = /[A-Za-z\u0600-\u06FF]/;
+const NAME_LETTER = /[A-Za-z]|(?=\p{Script=Arabic})\p{L}/u;
 const DOB = /^(\d{2})-(\d{2})-(\d{4})$/;
 const ID = /^\d{5}-?\d{7}-?\d$/;
 const PHONE = /^03\d{2}-?\d{7}$/;

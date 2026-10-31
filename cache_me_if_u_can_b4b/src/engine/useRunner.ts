@@ -1,21 +1,47 @@
-import { useCallback, useEffect, useReducer, useRef } from 'react';
-import { LESSONS } from '../content';
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { LESSONS, STRINGS } from '../content';
 import { useApp } from '../store/useApp';
-import { buildResult } from './estimate';
+import { buildResult, fallbackStrength, scoredEvents } from './estimate';
 import { createInitialState, reduce, type Action } from './runner';
+import { findLesson } from './catalog';
+import { restoreRun } from './session';
 import type { HiccupId, Lesson, LessonResultView, Step } from './types';
 
+function initialize(lesson: Lesson) {
+  return restoreRun(lesson, useApp.getState().events, Date.now());
+}
+
+function lookupStrength(key: string) {
+  const value = STRINGS[key];
+  const fallback = fallbackStrength(key).en;
+  return { en: value?.en || fallback, ur: value?.ur || value?.en || fallback };
+}
+
 export function useRunner(lessonId: string, testLesson?: Lesson) {
-  const lesson = testLesson ?? LESSONS.find((item: Lesson) => item.id === lessonId);
+  const lesson = testLesson ?? findLesson(LESSONS, lessonId);
   if (!lesson) throw new Error(`Unknown lesson: ${lessonId}`);
   const [state, dispatch] = useReducer(
-    (currentState: ReturnType<typeof createInitialState>, action: Action) =>
-      reduce(currentState, action, Date.now()),
-    createInitialState(lesson, 0, Date.now()),
+    (currentState: ReturnType<typeof createInitialState>, message: { action: Action; now: number }) =>
+      reduce(currentState, message.action, message.now),
+    lesson,
+    initialize,
   );
+  const [previousEvents] = useState(() => {
+    const { events, results } = useApp.getState();
+    const last = results.at(-1);
+    const before = results.at(-2)?.ts ?? -Infinity;
+    if (!last) return [];
+    const previous = events.filter((event) => event.lessonId === last.lessonId && event.ts > before && event.ts <= last.ts);
+    const previousLesson = findLesson(LESSONS, last.lessonId);
+    return previousLesson ? scoredEvents(previous, previousLesson) : previous;
+  });
   const addEvent = useApp((value) => value.addEvent);
   const addResult = useApp((value) => value.addResult);
-  const savedEvents = useRef(0);
+  const savedEvents = useRef(state.events.length);
+  const savedResult = useRef(false);
+  const result: LessonResultView | null = state.done
+    ? buildResult(scoredEvents(state.events, state.lesson), previousEvents, state.hiccupsShown, state.hiccupsRecovered, lookupStrength)
+    : null;
 
   useEffect(() => {
     const newEvents = state.events.slice(savedEvents.current);
@@ -24,16 +50,13 @@ export function useRunner(lessonId: string, testLesson?: Lesson) {
   }, [addEvent, state.events]);
 
   useEffect(() => {
-    if (!state.done || !state.events.length) return;
-    const result = buildResult(state.events, [], state.hiccupsShown, state.hiccupsRecovered);
+    if (!result || savedResult.current) return;
+    savedResult.current = true;
     addResult({ lessonId, ts: Date.now(), score: result.score, rung: result.rung, strength: result.strength.en });
-  }, [addResult, lessonId, state.done, state.events, state.hiccupsShown, state.hiccupsRecovered]);
+  }, [addResult, lessonId, result]);
 
-  const send = useCallback((action: Action) => dispatch(action), []);
+  const send = useCallback((action: Action) => dispatch({ action, now: Date.now() }), []);
   const step: Step = state.lesson.steps[state.stepIndex];
-  const result: LessonResultView | null = state.done
-    ? buildResult(state.events, [], state.hiccupsShown, state.hiccupsRecovered)
-    : null;
   return {
     lesson: state.lesson,
     step,
